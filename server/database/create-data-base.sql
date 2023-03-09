@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS training
     city varchar(100) NULL,
     country varchar(100) NULL,
     idTypeOfTraining INT NOT NULL,
-    idMember INT NOT NULL,
+    idMember INT,
     PRIMARY KEY (id),
-    FOREIGN KEY (idMember) REFERENCES member(id),
+    FOREIGN KEY (idMember) REFERENCES member(id) ON DELETE SET NULL,
     FOREIGN KEY (idTypeOfTraining) REFERENCES typeOfTraining(id)
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS metricTraining
     speedMax FLOAT NULL,
     idTraining INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (idTraining) REFERENCES training(id)
+    FOREIGN KEY (idTraining) REFERENCES training(id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS metricHealthTraining
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS metricHealthTraining
     fcMax INT NULL,
     idTraining INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (idTraining) REFERENCES training(id)
+    FOREIGN KEY (idTraining) REFERENCES training(id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS metricOptionalTraining
@@ -120,6 +120,6 @@ CREATE TABLE IF NOT EXISTS metricOptionalTraining
     moyForSwim TIME NULL,
     idTraining INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (idTraining) REFERENCES training(id)
+    FOREIGN KEY (idTraining) REFERENCES training(id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
