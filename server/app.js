@@ -4,14 +4,18 @@ import * as dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
+import { getRoleMiddleware } from './util/getRoleMiddleware.js';
+
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 
 var app = express();
+
 /**
  *  Config DotEnv
  */
 dotenv.config();
+
 /**
  * Get port from environment and store in Express.
  */
@@ -30,12 +34,19 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+/**
+ * App use
+ */
 app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
+app.use(getRoleMiddleware);
 
+/**
+ * Routes
+ */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
