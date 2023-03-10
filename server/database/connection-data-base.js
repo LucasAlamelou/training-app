@@ -5,7 +5,7 @@ dotenv.config();
 /**
  * Connection with pool Sql
  */
-const pool = mysql
+export const pool = mysql
     .createPool({
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
