@@ -11,8 +11,10 @@ CREATE DATABASE IF NOT EXISTS training_app_dev;
 CREATE TABLE IF NOT EXISTS user
 (
     id INT  NOT NULL AUTO_INCREMENT,
-    email varchar(200),
+    email varchar(200) NOT NULL,
     password varchar(200),
+    hash varchar(200) NOT NULL,
+    salt varchar(200) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (email)
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;

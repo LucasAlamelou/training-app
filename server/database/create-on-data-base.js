@@ -3,13 +3,15 @@ import { pool } from './connection-data-base.js';
 /**
  * Créer un user dans la base de donnée
  * @param {String} email
- * @param {String} password hash
+ * @param {String} hash
+ * @param {String} salt
  * @returns {Int}  id User
  */
-async function createUser(email, password) {
-    const [result] = await pool.query('INSERT INTO user (email, password) VALUES (?, ?)', [
+async function createUser(email, hash, salt) {
+    const [result] = await pool.query('INSERT INTO user (email, hash, salt) VALUES (?, ?)', [
         email,
-        password,
+        hash,
+        salt,
     ]);
     return result;
 }

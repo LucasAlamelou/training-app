@@ -15,6 +15,22 @@ export async function updateUserById(idUser, email) {
 }
 
 /**
+ * Modification du mot de passe de l'user par id
+ * @param {Int} idUser
+ * @param {String} hash
+ * @param {String} salt
+ * @returns {Int} idUser
+ */
+export async function updateUserPasswordById(idUser, hash, salt) {
+    const [result] = await pool.query('UPDATE user SET hash = ?, salt = ? WHERE user.id = ?', [
+        hash,
+        salt,
+        idUser,
+    ]);
+    return result;
+}
+
+/**
  * Update le membre par id
  * @param {Int} idMember
  * @param {String} firstName
