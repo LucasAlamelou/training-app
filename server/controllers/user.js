@@ -10,6 +10,8 @@ import {
     updateHealthMemberByIdMember,
     updatePerformanceMemberByIdMember,
 } from '../database/update-on-data-base.js';
+import { deleteUserById } from '../database/delete-on-data-base.js';
+import { getUserById, getMemberById } from '../database/connection-data-base.js';
 import { generateAccessToken } from '../util/generateToken.js';
 
 export async function createUserController(req, res, next) {
@@ -115,6 +117,7 @@ export async function updateMemberController(req, res, next) {
         );
         if (result.affectedRows === 0) {
             res.json({ info: null, error: { message: "Le membre n'existe pas" } }).status(400);
+            return;
         }
         const infoChanged = {
             changedRows: result.changedRows,
@@ -140,6 +143,7 @@ export async function updateHealthMemberController(req, res, next) {
         const result = await updateHealthMemberByIdMember(idMember, weight, height, hourSleep);
         if (result.affectedRows === 0) {
             res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
+            return;
         }
         const infoChanged = {
             changedRows: result.changedRows,
@@ -175,6 +179,7 @@ export async function updatePerformanceMemberController(req, res, next) {
         );
         if (result.affectedRows === 0) {
             res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
+            return;
         }
         const infoChanged = {
             changedRows: result.changedRows,
@@ -191,5 +196,42 @@ export async function updatePerformanceMemberController(req, res, next) {
         } else {
             res.json({ error: { message: error.message } }).status(500);
         }
+    }
+}
+
+export async function deleteUserController(req, res, next) {
+    const { idMember } = req.body;
+    try {
+        const member = await getMemberById(idMember);
+        console.log(member);
+        if (!member) {
+            res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
+            return;
+        }
+        const user = await getUserById(member.userId);
+        if (!user) {
+            res.json({ info: null, error: { message: "L'utilisateur n'existe pas." } }).status(400);
+            return;
+        }
+        if (user.email !== req.user.email) {
+            res.json({
+                info: null,
+                error: { message: "Vous n'avez pas les droits pour supprimer ce membre." },
+            }).status(400);
+            return;
+        }
+        const result = await deleteUserById(user.id);
+        if (result.affectedRows === 0) {
+            res.json({ info: null, error: { message: 'Aucune données effacé.' } }).status(400);
+            return;
+        }
+        const infoChanged = {
+            changedRows: result.changedRows,
+            message: `L\'utilisateur ${user.email} a bien été supprimé.`,
+        };
+        res.json({ info: { infoChanged }, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        res.json({ error: { message: error.message } }).status(500);
     }
 }

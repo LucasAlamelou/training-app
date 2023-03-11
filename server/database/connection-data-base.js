@@ -27,7 +27,7 @@ export const pool = mysql
  */
 export async function getUserById(idUser) {
     const [result] = await pool.query('SELECT * FROM user WHERE user.id = ?', [idUser]);
-    return result;
+    return result[0];
 }
 
 /**
@@ -52,14 +52,17 @@ export async function getMemberByEmail(emailUser) {
     );
     return result[0];
 }
-
+export async function getMemberById(idMember) {
+    const [result] = await pool.query('SELECT * FROM member WHERE member.id = ?', [idMember]);
+    return result[0];
+}
 /**
  * Rêquete rentourne tout les lignes des tables associées au membre par son id
  * Filtre : aucun
  * @param {Number} idMember
  * @returns {object} membre complet
  */
-export async function getMemberById(idMember) {
+export async function getMemberCompletById(idMember) {
     const [result] = await pool.query(
         'SELECT * FROM member m INNER JOIN performanceMember pm ON pm.memberId = m.id INNER JOIN healthMember hm ON hm.memberId = m.id WHERE m.id = ? ',
         [idMember]

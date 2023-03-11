@@ -7,6 +7,7 @@ import {
     updateMemberController,
     updateHealthMemberController,
     updatePerformanceMemberController,
+    deleteUserController,
 } from '../controllers/user.js';
 
 const router = Router();
@@ -22,4 +23,7 @@ export function userRoute(app) {
     app.post('/updateMember', updateMemberController);
     app.post('/updateHealthMember', updateHealthMemberController);
     app.post('/updatePerformanceMember', updatePerformanceMemberController);
+
+    // Delete user
+    app.delete('/deleteUser', deleteUserController);
 }
