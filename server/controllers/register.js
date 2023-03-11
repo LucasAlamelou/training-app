@@ -18,6 +18,7 @@ export async function registerController(req, res) {
             const resultUserId = await createUser(user);
             member.setUserId(resultUserId);
             const resultMemberId = await createMember(member);
+            member.setMemberId(resultMemberId);
             const token = generateAccessToken({ email, password: hash, salt });
             res.json({ info: { userId: resultUserId, member, token }, error: null }).status(201);
         } catch (error) {

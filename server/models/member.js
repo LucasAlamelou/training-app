@@ -1,6 +1,7 @@
 export class Member {
     constructor(firstName, lastName, dateOfBirth, adress, zipCode, city, country) {
         this.userId = this.userId;
+        this.memberId = this.memberId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -56,6 +57,12 @@ export class Member {
     }
     getUserId() {
         return this.userId;
+    }
+    setMemberId(memberId) {
+        this.memberId = memberId;
+    }
+    getMemberId() {
+        return this.memberId;
     }
     setFirstName(firstName) {
         this.firstName = firstName;
