@@ -7,7 +7,7 @@ import { pool } from './connection-data-base.js';
  * @param {String} salt
  * @returns {Int}  id User
  */
-export async function createUser(email, hash, salt) {
+export async function createUser({ email, hash, salt }) {
     const [result] = await pool.query('INSERT INTO user (email, hash, salt) VALUES (?, ?, ?)', [
         email,
         hash,
@@ -28,7 +28,7 @@ export async function createUser(email, hash, salt) {
  * @param {String} country
  * @returns {Int} idMember
  */
-export async function createMember(
+export async function createMember({
     userId,
     firstName,
     lastName,
@@ -36,8 +36,8 @@ export async function createMember(
     adress,
     city,
     zipCode,
-    country
-) {
+    country,
+}) {
     const [result] = await pool.query(
         'INSERT INTO member (userId, firstName, lastName, dateOfBirth, adress, city, zipCode, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [userId, firstName, lastName, dateOfBirth, adress, city, zipCode, country]

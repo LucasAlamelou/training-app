@@ -16,7 +16,6 @@ export async function getRoleMiddleware(req, res, next) {
                 return res.sendStatus(401);
             }
             req.user = user;
-            console.log('user', user);
             next();
         });
     }
