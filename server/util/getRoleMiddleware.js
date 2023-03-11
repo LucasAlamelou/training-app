@@ -1,18 +1,25 @@
 import jwt from 'jsonwebtoken';
+const pathAuthorized = ['/login', '/register'];
 
 export async function getRoleMiddleware(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader;
-    // const token = authHeader && authHeader.split(' ')[1];
-    if (token == null) return res.sendStatus(401);
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) {
-            return res.sendStatus(401);
-        }
-        req.user = user;
+    if (pathAuthorized.includes(req.path)) {
         next();
-    });
+    } else {
+        if (token == null)
+            // const token = authHeader && authHeader.split(' ')[1];
+            return res.sendStatus(401);
+
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            if (err) {
+                return res.sendStatus(401);
+            }
+            req.user = user;
+            console.log('user', user);
+            next();
+        });
+    }
 }
 
 /**

@@ -9,7 +9,6 @@ export async function loginController(req, res, next) {
     try {
         const user = await getUserByEmail(email);
         const { hash, salt } = user;
-        console.log(user);
         const result = decryptPassword(salt, hash, password);
         if (result) {
             const token = generateAccessToken({ email, password: hash, salt });
@@ -34,10 +33,6 @@ export async function changePassword(req, res, next) {
         const actualPassword = decryptPassword(salt, hash, password);
         if (actualPassword) {
             const { salt, hash } = encryptPassword(newPassword);
-            console.log(user.id);
-            console.log(hash);
-            console.log(salt);
-            console.log(newPassword);
             const result = await updateUserPasswordById(user.id, hash, salt);
             const infoChanged = {
                 changedRows: result.changedRows,

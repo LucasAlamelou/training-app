@@ -23,8 +23,14 @@ export async function createUserController(req, res, next) {
         console.error(error);
         if (error.code === 'ER_DUP_ENTRY') {
             res.json({ info: null, error: { message: "L'email est déjà utilisé." } }).status(400);
+        } else if (error.code === 'ER_BAD_NULL_ERROR') {
+            res.json({
+                info: null,
+                error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
+            }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
         }
-        res.json({ error: { message: error.message } }).status(500);
     }
 }
 
@@ -44,7 +50,14 @@ export async function createMemberController(req, res, next) {
         res.json({ info: { id: result }, error: null }).status(201);
     } catch (error) {
         console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
+        if (error.code === 'ER_BAD_NULL_ERROR') {
+            res.json({
+                info: null,
+                error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
+            }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
+        }
     }
 }
 
@@ -76,7 +89,14 @@ export async function createPerformanceMemberController(req, res, next) {
         res.json({ info: { id: result }, error: null }).status(201);
     } catch (error) {
         console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
+        if (error.code === 'ER_BAD_NULL_ERROR') {
+            res.json({
+                info: null,
+                error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
+            }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
+        }
     }
 }
 
@@ -102,14 +122,15 @@ export async function updateMemberController(req, res, next) {
         };
         res.json({ info: { infoChanged }, error: null }).status(200);
     } catch (error) {
+        console.error(error);
         if (error.code === 'ER_BAD_NULL_ERROR') {
             res.json({
                 info: null,
                 error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
             }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
         }
-        console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
     }
 }
 
@@ -126,14 +147,15 @@ export async function updateHealthMemberController(req, res, next) {
         };
         res.json({ info: { infoChanged }, error: null }).status(200);
     } catch (error) {
+        console.error(error);
         if (error.code === 'ER_BAD_NULL_ERROR') {
             res.json({
                 info: null,
                 error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
             }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
         }
-        console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
     }
 }
 
@@ -160,13 +182,14 @@ export async function updatePerformanceMemberController(req, res, next) {
         };
         res.json({ info: { infoChanged }, error: null }).status(200);
     } catch (error) {
+        console.error(error);
         if (error.code === 'ER_BAD_NULL_ERROR') {
             res.json({
                 info: null,
                 error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
             }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
         }
-        console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
     }
 }

@@ -65,7 +65,14 @@ export async function createTrainingComplet(req, res, next) {
         res.json({ info: { id: resultTrainingId }, error: null }).status(201);
     } catch (error) {
         console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
+        if (error.code === 'ER_BAD_NULL_ERROR') {
+            res.json({
+                info: null,
+                error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
+            }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
+        }
     }
 }
 
@@ -131,6 +138,13 @@ export async function updateTrainingComplet(req, res, next) {
         res.json({ info: infoChanged, error: null }).status(200);
     } catch (error) {
         console.error(error);
-        res.json({ error: { message: error.message } }).status(500);
+        if (error.code === 'ER_BAD_NULL_ERROR') {
+            res.json({
+                info: null,
+                error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
+            }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
+        }
     }
 }
