@@ -41,6 +41,19 @@ export async function getUserByEmail(emailUser) {
 }
 
 /**
+ * Rêquete pour trouver le membre par email
+ * @param {Int} emailUser
+ * @returns {object} member
+ */
+export async function getMemberByEmail(emailUser) {
+    const [result] = await pool.query(
+        'SELECT * FROM user u INNER JOIN member m ON m.userId = u.id WHERE u.email = ?',
+        [emailUser]
+    );
+    return result[0];
+}
+
+/**
  * Rêquete rentourne tout les lignes des tables associées au membre par son id
  * Filtre : aucun
  * @param {Number} idMember

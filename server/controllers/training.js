@@ -10,6 +10,8 @@ import {
     updateMetricOptionalTraining,
     updateHealthMemberByIdMember,
 } from '../database/update-on-data-base.js';
+import { deleteTrainingById } from '../database/delete-on-data-base.js';
+import { getTrainingById, getMemberByEmail } from '../database/connection-data-base.js';
 
 export async function createTrainingComplet(req, res, next) {
     const {
@@ -146,5 +148,31 @@ export async function updateTrainingComplet(req, res, next) {
         } else {
             res.json({ error: { message: error.message } }).status(500);
         }
+    }
+}
+
+export async function deleteTrainingComplet(req, res, next) {
+    const { idTraining } = req.body;
+    try {
+        const trainingForDelete = await getTrainingById(idTraining);
+        if (!trainingForDelete) {
+            res.json({ info: null, error: { message: 'Aucune donnée trouvée' } }).status(404);
+            return null;
+        }
+        const member = await getMemberByEmail(req.user.email);
+        if (!member || member.id !== trainingForDelete.idMember) {
+            res.json({ info: null, error: { message: "Vous n'avez pas les droits" } }).status(403);
+            return null;
+        }
+        const resultTraining = await deleteTrainingById(idTraining);
+        console.log(resultTraining);
+        const infoDeleted = {
+            affectedRows: resultTraining.affectedRows,
+            message: 'Les données ont bien été supprimées',
+        };
+        res.json({ info: infoDeleted, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        res.json({ error: { message: error.message } }).status(500);
     }
 }
