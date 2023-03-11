@@ -1,5 +1,6 @@
 /*
 * Insert dans la table user Attention ici mot de passe non hash
+* Ne fonctionne plus avec la nouvelle version de la base de donnée
 */
 INSERT INTO user (email, password)
  VALUES ('admin@admin.com', 'admin'),

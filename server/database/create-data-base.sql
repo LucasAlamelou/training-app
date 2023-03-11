@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS user
 (
     id INT  NOT NULL AUTO_INCREMENT,
     email varchar(200) NOT NULL,
-    password varchar(200),
     hash varchar(200) NOT NULL,
     salt varchar(200) NOT NULL,
     PRIMARY KEY (id),

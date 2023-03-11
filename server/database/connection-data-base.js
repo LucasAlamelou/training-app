@@ -21,15 +21,6 @@ export const pool = mysql
     .promise();
 
 /**
- * Test query
- */
-export async function getSomething() {
-    const [result] = await pool.query('SELECT * FROM clients');
-    console.log(result);
-    return result;
-}
-
-/**
  * Rêquete pour trouver l'user par id
  * @param {Number} idUser
  * @returns {object} user

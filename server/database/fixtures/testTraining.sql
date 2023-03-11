@@ -17,3 +17,8 @@ INSERT INTO metricOptionalTraining (hikeUp, hikeDown, moyForSwim, idTraining)
 -- Test du delete sur table training en cascade
 DELETE FROM metricOptionalTraining where idTraining = 3;
 DELETE FROM training where id = 3;
+
+ALTER TABLE user
+ADD hash varchar(200),
+ADD salt varchar(200),
+DROP COLUMN password;

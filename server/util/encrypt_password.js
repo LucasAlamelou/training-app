@@ -1,5 +1,6 @@
 import uid2 from 'uid2';
-import { SHA256, encBase64 } from 'crypto-js';
+import pkg from 'crypto-js';
+const { SHA256, encBase64 } = pkg;
 
 export function encryptPassword(password) {
     const salt = uid2(16);

@@ -7,7 +7,7 @@ import logger from 'morgan';
 import { getRoleMiddleware } from './util/getRoleMiddleware.js';
 
 import indexRouter from './routes/index.js';
-import usersRouter from './routes/users.js';
+import { userRoute } from './routes/user.js';
 
 var app = express();
 
@@ -47,8 +47,9 @@ app.use(getRoleMiddleware);
 /**
  * Routes
  */
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use(indexRouter);
+// User routes
+userRoute(app);
 
 /**
  * Event listener for HTTP server "listening" event.
