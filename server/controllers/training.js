@@ -65,7 +65,7 @@ export async function createTrainingComplet(req, res, next) {
         res.json({ info: { id: resultTrainingId }, error: null }).status(201);
     } catch (error) {
         console.error(error);
-        res.json({ error: error.message }).status(500);
+        res.json({ error: { message: error.message } }).status(500);
     }
 }
 
@@ -128,9 +128,9 @@ export async function updateTrainingComplet(req, res, next) {
                 resultTrainingOptionalMetrics.changedRows,
             message: 'Les données ont bien été modifiées',
         };
-        res.json({ info: infoChanged, error: null }).status(201);
+        res.json({ info: infoChanged, error: null }).status(200);
     } catch (error) {
         console.error(error);
-        res.json({ error: error.message }).status(500);
+        res.json({ error: { message: error.message } }).status(500);
     }
 }

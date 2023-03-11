@@ -19,7 +19,7 @@ export async function updateUserById(idUser, email) {
  * @param {Int} idUser
  * @param {String} hash
  * @param {String} salt
- * @returns {Int} idUser
+ * @returns
  */
 export async function updateUserPasswordById(idUser, hash, salt) {
     const [result] = await pool.query('UPDATE user SET hash = ?, salt = ? WHERE user.id = ?', [
