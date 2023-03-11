@@ -83,6 +83,8 @@ export async function updateHealthMemberByIdMember(idMember, weight, height, hou
  * @param {String} seuilLactate
  * @param {Int} fcRest
  * @param {Int} fcMax
+ * @param {Int} vma
+ * @param {String} favoriteSport
  * @returns
  */
 export async function updatePerformanceMemberByIdMember(
