@@ -104,6 +104,7 @@ export async function createTypeOfTraining(nameTypeOfTraining) {
 
 /**
  * Créer une entrée dans la table training
+ * @param {Int} idMember
  * @param {String} name
  * @param {String} note
  * @param {Time} along
@@ -112,10 +113,10 @@ export async function createTypeOfTraining(nameTypeOfTraining) {
  * @param {Int} idTypeOfTraining
  * @returns {Int} idTraining
  */
-export async function createTraining(name, note, along, city, country, idTypeOfTraining) {
+export async function createTraining(idMember, name, note, along, city, country, idTypeOfTraining) {
     const [result] = await pool.query(
-        'INSERT INTO training (name, note, along, city, country, idTypeOfTraining) VALUES (?, ?, ?, ?, ?, ?)',
-        [name, note, along, city, country, idTypeOfTraining]
+        'INSERT INTO training (name, note, along, city, country, idTypeOfTraining, idMember) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [name, note, along, city, country, idTypeOfTraining, idMember]
     );
     return result.insertId;
 }
@@ -126,12 +127,13 @@ export async function createTraining(name, note, along, city, country, idTypeOfT
  * @param {Time} moyPerKm
  * @param {Float} speedMoy
  * @param {Float} speedMax
+ * @param {Int} idTraining
  * @returns {Int} idMetricTraining
  */
-export async function createMetricTraining(km, moyPerKm, speedMoy, speedMax) {
+export async function createMetricTraining(km, moyPerKm, speedMoy, speedMax, idTraining) {
     const [result] = await pool.query(
-        'INSERT INTO metricTraining (km, moyPerKm, speedMoy, speedMax) VALUES (?, ?, ?, ?)',
-        [km, moyPerKm, speedMoy, speedMax]
+        'INSERT INTO metricTraining (km, moyPerKm, speedMoy, speedMax, idTraining) VALUES (?, ?, ?, ?, ?)',
+        [km, moyPerKm, speedMoy, speedMax, idTraining]
     );
     return result.insertId;
 }
@@ -140,12 +142,13 @@ export async function createMetricTraining(km, moyPerKm, speedMoy, speedMax) {
  * Créer une entrée dans la table metricHealthTraining
  * @param {Int} fcMoy
  * @param {Int} fcMax
+ * @param {Int} idTraining
  * @returns {Int} idMetricHealthTraining
  */
-export async function createMetricHealthTraining(fcMoy, fcMax) {
+export async function createMetricHealthTraining(fcMoy, fcMax, idTraining) {
     const [result] = await pool.query(
-        'INSERT INTO metricHealthTraining (fcMoy, fcMax) VALUES (?, ?)',
-        [fcMoy, fcMax]
+        'INSERT INTO metricHealthTraining (fcMoy, fcMax, idTraining) VALUES (?, ?, ?)',
+        [fcMoy, fcMax, idTraining]
     );
     return result.insertId;
 }
@@ -157,6 +160,7 @@ export async function createMetricHealthTraining(fcMoy, fcMax) {
  * @param {Int} cadenceMoy
  * @param {Int} cadenceMax
  * @param {Time} moyForSwim
+ * @param {Int} idTraining
  * @returns {Int} idMetricOptionalTraining
  */
 export async function createMetricOptionalTraining(
@@ -164,11 +168,12 @@ export async function createMetricOptionalTraining(
     hikeDown,
     cadenceMoy,
     cadenceMax,
-    moyForSwim
+    moyForSwim,
+    idTraining
 ) {
     const [result] = await pool.query(
-        'INSERT INTO metricOptionalTraining (hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim) VALUES (?, ?, ?, ?, ?)',
-        [hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim]
+        'INSERT INTO metricOptionalTraining (hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim, idTraining) VALUES (?, ?, ?, ?, ?, ?)',
+        [hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim, idTraining]
     );
     return result.insertId;
 }

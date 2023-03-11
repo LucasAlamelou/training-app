@@ -22,3 +22,6 @@ ALTER TABLE user
 ADD hash varchar(200),
 ADD salt varchar(200),
 DROP COLUMN password;
+
+ALTER TABLE  user
+MODIFY email varchar(200) NOT NULL;
