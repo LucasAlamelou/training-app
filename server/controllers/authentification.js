@@ -9,7 +9,8 @@ export async function loginController(req, res, next) {
     try {
         const user = await getUserByEmail(email);
         const { hash, salt } = user;
-        const result = await decryptPassword(password, hash, salt);
+        console.log(user);
+        const result = decryptPassword(salt, hash, password);
         if (result) {
             const token = generateAccessToken({ email, password: hash, salt });
             res.json({ info: { token, id: user.id } }).status(200);
@@ -30,10 +31,14 @@ export async function changePassword(req, res, next) {
             res.json({ error: { message: 'Utilisateur non trouvé' }, info: null }).status(404);
         }
         const { hash, salt } = user;
-        const actualPassword = decryptPassword(password, hash, salt);
+        const actualPassword = decryptPassword(salt, hash, password);
         if (actualPassword) {
-            const { newSalt, newHash } = encryptPassword(newPassword);
-            const result = await updateUserPasswordById(user.id, newHash, newSalt);
+            const { salt, hash } = encryptPassword(newPassword);
+            console.log(user.id);
+            console.log(hash);
+            console.log(salt);
+            console.log(newPassword);
+            const result = await updateUserPasswordById(user.id, hash, salt);
             const infoChanged = {
                 changedRows: result.changedRows,
                 message: 'Le mot de passe a bien été modifiées.',
