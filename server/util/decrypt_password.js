@@ -1,4 +1,5 @@
-import { SHA256, encBase64 } from 'crypto-js';
+import pkg from 'crypto-js';
+const { SHA256, encBase64 } = pkg;
 
 export function decryptPassword({ salt, hash }, password) {
     const toCompareHash = SHA256(salt + password).toString(encBase64);
