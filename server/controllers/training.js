@@ -11,7 +11,11 @@ import {
     updateHealthMemberByIdMember,
 } from '../database/update-on-data-base.js';
 import { deleteTrainingById } from '../database/delete-on-data-base.js';
-import { getTrainingById, getMemberByEmail } from '../database/connection-data-base.js';
+import {
+    getTrainingById,
+    getMemberByEmail,
+    getAllDataTrainingByMemberId,
+} from '../database/connection-data-base.js';
 
 export async function createTrainingComplet(req, res, next) {
     const {
@@ -171,6 +175,26 @@ export async function deleteTrainingComplet(req, res, next) {
             message: 'Les données ont bien été supprimées',
         };
         res.json({ info: infoDeleted, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        res.json({ error: { message: error.message } }).status(500);
+    }
+}
+
+export async function getAllTrainingController(req, res, next) {
+    const { idMember } = req.body;
+    try {
+        const user = await getMemberByEmail(req.user.email);
+        if (!user) {
+            res.json({ info: null, error: { message: "L'utilisateur n'existe pas" } }).status(403);
+            return null;
+        }
+        if (user.id !== Number(idMember)) {
+            res.json({ info: null, error: { message: "Vous n'avez pas les droits" } }).status(403);
+            return null;
+        }
+        const result = await getAllDataTrainingByMemberId(idMember);
+        res.json({ info: { data: result }, error: null }).status(200);
     } catch (error) {
         console.error(error);
         res.json({ error: { message: error.message } }).status(500);
