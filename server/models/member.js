@@ -10,6 +10,10 @@ export class Member {
         this.city = city;
         this.country = country;
     }
+    /**
+     * Vérifie que les données du membre sont valides
+     * @returns {boolean} true si les données sont valides, false sinon
+     */
     validate() {
         const firstName = new RegExp(/^[a-zA-Z]+$/);
         const lastName = new RegExp(/^[a-zA-Z]+$/);

@@ -5,6 +5,11 @@ export class User {
         this.hash = this.hash;
         this.salt = this.salt;
     }
+
+    /**
+     * Vérifie les champs de l'utilisateur
+     * @returns {boolean} true si l'utilisateur est valide, false sinon
+     */
     validate() {
         const emailValidator = new RegExp(
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i

@@ -17,6 +17,12 @@ import {
     getAllDataTrainingByMemberId,
 } from '../database/connection-data-base.js';
 
+/**
+ * Permet de gérer la création d'un entrainement complet avec tout les champs
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function createTrainingComplet(req, res, next) {
     const {
         userId,
@@ -82,6 +88,12 @@ export async function createTrainingComplet(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la mise à jour d'un entrainement complet avec tout les champs
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function updateTrainingComplet(req, res, next) {
     const {
         idTraining,
@@ -155,6 +167,12 @@ export async function updateTrainingComplet(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la suppression d'un entrainement complet en cascade
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function deleteTrainingComplet(req, res, next) {
     const { idTraining } = req.body;
     try {
@@ -181,6 +199,13 @@ export async function deleteTrainingComplet(req, res, next) {
     }
 }
 
+/**
+ * Permet de récupérer toutes les données d'un entrainement complet par son id du membre
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export async function getAllTrainingController(req, res, next) {
     const { idMember } = req.body;
     try {

@@ -5,6 +5,12 @@ import { getUserByEmail } from '../database/connection-data-base.js';
 import { updateUserPasswordById } from '../database/update-on-data-base.js';
 import { User } from '../models/user.js';
 
+/**
+ * Permet de gérer la connexion d'un utilisateur
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function loginController(req, res, next) {
     const { email, password } = req.body;
     try {
@@ -23,6 +29,14 @@ export async function loginController(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la modification du mot de passe d'un utilisateur
+ * Lui uniquement peut le faire
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export async function changePassword(req, res, next) {
     const { email, password, newPassword } = req.body;
     const user = new User(email, newPassword);
@@ -30,6 +44,12 @@ export async function changePassword(req, res, next) {
         const user = await getUserByEmail(email);
         if (!user) {
             res.json({ error: { message: 'Utilisateur non trouvé' }, info: null }).status(404);
+            return;
+        } else if (user.email !== req.user.email) {
+            res.json({
+                error: { message: "Vous n'avez pas les droits pour modifier ce mot de passe" },
+                info: null,
+            }).status(401);
             return;
         }
         const { hash, salt } = user;

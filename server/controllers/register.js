@@ -4,6 +4,12 @@ import { createUser, createMember } from '../database/create-on-data-base.js';
 import { encryptPassword } from '../util/encrypt_password.js';
 import { generateAccessToken } from '../util/generateToken.js';
 
+/**
+ * Permet de gérer l'inscription d'un utilisateur
+ * Ajout de l'user et member
+ * @param {*} req
+ * @param {*} res
+ */
 export async function registerController(req, res) {
     // Register controller
     const { firstName, lastName, dateOfBirth, adress, zipCode, city, country } = req.body;

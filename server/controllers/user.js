@@ -14,6 +14,13 @@ import { deleteUserById } from '../database/delete-on-data-base.js';
 import { getUserById, getMemberById } from '../database/connection-data-base.js';
 import { generateAccessToken } from '../util/generateToken.js';
 
+/**
+ * Permet de gérer la création d'un utilisateur
+ * Table user uniquement
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function createUserController(req, res, next) {
     const { email, password } = req.body;
     const { hash, salt } = await encryptPassword(password);
@@ -36,6 +43,13 @@ export async function createUserController(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la création d'un membre
+ * Table member uniquement
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function createMemberController(req, res, next) {
     const { userId, firstName, lastName, dateOfBirth, adress, city, zipCode, country } = req.body;
     try {
@@ -63,6 +77,13 @@ export async function createMemberController(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la création des données de santé d'un membre
+ * Table health uniquement
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function createHealthMemberController(req, res, next) {
     const { idMember, weight, height, hourSleep } = req.body;
     try {
@@ -74,6 +95,13 @@ export async function createHealthMemberController(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la création des données de performance d'un membre
+ * Table performance uniquement
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 export async function createPerformanceMemberController(req, res, next) {
     const { idMember, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport } =
         req.body;
@@ -102,6 +130,13 @@ export async function createPerformanceMemberController(req, res, next) {
     }
 }
 
+/**
+ * Permet de gérer la modification de la table member
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export async function updateMemberController(req, res, next) {
     const { idMember, firstName, lastName, dateOfBirth, adress, city, zipCode, country } = req.body;
     try {
@@ -137,6 +172,13 @@ export async function updateMemberController(req, res, next) {
     }
 }
 
+/**
+ * Permet la modifcation de la table santé du membre
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export async function updateHealthMemberController(req, res, next) {
     const { idMember, weight, height, hourSleep } = req.body;
     try {
@@ -163,6 +205,13 @@ export async function updateHealthMemberController(req, res, next) {
     }
 }
 
+/**
+ * Permet la modification de la table performance du membre
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export async function updatePerformanceMemberController(req, res, next) {
     const { idMember, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport } =
         req.body;
@@ -199,6 +248,14 @@ export async function updatePerformanceMemberController(req, res, next) {
     }
 }
 
+/**
+ * Supprime un utilisateur de la base de données en fonction de son id de membre
+ * Supprime également le membre associé en cascade
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 export async function deleteUserController(req, res, next) {
     const { idMember } = req.body;
     try {
