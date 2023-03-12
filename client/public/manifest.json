@@ -1,0 +1,15 @@
+{
+    "short_name": "Training App",
+    "name": "App-Training",
+    "icons": [
+        {
+            "src": "",
+            "type": "",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}

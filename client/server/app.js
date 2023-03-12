@@ -13,14 +13,15 @@ var app = express();
 /**
  *  Config DotEnv
  */
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
+console.log(process.env.DB_HOST);
 /**
  * Create HTTP server.
  */
