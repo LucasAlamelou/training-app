@@ -15,6 +15,10 @@ export async function loginController(req, res, next) {
     const { email, password } = req.body;
     try {
         const user = await getUserByEmail(email);
+        if (!user) {
+            res.json({ error: { message: 'Utilisateur inconnu' }, info: null }).status(401);
+            return;
+        }
         const { hash, salt } = user;
         const result = decryptPassword(salt, hash, password);
         if (result) {

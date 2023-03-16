@@ -1,16 +1,30 @@
 import * as React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Root } from '../pages/Root.js';
 import { Home } from './home.js';
-import { Login } from './login.js';
+import { Login, loader as loginLoader, action as loginAction } from './login.js';
+import { Register, loader as registerLoader, action as registerAction } from './register.js';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />,
+        element: <Root />,
         children: [
             {
                 path: 'login',
                 element: <Login />,
+                loader: loginLoader,
+                action: loginAction,
+            },
+            {
+                path: 'register',
+                element: <Register />,
+                loader: registerLoader,
+                action: registerAction,
+            },
+            {
+                path: 'home',
+                element: <Home />,
             },
         ],
     },
@@ -19,7 +33,7 @@ const router = createBrowserRouter([
 export function Dispatch() {
     return (
         <React.StrictMode>
-            <RouterProvider router={router} />
+            <RouterProvider router={router}></RouterProvider>
         </React.StrictMode>
     );
 }

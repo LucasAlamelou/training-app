@@ -10,18 +10,17 @@ export function loader({ request }) {
 
 export async function action({ param, request }) {
     let formData = await request.formData();
-    const result = await ActionForm(formData, 'login', 'post');
-    console.log(result);
-    if (result.token && result.id) {
+    const result = await ActionForm(formData, 'register', 'post');
+    if (result.token && result.id && result.user) {
         return redirect('/home');
     }
     return result;
 }
 
-export const Login = () => {
+export const Register = () => {
     return (
         <>
-            <Form pageLogin={true} />
+            <Form isLogin={false} />
         </>
     );
 };
