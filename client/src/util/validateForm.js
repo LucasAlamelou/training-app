@@ -1,6 +1,7 @@
+const LENGTH_MAX = 30;
+const LENGTH_MIN = 3;
+
 export const validateForm = (donnesForm) => {
-    const LENGTH_MAX = 30;
-    const LENGTH_MIN = 3;
     const LENGTH_MAX_ZIPCODE = 5;
 
     const regexExp_EMAIL = new RegExp(
@@ -77,5 +78,104 @@ export const validateForm = (donnesForm) => {
         }
     }
 
+    return errors;
+};
+
+export const validateFormTraining = (donnesForm) => {
+    const {
+        name,
+        typeOfTraining,
+        along,
+        city,
+        country,
+        note,
+        km,
+        moyPerKm,
+        speedMoy,
+        speedMax,
+        fcMoy,
+        fcMax,
+        hikeUp,
+        hikeDown,
+        cadenceMoy,
+        cadenceMax,
+        moyForSwim,
+    } = donnesForm;
+    const errors = {};
+    if (typeof name !== 'string' || name === '') {
+        errors.name = 'Veuillez saisir un nom de séance !';
+    }
+    if (typeof typeOfTraining !== 'string' || typeOfTraining === '') {
+        errors.typeOfTraining = 'Veuillez selectionner un type de séance !';
+    }
+    const alongForValidate = along !== '' ? new Date(along) : '';
+    if (typeof alongForValidate !== 'object' && along !== undefined) {
+        errors.along = 'Veuillez saisir une durée !';
+    }
+    if ((typeof city !== 'string' || city.length > LENGTH_MAX) && city !== undefined) {
+        errors.city = 'Veuillez saisir une ville valide !';
+    }
+    if ((typeof country !== 'string' || country.length > LENGTH_MAX) && country !== undefined) {
+        errors.country = 'Veuillez saisir un pays !';
+    }
+    if ((typeof note !== 'string' || note.length > 300) && note !== undefined) {
+        errors.note = 'Veuillez saisir une note ne depassant pas 300 caractères!';
+    }
+    const kmForValidate = km !== '' ? parseInt(km) : '';
+    if (typeof kmForValidate !== 'number' && km !== undefined) {
+        errors.km = 'Veuillez saisir un nombre de km valide !';
+    }
+    const moyPerKmForValidate = moyPerKm !== '' ? parseInt(moyPerKm) : '';
+    if (typeof moyPerKmForValidate !== 'number' && moyPerKm !== undefined) {
+        errors.moyPerKm = 'Veuillez saisir une moyenne par km valide !';
+    }
+    const speedMoyForValidate = speedMoy !== '' ? parseInt(speedMoy) : '';
+    if (typeof speedMoyForValidate !== 'number' && speedMoy !== undefined) {
+        errors.speedMoy = 'Veuillez saisir une vitesse moyenne valide !';
+    }
+    const speedMaxForValidate = speedMax !== '' ? parseInt(speedMax) : '';
+    if (typeof speedMaxForValidate !== 'number' && speedMax !== undefined) {
+        errors.speedMax = 'Veuillez saisir une vitesse max valide !';
+    }
+    const fcMoyForValidate = fcMoy !== '' ? parseInt(fcMoy) : '';
+    if ((typeof fcMoyForValidate !== 'number' || fcMoyForValidate > 230) && fcMoy !== undefined) {
+        errors.fcMoy = 'Veuillez saisir une fréquence cardiaque moyenne valide !';
+    }
+    const fcMaxForValidate = fcMax !== '' ? parseInt(fcMax) : '';
+    if ((typeof fcMaxForValidate !== 'number' || fcMaxForValidate > 230) && fcMax !== undefined) {
+        errors.fcMax = 'Veuillez saisir une fréquence cardiaque max valide !';
+    }
+    const hikeUpForValidate = hikeUp !== '' ? parseInt(hikeUp) : '';
+    if (
+        (typeof hikeUpForValidate !== 'number' || hikeUpForValidate > 100000) &&
+        hikeUp !== undefined
+    ) {
+        errors.hikeUp = 'Veuillez saisir un dévivelé valide !';
+    }
+    const hikeDownForValidate = hikeDown !== '' ? parseInt(hikeDown) : '';
+    if (
+        (typeof hikeDownForValidate !== 'number' || hikeDownForValidate > 100000) &&
+        hikeDown !== undefined
+    ) {
+        errors.hikeDown = 'Veuillez saisir un dévivelé valide !';
+    }
+    const cadenceMoyForValidate = cadenceMoy !== '' ? parseInt(cadenceMoy) : '';
+    if (
+        (typeof cadenceMoyForValidate !== 'number' || cadenceMoyForValidate > 300) &&
+        cadenceMoy !== undefined
+    ) {
+        errors.cadenceMoy = 'Veuillez saisir une cadence moyenne valide !';
+    }
+    const cadenceMaxForValidate = cadenceMax !== '' ? parseInt(cadenceMax) : '';
+    if (
+        (typeof cadenceMaxForValidate !== 'number' || cadenceMaxForValidate > 300) &&
+        cadenceMax !== undefined
+    ) {
+        errors.cadenceMax = 'Veuillez saisir une cadence max valide !';
+    }
+    const moyForSwimForValidate = moyForSwim !== '' ? new Date(moyForSwim) : '';
+    if (typeof moyForSwimForValidate !== 'object' && moyForSwim !== undefined) {
+        errors.moyForSwim = 'Veuillez saisir une moyenne valide !';
+    }
     return errors;
 };

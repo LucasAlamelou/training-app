@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, useActionData } from 'react-router-dom';
 import styled from 'styled-components';
-import { Field, DivChamp } from './FieldInput.js';
+import { Field, DivChamp } from './FieldsForm.js';
 
 export const FormLogin = () => {
     const [login, setLogin] = useState('');
