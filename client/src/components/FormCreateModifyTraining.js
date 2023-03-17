@@ -20,7 +20,7 @@ const DivForm = styled.div`
     width: 75%;
     height: 80%;
     padding: 1rem;
-    background-color: #fff;
+    background-color: ;
     border: 2px solid #0554f2;
     border-radius: 0.5rem;
 `;

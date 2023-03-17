@@ -82,9 +82,10 @@ export const validateForm = (donnesForm) => {
 };
 
 export const validateFormTraining = (donnesForm) => {
+    console.log(donnesForm);
     const {
         name,
-        typeOfTraining,
+        idTypeOfTraining,
         along,
         city,
         country,
@@ -105,76 +106,73 @@ export const validateFormTraining = (donnesForm) => {
     if (typeof name !== 'string' || name === '') {
         errors.name = 'Veuillez saisir un nom de séance !';
     }
-    if (typeof typeOfTraining !== 'string' || typeOfTraining === '') {
+    if (typeof idTypeOfTraining !== 'string' || idTypeOfTraining === '') {
         errors.typeOfTraining = 'Veuillez selectionner un type de séance !';
     }
     const alongForValidate = along !== '' ? new Date(along) : '';
-    if (typeof alongForValidate !== 'object' && along !== undefined) {
+    if (typeof alongForValidate !== 'object' && along !== null) {
         errors.along = 'Veuillez saisir une durée !';
     }
-    if ((typeof city !== 'string' || city.length > LENGTH_MAX) && city !== undefined) {
+    if ((typeof city !== 'string' || city.length > LENGTH_MAX) && city !== null) {
         errors.city = 'Veuillez saisir une ville valide !';
     }
-    if ((typeof country !== 'string' || country.length > LENGTH_MAX) && country !== undefined) {
+    if ((typeof country !== 'string' || country.length > LENGTH_MAX) && country !== null) {
         errors.country = 'Veuillez saisir un pays !';
     }
-    if ((typeof note !== 'string' || note.length > 300) && note !== undefined) {
+    if ((typeof note !== 'string' || note.length > 300) && note !== null) {
         errors.note = 'Veuillez saisir une note ne depassant pas 300 caractères!';
     }
     const kmForValidate = km !== '' ? parseInt(km) : '';
-    if (typeof kmForValidate !== 'number' && km !== undefined) {
+    if (typeof kmForValidate !== 'number' && km !== null) {
         errors.km = 'Veuillez saisir un nombre de km valide !';
     }
     const moyPerKmForValidate = moyPerKm !== '' ? parseInt(moyPerKm) : '';
-    if (typeof moyPerKmForValidate !== 'number' && moyPerKm !== undefined) {
+    if (typeof moyPerKmForValidate !== 'number' && moyPerKm !== null) {
         errors.moyPerKm = 'Veuillez saisir une moyenne par km valide !';
     }
     const speedMoyForValidate = speedMoy !== '' ? parseInt(speedMoy) : '';
-    if (typeof speedMoyForValidate !== 'number' && speedMoy !== undefined) {
+    if (typeof speedMoyForValidate !== 'number' && speedMoy !== null) {
         errors.speedMoy = 'Veuillez saisir une vitesse moyenne valide !';
     }
     const speedMaxForValidate = speedMax !== '' ? parseInt(speedMax) : '';
-    if (typeof speedMaxForValidate !== 'number' && speedMax !== undefined) {
+    if (typeof speedMaxForValidate !== 'number' && speedMax !== null) {
         errors.speedMax = 'Veuillez saisir une vitesse max valide !';
     }
     const fcMoyForValidate = fcMoy !== '' ? parseInt(fcMoy) : '';
-    if ((typeof fcMoyForValidate !== 'number' || fcMoyForValidate > 230) && fcMoy !== undefined) {
+    if ((typeof fcMoyForValidate !== 'number' || fcMoyForValidate > 230) && fcMoy !== null) {
         errors.fcMoy = 'Veuillez saisir une fréquence cardiaque moyenne valide !';
     }
     const fcMaxForValidate = fcMax !== '' ? parseInt(fcMax) : '';
-    if ((typeof fcMaxForValidate !== 'number' || fcMaxForValidate > 230) && fcMax !== undefined) {
+    if ((typeof fcMaxForValidate !== 'number' || fcMaxForValidate > 230) && fcMax !== null) {
         errors.fcMax = 'Veuillez saisir une fréquence cardiaque max valide !';
     }
     const hikeUpForValidate = hikeUp !== '' ? parseInt(hikeUp) : '';
-    if (
-        (typeof hikeUpForValidate !== 'number' || hikeUpForValidate > 100000) &&
-        hikeUp !== undefined
-    ) {
+    if ((typeof hikeUpForValidate !== 'number' || hikeUpForValidate > 100000) && hikeUp !== null) {
         errors.hikeUp = 'Veuillez saisir un dévivelé valide !';
     }
     const hikeDownForValidate = hikeDown !== '' ? parseInt(hikeDown) : '';
     if (
         (typeof hikeDownForValidate !== 'number' || hikeDownForValidate > 100000) &&
-        hikeDown !== undefined
+        hikeDown !== null
     ) {
         errors.hikeDown = 'Veuillez saisir un dévivelé valide !';
     }
     const cadenceMoyForValidate = cadenceMoy !== '' ? parseInt(cadenceMoy) : '';
     if (
         (typeof cadenceMoyForValidate !== 'number' || cadenceMoyForValidate > 300) &&
-        cadenceMoy !== undefined
+        cadenceMoy !== null
     ) {
         errors.cadenceMoy = 'Veuillez saisir une cadence moyenne valide !';
     }
     const cadenceMaxForValidate = cadenceMax !== '' ? parseInt(cadenceMax) : '';
     if (
         (typeof cadenceMaxForValidate !== 'number' || cadenceMaxForValidate > 300) &&
-        cadenceMax !== undefined
+        cadenceMax !== null
     ) {
         errors.cadenceMax = 'Veuillez saisir une cadence max valide !';
     }
     const moyForSwimForValidate = moyForSwim !== '' ? new Date(moyForSwim) : '';
-    if (typeof moyForSwimForValidate !== 'object' && moyForSwim !== undefined) {
+    if (typeof moyForSwimForValidate !== 'object' && moyForSwim !== null) {
         errors.moyForSwim = 'Veuillez saisir une moyenne valide !';
     }
     return errors;

@@ -9,43 +9,43 @@ export const FormTraining = () => {
     const trainingList = data?.typeOfTraining;
     const errors = useActionData();
     const [showMore, setShowMore] = useState(false);
-    const [typeOfTraining, setTypeOfTraining] = useState(0);
+    const [idTypeOfTraining, setIdTypeOfTraining] = useState(0);
     const [name, setName] = useState('');
     const [along, setAlong] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
     const [note, setNote] = useState('');
-    const [km, setKm] = useState(0);
-    const [moyPerKm, setMoyPerKm] = useState('00:00:00');
-    const [speedMoy, setSpeedMoy] = useState(0);
-    const [speedMax, setSpeedMax] = useState(0);
-    const [fcMoy, setFcMoy] = useState(0);
-    const [fcMax, setFcMax] = useState(0);
-    const [hikeUp, setHikeUp] = useState(0);
-    const [hikeDown, setHikeDown] = useState(0);
-    const [cadenceMoy, setCadenceMoy] = useState(0);
-    const [cadenceMax, setCadenceMax] = useState(0);
-    const [moyForSwim, setMoyForSwim] = useState('00:00:00');
+    const [km, setKm] = useState('');
+    const [moyPerKm, setMoyPerKm] = useState('');
+    const [speedMoy, setSpeedMoy] = useState('');
+    const [speedMax, setSpeedMax] = useState('');
+    const [fcMoy, setFcMoy] = useState('');
+    const [fcMax, setFcMax] = useState('');
+    const [hikeUp, setHikeUp] = useState('');
+    const [hikeDown, setHikeDown] = useState('');
+    const [cadenceMoy, setCadenceMoy] = useState('');
+    const [cadenceMax, setCadenceMax] = useState('');
+    const [moyForSwim, setMoyForSwim] = useState('');
 
     const showMoreOptions = () => {
         setShowMore(!showMore);
     };
-    console.log(errors);
+
     return (
         <>
             <Form method="post">
                 <FieldSelect
                     type={'select'}
                     label={'Type de séance'}
-                    name={'typeOfTraining'}
-                    id={'typeOfTraining-id'}
-                    value={typeOfTraining}
+                    name={'idTypeOfTraining'}
+                    id={'idTypeOfTraining-id'}
+                    value={idTypeOfTraining}
                     required={true}
-                    setValue={setTypeOfTraining}
+                    setValue={setIdTypeOfTraining}
                     listOptions={trainingList}
                 />
                 <DivError>
-                    {errors?.typeOfTraining && <span>{errors.typeOfTraining}</span>}
+                    {errors?.idTypeOfTraining && <span>{errors.idTypeOfTraining}</span>}
                 </DivError>
                 <DivDouble>
                     <Field
@@ -132,12 +132,12 @@ export const FormTraining = () => {
 
                 <DivChamp>
                     <DivError>
-                        {errors?.error.champ && (
-                            <span>Le champ {errors.error.champ} ne peut pas être vide.</span>
+                        {errors?.error.message && (
+                            <>
+                                <span> {errors.error.message}</span>
+                                <span>Le champ {errors.error.champ} ne peut pas être vide.</span>
+                            </>
                         )}
-                    </DivError>
-                    <DivError>
-                        {errors?.error.message && <span> {errors.error.message}</span>}
                     </DivError>
                     <Button type="submit">Ajouter</Button>
                 </DivChamp>

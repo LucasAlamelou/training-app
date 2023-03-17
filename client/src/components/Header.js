@@ -11,6 +11,7 @@ export function Header() {
                     <Item path={'/home'} name={'Acceuil'} />
                     <Item path={'/login'} name={'Connexion'} />
                     <Item path={'/register'} name={'Inscription'} />
+                    <Item path={'/create-training'} name={'Ajouter un entrainement'} />
                 </Ul>
             </DivHeader>
         </>
@@ -42,7 +43,7 @@ const Ul = styled.ul`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
+
     height: 30%;
     list-style: none;
     margin: 0;

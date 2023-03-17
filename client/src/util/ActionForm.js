@@ -42,7 +42,11 @@ export const ActionFormLoginRegister = async (formData, url, method) => {
 export const ActionFormTraining = async (formData, url, method) => {
     let donnesForm = {};
     formData.forEach(function (value, key) {
-        donnesForm[key] = value;
+        if (!value) {
+            donnesForm[key] = null;
+        } else {
+            donnesForm[key] = value;
+        }
     });
 
     let errors = validateFormTraining(donnesForm);
@@ -50,6 +54,7 @@ export const ActionFormTraining = async (formData, url, method) => {
     if (Object.keys(errors).length) {
         return errors;
     }
+    donnesForm.idMember = 8; // TODO: récupérer l'id de l'utilisateur connecté
     // intern API call
     const response = await API_call(url, method, donnesForm);
     if (response.error) {

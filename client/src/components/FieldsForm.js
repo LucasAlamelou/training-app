@@ -19,7 +19,6 @@ export const Field = ({ id, name, value, setValue, label, type, required, placeH
 };
 
 export const FieldSelect = ({ id, name, value, setValue, label, type, required, listOptions }) => {
-    console.log(listOptions);
     return (
         <DivChamp>
             <LabelInput htmlFor={id}>{label}</LabelInput>
@@ -95,7 +94,7 @@ export const Input = styled.input`
     margin: 0.5rem 0;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #0554f2;
+    color: #1b8ef2;
 `;
 
 export const Select = styled.select`
@@ -106,7 +105,7 @@ export const Select = styled.select`
     margin: 0.5rem 0;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #0554f2;
+    color: #1b8ef2;
 `;
 
 export const TextArea = styled.textarea`
@@ -118,5 +117,5 @@ export const TextArea = styled.textarea`
     margin: 0.5rem 0;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #0554f2;
+    color: #1b8ef2;
 `;

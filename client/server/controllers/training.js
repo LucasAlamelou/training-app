@@ -25,7 +25,7 @@ import {
  */
 export async function createTrainingComplet(req, res, next) {
     const {
-        userId,
+        idMember,
         name,
         note,
         along,
@@ -46,7 +46,7 @@ export async function createTrainingComplet(req, res, next) {
     } = req.body;
     try {
         const resultTrainingId = await createTraining(
-            userId,
+            idMember,
             name,
             note,
             along,
