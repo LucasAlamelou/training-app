@@ -43,7 +43,11 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(getRoleMiddleware);
+
 routes(app);
+app.all('/*', function (req, res, next) {
+    res.json({ info: null, error: `La route : ${req.path} non trouvé.` }).status(404);
+});
 
 /**
  * Event listener for HTTP server "listening" event.

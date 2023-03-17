@@ -14,16 +14,16 @@ const router = Router();
 
 export function userRoute(app) {
     // Create user/ member/ healthMember/ performanceMember
-    app.post('/createUser', createUserController);
-    app.post('/createMember', createMemberController);
-    app.post('/createHealthMember', createHealthMemberController);
-    app.post('/createPerformanceMember', createPerformanceMemberController);
+    app.post('/api/createUser', createUserController);
+    app.post('/api/createMember', createMemberController);
+    app.post('/api/createHealthMember', createHealthMemberController);
+    app.post('/api/createPerformanceMember', createPerformanceMemberController);
 
     // Update user/ member/ healthMember/ performanceMember
-    app.post('/updateMember', updateMemberController);
-    app.post('/updateHealthMember', updateHealthMemberController);
-    app.post('/updatePerformanceMember', updatePerformanceMemberController);
+    app.post('/api/updateMember', updateMemberController);
+    app.post('/api/updateHealthMember', updateHealthMemberController);
+    app.post('/api/updatePerformanceMember', updatePerformanceMemberController);
 
     // Delete user
-    app.delete('/deleteUser', deleteUserController);
+    app.delete('/api/deleteUser', deleteUserController);
 }

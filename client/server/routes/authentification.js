@@ -4,6 +4,6 @@ import { loginController, changePassword } from '../controllers/authentification
 const router = Router();
 
 export function authentificationRoute(app) {
-    app.post('/login', loginController);
-    app.post('/changePassword', changePassword);
+    app.post('/api/login', loginController);
+    app.post('/api/changePassword', changePassword);
 }

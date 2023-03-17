@@ -106,3 +106,12 @@ export async function getTrainingById(idTraining) {
     const [result] = await pool.query('SELECT * FROM training t WHERE t.id = ? ', [idTraining]);
     return result[0];
 }
+
+/**
+ * Requete pour récupèrer la liste des types d'entrainement
+ * @returns {Array} row typeOfTraining
+ */
+export async function getAllTypeOfTraining() {
+    const [result] = await pool.query('SELECT * FROM typeOfTraining');
+    return result;
+}
