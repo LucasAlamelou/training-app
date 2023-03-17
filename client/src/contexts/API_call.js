@@ -10,7 +10,11 @@ export const API_call = async (url, method, data) => {
     const response = await feetchAxios(url, method, data);
     if (response.status > 500) {
         console.error('Erreur serveur');
-        return { error: 'Erreur serveur' };
+        return { error: { message: 'Erreur serveur' } };
+    }
+    if (response.status === 401) {
+        console.error("Erreur d'authentification");
+        return { error: { message: "Erreur d'authentification" } };
     }
     return response.data;
 };
@@ -28,11 +32,16 @@ const feetchAxios = async (url, method, data) => {
         method: method,
         url: `/${url}`,
         data: data,
+        validateStatus: function (status) {
+            return status < 500; // la requête résout tant que le code de sa réponse est
+            // inférieur à 500
+        },
     })
         .then((response) => {
             return response;
         })
         .catch((error) => {
+            console.log('error catch');
             console.error(error);
             return error;
         });

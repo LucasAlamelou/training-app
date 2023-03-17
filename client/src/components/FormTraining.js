@@ -30,7 +30,7 @@ export const FormTraining = () => {
     const showMoreOptions = () => {
         setShowMore(!showMore);
     };
-
+    console.log(errors);
     return (
         <>
             <Form method="post">
@@ -132,9 +132,12 @@ export const FormTraining = () => {
 
                 <DivChamp>
                     <DivError>
-                        {errors?.error && (
+                        {errors?.error.champ && (
                             <span>Le champ {errors.error.champ} ne peut pas être vide.</span>
                         )}
+                    </DivError>
+                    <DivError>
+                        {errors?.error.message && <span> {errors.error.message}</span>}
                     </DivError>
                     <Button type="submit">Ajouter</Button>
                 </DivChamp>
