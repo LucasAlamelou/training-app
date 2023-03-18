@@ -5,8 +5,8 @@ import { useActionData, useLoaderData, Form } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const FormTraining = () => {
-    const data = useLoaderData();
-    const trainingList = data?.typeOfTraining;
+    const loaderData = useLoaderData();
+    const trainingList = loaderData?.data;
     const errors = useActionData();
     const [showMore, setShowMore] = useState(false);
     const [idTypeOfTraining, setIdTypeOfTraining] = useState(0);

@@ -5,18 +5,9 @@ import { API_call } from '../contexts/API_call.js';
 import { FormCreateModifyTraining } from '../components/FormCreateModifyTraining.js';
 
 export async function loader({ request }) {
-    const url = 'getTypeOfTraining';
+    const url = 'getAllTypeOfTraining';
     const method = 'get';
-    //const response = await API_call(url, method, null);
-    const response = {
-        info: {
-            typeOfTraining: [
-                { id: 1, name: 'Course' },
-                { id: 2, name: 'Vélo' },
-                { id: 3, name: 'Natation' },
-            ],
-        },
-    };
+    const response = await API_call(url, method, null);
     if (response.error) {
         return null;
     }

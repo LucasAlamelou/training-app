@@ -30,7 +30,7 @@ const feetchAxios = async (url, method, data) => {
     return await axios({
         headers: headers,
         method: method,
-        url: `/${url}`,
+        url: `/api/${url}`,
         data: data,
         validateStatus: function (status) {
             return status < 500; // la requête résout tant que le code de sa réponse est
@@ -41,7 +41,6 @@ const feetchAxios = async (url, method, data) => {
             return response;
         })
         .catch((error) => {
-            console.log('error catch');
             console.error(error);
             return error;
         });
