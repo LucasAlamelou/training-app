@@ -9,6 +9,11 @@ import {
     loader as createTrainingLoader,
     action as createTrainingAction,
 } from './createTraining.js';
+import {
+    MyTraining,
+    loader as myTrainingLoader,
+    action as myTrainingAction,
+} from './myTraining.js';
 
 const router = createBrowserRouter([
     {
@@ -28,7 +33,7 @@ const router = createBrowserRouter([
                 action: registerAction,
             },
             {
-                path: 'create-training',
+                path: '/my-training/new',
                 element: <CreateTraining />,
                 loader: createTrainingLoader,
                 action: createTrainingAction,
@@ -36,6 +41,12 @@ const router = createBrowserRouter([
             {
                 path: 'home',
                 element: <Home />,
+            },
+            {
+                path: 'my-training',
+                element: <MyTraining />,
+                loader: myTrainingLoader,
+                action: myTrainingAction,
             },
         ],
     },

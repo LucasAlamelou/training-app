@@ -78,10 +78,9 @@ export async function getMemberCompletById(idMember) {
  */
 export async function getAllDataTrainingByMemberId(idMember) {
     const [result] = await pool.query(
-        'SELECT * FROM training t INNER JOIN typeOfTraining tp ON tp.id = t.idTypeOfTraining INNER JOIN metricTraining mt ON mt.idTraining = t.id INNER JOIN metricHealthTraining mht ON mht.idTraining = t.id INNER JOIN metricOptionalTraining mot ON mot.idTraining = t.id WHERE t.idMember = ? ',
+        'SELECT * FROM training t LEFT JOIN typeOfTraining tp ON tp.id = t.idTypeOfTraining LEFT JOIN metricTraining mt ON mt.idTraining = t.id LEFT JOIN metricHealthTraining mht ON mht.idTraining = t.id LEFT JOIN metricOptionalTraining mot ON mot.idTraining = t.id WHERE t.idMember = ? ',
         [idMember]
     );
-    console.log(result);
     return result;
 }
 

@@ -17,7 +17,6 @@ export async function loader({ request }) {
 export async function action({ param, request }) {
     let formData = await request.formData();
     const result = await ActionFormTraining(formData, 'createTraining', 'post');
-    console.log(result);
     if (result.id) {
         return redirect('/home');
     }

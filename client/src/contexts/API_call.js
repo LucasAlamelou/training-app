@@ -16,7 +16,10 @@ export const API_call = async (url, method, data) => {
         console.error("Erreur d'authentification");
         return { error: { message: "Erreur d'authentification" } };
     }
-    return response.data;
+    if (response.data) {
+        return response.data;
+    }
+    return response;
 };
 
 /**

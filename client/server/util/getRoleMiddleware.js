@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-const pathAuthorized = ['/login', '/register'];
+const pathAuthorized = ['/api/login', '/api/register'];
 
 export async function getRoleMiddleware(req, res, next) {
     const authHeader = req.headers['authorization'];

@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS member
 
 CREATE TABLE IF NOT EXISTS healthMember
 (
-    id INT NOT NULL AUTO_INCREMENT,
+    idHealthMember INT NOT NULL AUTO_INCREMENT,
     weight INT NULL,
     height INT NULL,
     hourSleep TIME NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS healthMember
 
 CREATE TABLE IF NOT EXISTS performanceMember
 (
-    id INT NOT NULL AUTO_INCREMENT,
+    idPerformanceMember INT NOT NULL AUTO_INCREMENT,
     vo2max INT NULL,
     seuilLactateFC INT NULL,
     seuilLactate varchar(100) NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS performanceMember
 CREATE TABLE IF NOT EXISTS typeOfTraining
 (
     id INT NOT NULL AUTO_INCREMENT,
-    name varchar(100) NOT NULL,
+    nameSport varchar(100) NOT NULL,
     PRIMARY KEY (id)
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS training
 
 CREATE TABLE IF NOT EXISTS metricTraining
 (
-    id INT NOT NULL AUTO_INCREMENT,
+    idMetricTraining INT NOT NULL AUTO_INCREMENT,
     km FLOAT NULL,
     moyPerKm TIME NULL,
     speedMoy FLOAT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS metricTraining
 
 CREATE TABLE IF NOT EXISTS metricHealthTraining
 (
-    id INT NOT NULL AUTO_INCREMENT,
+    idMetricHealthTraining INT NOT NULL AUTO_INCREMENT,
     fcMoy INT NULL,
     fcMax INT NULL,
     idTraining INT NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS metricHealthTraining
 
 CREATE TABLE IF NOT EXISTS metricOptionalTraining
 (
-    id INT NOT NULL AUTO_INCREMENT,
+    idMetricOptionalTraining INT NOT NULL AUTO_INCREMENT,
     hikeUp INT NULL,
     hikeDown INT NULL,
     cadenceMoy INT NULL,

@@ -34,7 +34,7 @@ export const FieldSelect = ({ id, name, value, setValue, label, type, required, 
             >
                 {listOptions.map((option) => (
                     <option key={option.id} value={option.id}>
-                        {option.name}
+                        {option.nameSport}
                     </option>
                 ))}
             </Select>

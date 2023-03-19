@@ -11,7 +11,8 @@ export function Header() {
                     <Item path={'/home'} name={'Acceuil'} />
                     <Item path={'/login'} name={'Connexion'} />
                     <Item path={'/register'} name={'Inscription'} />
-                    <Item path={'/create-training'} name={'Ajouter un entrainement'} />
+                    <Item path={'/my-training'} name={'Mes entrainements'} />
+                    <Item path={'/my-training/new'} name={'Ajouter un entrainement'} />
                 </Ul>
             </DivHeader>
         </>

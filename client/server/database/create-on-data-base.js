@@ -96,7 +96,7 @@ export async function createPerformanceMember(
  * @returns  {Int} idTypeOfTraining
  */
 export async function createTypeOfTraining(nameTypeOfTraining) {
-    const [result] = await pool.query('INSERT INTO typeOfTraining (name) VALUES (?)', [
+    const [result] = await pool.query('INSERT INTO typeOfTraining (nameSport) VALUES (?)', [
         nameTypeOfTraining,
     ]);
     return result.insertId;
