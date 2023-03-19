@@ -110,13 +110,23 @@ export async function createTypeOfTraining(nameTypeOfTraining) {
  * @param {Time} along
  * @param {String} city
  * @param {String} country
+ * @param {date} dateTraining 1999-12-31
  * @param {Int} idTypeOfTraining
  * @returns {Int} idTraining
  */
-export async function createTraining(idMember, name, note, along, city, country, idTypeOfTraining) {
+export async function createTraining(
+    idMember,
+    name,
+    note,
+    along,
+    city,
+    country,
+    dateTraining,
+    idTypeOfTraining
+) {
     const [result] = await pool.query(
-        'INSERT INTO training (name, note, along, city, country, idTypeOfTraining, idMember) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [name, note, along, city, country, idTypeOfTraining, idMember]
+        'INSERT INTO training (name, note, along, city, country, date, idTypeOfTraining, idMember) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [name, note, along, city, country, dateTraining, idTypeOfTraining, idMember]
     );
     return result.insertId;
 }

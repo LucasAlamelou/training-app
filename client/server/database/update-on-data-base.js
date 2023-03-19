@@ -112,6 +112,7 @@ export async function updatePerformanceMemberByIdMember(
  * @param {Time} along 00:00:00
  * @param {String} city
  * @param {String} country
+ * @param {Date} dateTraining 1999-12-31
  * @param {Int} idTypeOfTraining
  * @returns
  */
@@ -122,11 +123,12 @@ export async function updateTrainingById(
     along,
     city,
     country,
+    dateTraining,
     idTypeOfTraining
 ) {
     const [result] = await pool.query(
-        'UPDATE training SET name = ?, note = ?, along = ?, city = ?, country = ?, idTypeOfTraining = ? WHERE training.id = ?',
-        [name, note, along, city, country, idTypeOfTraining, idTraining]
+        'UPDATE training SET name = ?, note = ?, along = ?, city = ?, country = ?, date = ? ,idTypeOfTraining = ? WHERE training.id = ?',
+        [name, note, along, city, country, dateTraining, idTypeOfTraining, idTraining]
     );
     return result;
 }

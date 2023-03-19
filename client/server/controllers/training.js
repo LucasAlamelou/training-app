@@ -32,6 +32,7 @@ export async function createTrainingComplet(req, res, next) {
         along,
         city,
         country,
+        date,
         idTypeOfTraining,
         km,
         moyPerKm,
@@ -53,6 +54,7 @@ export async function createTrainingComplet(req, res, next) {
             along,
             city,
             country,
+            date,
             idTypeOfTraining
         );
         const resultTrainingMetricsId = await createMetricTraining(
@@ -103,6 +105,7 @@ export async function updateTrainingComplet(req, res, next) {
         along,
         city,
         country,
+        date,
         idTypeOfTraining,
         km,
         moyPerKm,
@@ -124,6 +127,7 @@ export async function updateTrainingComplet(req, res, next) {
             along,
             city,
             country,
+            date,
             idTypeOfTraining
         );
         const resultTrainingMetrics = await updateMetricTrainingByIdTraining(

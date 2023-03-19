@@ -19,7 +19,10 @@ export const AllTraining = () => {
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
-        return trainingList.slice(firstPageIndex, lastPageIndex);
+        if (trainingList) {
+            return trainingList.slice(firstPageIndex, lastPageIndex);
+        }
+        return [];
     }, [currentPage]);
 
     const confirmDeleteTraining = (training) => {
@@ -47,51 +50,53 @@ export const AllTraining = () => {
 
     return (
         <>
-            <H2>Mes entrainements</H2>
-            <DivButton>
-                <Link to="/my-training/new" style={{ color: 'black' }}>
-                    <p>Ajouter un entrainement</p>
-                    <FontAwesomeIcon icon={faPlusCircle} color="black"></FontAwesomeIcon>
-                </Link>
-            </DivButton>
+            {data?.error ? (
+                <H3Error style={{ color: 'red' }}>
+                    {data.error.message}... rien à afficher veuillez vous reconnectez.
+                </H3Error>
+            ) : (
+                <>
+                    <H2>Mes entrainements</H2>
+                    <DivButton>
+                        <Link to="/my-training/new" style={{ color: 'black' }}>
+                            <p>Ajouter un entrainement</p>
+                            <FontAwesomeIcon icon={faPlusCircle} color="black"></FontAwesomeIcon>
+                        </Link>
+                    </DivButton>
 
-            <TrainingContainer>
-                <thead>
-                    <HeaderTable>
-                        <Th>Nom</Th>
-                        <Th>Distance</Th>
-                        <Th>Temps</Th>
-                        <Th>Commentaires</Th>
-                        <Th>Lieu</Th>
-                    </HeaderTable>
-                </thead>
-                <tbody>
-                    {data?.error ? (
-                        <tr>
-                            <td>{data.error.message}</td>
-                        </tr>
-                    ) : (
-                        currentTableData.map((training) => {
-                            return (
-                                <FieldTraining
-                                    training={training}
-                                    key={training.idTraining}
-                                    deleteTraining={confirmDeleteTraining}
-                                />
-                            );
-                        })
-                    )}
-                </tbody>
-                <Tfoot>
-                    <Pagination
-                        className="pagination-bar"
-                        currentPage={currentPage}
-                        totalCount={trainingList.length}
-                        pageSize={PageSize}
-                        onPageChange={(page) => setCurrentPage(page)}
-                    />
-                </Tfoot>
-            </TrainingContainer>
+                    <TrainingContainer>
+                        <thead>
+                            <HeaderTable>
+                                <Th>Nom</Th>
+                                <Th>Distance</Th>
+                                <Th>Temps</Th>
+                                <Th>Commentaires</Th>
+                                <Th>Lieu</Th>
+                            </HeaderTable>
+                        </thead>
+                        <tbody>
+                            {currentTableData.map((training) => {
+                                return (
+                                    <FieldTraining
+                                        training={training}
+                                        key={training.idTraining}
+                                        deleteTraining={confirmDeleteTraining}
+                                    />
+                                );
+                            })}
+                        </tbody>
+                        <Tfoot>
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={currentPage}
+                                totalCount={trainingList ? trainingList.length : 0}
+                                pageSize={PageSize}
+                                onPageChange={(page) => setCurrentPage(page)}
+                            />
+                        </Tfoot>
+                    </TrainingContainer>
+                </>
+            )}
         </>
     );
 };
@@ -149,4 +154,12 @@ const DivButton = styled.div`
             margin-right: 0.5rem;
         }
     }
+`;
+
+const H3Error = styled.h3`
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
 `;

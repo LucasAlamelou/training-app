@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS training
     along TIME NULL,
     city varchar(100) NULL,
     country varchar(100) NULL,
+    date DATE NOT NULL,
     idTypeOfTraining INT NOT NULL,
     idMember INT,
     PRIMARY KEY (id),

@@ -44,3 +44,9 @@ CHANGE id idMetricTraining INT NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE metricOptionalTraining
 CHANGE id idMetricOptionalTraining INT NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE training
+ADD date DATE;
+
+ALTER TABLE training
+MODIFY date DATE NOT NULL;
