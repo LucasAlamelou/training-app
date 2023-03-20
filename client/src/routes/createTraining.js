@@ -11,6 +11,9 @@ export async function loader({ request }) {
     if (response.error) {
         return null;
     }
+    if (!response.info) {
+        return null;
+    }
     return response.info;
 }
 

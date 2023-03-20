@@ -82,7 +82,6 @@ export const validateForm = (donnesForm) => {
 };
 
 export const validateFormTraining = (donnesForm) => {
-    console.log(donnesForm);
     const {
         name,
         idTypeOfTraining,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { redirect } from 'react-router-dom';
 import { Form } from '../components/Form.js';
 import { ActionFormLoginRegister } from '../util/ActionForm.js';
 
@@ -12,7 +11,15 @@ export async function action({ param, request }) {
     let formData = await request.formData();
     const result = await ActionFormLoginRegister(formData, 'login', 'post');
     if (result.token && result.id) {
-        return redirect('/home');
+        /*dispatch(
+            authActions.addUserConnected({
+                isConnected: true,
+                user: result.id,
+                token: result.token,
+            })
+        );*/
+
+        return result;
     }
     return result;
 }

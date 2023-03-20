@@ -192,7 +192,6 @@ export async function deleteTrainingComplet(req, res, next) {
             return null;
         }
         const resultTraining = await deleteTrainingById(idTraining);
-        console.log(resultTraining);
         const infoDeleted = {
             affectedRows: resultTraining.affectedRows,
             message: 'Les données ont bien été supprimées',

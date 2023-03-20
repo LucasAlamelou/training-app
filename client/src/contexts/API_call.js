@@ -50,6 +50,7 @@ const feetchAxios = async (url, method, data) => {
 };
 
 const headers = {
+    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     Authorization: window.localStorage.getItem('Application_Training_Token'),
 };

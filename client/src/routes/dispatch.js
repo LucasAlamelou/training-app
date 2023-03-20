@@ -17,21 +17,21 @@ import {
 
 const router = createBrowserRouter([
     {
+        path: 'login',
+        element: <Login />,
+        loader: loginLoader,
+        action: loginAction,
+    },
+    {
+        path: 'register',
+        element: <Register />,
+        loader: registerLoader,
+        action: registerAction,
+    },
+    {
         path: '/',
         element: <Root />,
         children: [
-            {
-                path: 'login',
-                element: <Login />,
-                loader: loginLoader,
-                action: loginAction,
-            },
-            {
-                path: 'register',
-                element: <Register />,
-                loader: registerLoader,
-                action: registerAction,
-            },
             {
                 path: '/my-training/new',
                 element: <CreateTraining />,

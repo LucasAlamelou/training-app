@@ -26,9 +26,6 @@ export const ActionFormLoginRegister = async (formData, url, method) => {
         errors = response;
         return errors;
     }
-    window.localStorage.setItem('Application_Training_Token', response.info.token);
-    window.localStorage.setItem('Application_Training_User', response.info.id);
-    // Set l'utilisateur connecté pour tout l'application
     return response.info;
 };
 

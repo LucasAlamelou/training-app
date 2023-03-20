@@ -1,28 +1,45 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { authActions } from '../store/index.js';
 
 export function Header() {
+    const isToken = useSelector((state) => state.user.token);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
+
+    const logoutUserAndRedirect = () => {
+        dispatch(authActions.removeUserConnected({}));
+        return Navigate('/');
+    };
     return (
         <>
             <DivHeader>
                 <H2>Mes entrainements</H2>
                 <Ul>
                     <Item path={'/home'} name={'Acceuil'} />
-                    <Item path={'/login'} name={'Connexion'} />
-                    <Item path={'/register'} name={'Inscription'} />
-                    <Item path={'/my-training'} name={'Mes entrainements'} />
-                    <Item path={'/my-training/new'} name={'Ajouter un entrainement'} />
+                    {!isToken ? <Item path={'/login'} name={'Connexion'} /> : null}
+                    {!isToken ? <Item path={'/register'} name={'Inscription'} /> : null}
+                    {!user.token && !user.isConnected ? null : (
+                        <>
+                            <Item path={'/my-training'} name={'Mes entrainements'} />
+                            <Item path={'/my-training/new'} name={'Ajouter un entrainement'} />
+                        </>
+                    )}
+                    {isToken ? <Item name={'Déconnexion'} onClick={logoutUserAndRedirect} /> : null}
                 </Ul>
             </DivHeader>
         </>
     );
 }
 
-const Item = ({ path, name }) => {
+const Item = ({ path, name, onClick }) => {
     return (
         <Li>
-            <Link to={path}>{name}</Link>
+            <Link to={path} onClick={onClick}>
+                {name}
+            </Link>
         </Li>
     );
 };

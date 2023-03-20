@@ -1,11 +1,37 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { Link, Navigate, useActionData } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { FormLogin } from './FormLogin.js';
 import { FormRegister } from './FormRegister.js';
+import { authActions } from '../store/user-slice.js';
 
 export const Form = ({ pageLogin }) => {
     const [isLoginPage] = useState(pageLogin);
+    const dispatch = useDispatch();
+    const dataAuthResult = useActionData();
+    const user = useSelector((state) => state.user);
+    if (dataAuthResult?.token && dataAuthResult?.id) {
+        dispatch(
+            authActions.addUserConnected({
+                isConnected: true,
+                user: dataAuthResult.id,
+                token: dataAuthResult.token,
+            })
+        );
+        Swal.fire({
+            icon: 'success',
+            title: 'Connexion réussie',
+            showConfirmButton: false,
+            timer: 1500,
+        });
+        if (user.token && user.isConnected) {
+            return <Navigate to="/my-training" replace={false} />;
+        }
+        return <Navigate to="/home" replace={false} />;
+    }
+
     return (
         <>
             <DivForm isLoginPage={isLoginPage}>

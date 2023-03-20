@@ -32,11 +32,12 @@ export const FieldSelect = ({ id, name, value, setValue, label, type, required, 
                 }}
                 required={required}
             >
-                {listOptions.map((option) => (
-                    <option key={option.id} value={option.id}>
-                        {option.nameSport}
-                    </option>
-                ))}
+                {listOptions &&
+                    listOptions.map((option) => (
+                        <option key={option.id} value={option.id}>
+                            {option.nameSport}
+                        </option>
+                    ))}
             </Select>
         </DivChamp>
     );

@@ -2,14 +2,17 @@ import React from 'react';
 import { Header } from '../components/Header.js';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+import { PrivateRoute } from '../components/PrivateRoutes.js';
 
 export const Root = () => {
     return (
         <>
-            <Header />
-            <Div>
-                <Outlet />
-            </Div>
+            <PrivateRoute>
+                <Header />
+                <Div>
+                    <Outlet />
+                </Div>
+            </PrivateRoute>
         </>
     );
 };

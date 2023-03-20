@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import { Link, useActionData, useLoaderData, useSubmit } from 'react-router-dom';
+import { Link, useLoaderData, useSubmit } from 'react-router-dom';
 import { FieldTraining } from '../components/FieldTraining.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -12,10 +12,12 @@ const PageSize = 5;
 export const AllTraining = () => {
     let submit = useSubmit();
     const data = useLoaderData();
-    const dataAction = useActionData();
     const [currentPage, setCurrentPage] = useState(1);
     const trainingList = data?.data;
 
+    if (data?.error) {
+        Swal.fire('Erreur!', 'Lors de la récupération des entrainements..', 'error');
+    }
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
