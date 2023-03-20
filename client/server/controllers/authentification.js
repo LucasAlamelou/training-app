@@ -23,7 +23,7 @@ export async function loginController(req, res, next) {
         const result = decryptPassword(salt, hash, password);
         if (result) {
             const token = generateAccessToken({ email, password: hash, salt });
-            res.json({ info: { token, id: user.id } }).status(200);
+            res.json({ info: { token, id: user.userId, idMember: user.id } }).status(200);
         } else {
             res.json({ error: { message: 'Mot de passe invalide' }, info: null }).status(401);
         }

@@ -36,7 +36,10 @@ export async function getUserById(idUser) {
  * @returns {object} user
  */
 export async function getUserByEmail(emailUser) {
-    const [result] = await pool.query('SELECT * FROM user WHERE user.email = ?', [emailUser]);
+    const [result] = await pool.query(
+        'SELECT * FROM user INNER JOIN member ON member.userId = user.id WHERE user.email = ?',
+        [emailUser]
+    );
     return result[0];
 }
 

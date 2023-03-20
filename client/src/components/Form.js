@@ -17,6 +17,7 @@ export const Form = ({ pageLogin }) => {
             authActions.addUserConnected({
                 isConnected: true,
                 user: dataAuthResult.id,
+                member: dataAuthResult.idMember,
                 token: dataAuthResult.token,
             })
         );
