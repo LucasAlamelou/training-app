@@ -22,10 +22,11 @@ export const AllTraining = ({ isUniqueTraining }) => {
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
-        if (trainingList.length > 0) {
+        if (trainingList?.length > 0) {
             return trainingList.slice(firstPageIndex, lastPageIndex);
         }
         return [];
+        // eslint-disable-next-line
     }, [currentPage]);
 
     const confirmDeleteTraining = (training) => {

@@ -15,6 +15,7 @@ import {
     action as myTrainingAction,
 } from './myTraining.js';
 import { ShowTraining, loader as trainingLoader } from './showTraining.js';
+import { Membre, loader as membreLoader } from './member.js';
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
                 path: 'training/:idTraining',
                 element: <ShowTraining />,
                 loader: trainingLoader,
+            },
+            {
+                path: 'membre/:idMembre',
+                element: <Membre />,
+                loader: membreLoader,
             },
         ],
     },

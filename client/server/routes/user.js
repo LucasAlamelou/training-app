@@ -8,6 +8,7 @@ import {
     updateHealthMemberController,
     updatePerformanceMemberController,
     deleteUserController,
+    getMemberController,
 } from '../controllers/user.js';
 
 const router = Router();
@@ -26,4 +27,7 @@ export function userRoute(app) {
 
     // Delete user
     app.delete('/api/deleteUser', deleteUserController);
+
+    // Get user/ member/ healthMember/ performanceMember
+    app.get('/api/getMember', getMemberController);
 }

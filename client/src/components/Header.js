@@ -27,6 +27,7 @@ export function Header() {
                             <Item path={'/my-training/new'} name={'Ajouter un entrainement'} />
                         </>
                     )}
+                    <Item path={`/membre/${user.member}`} name={'Mon profil'} />
                     {isToken ? <Item name={'Déconnexion'} onClick={logoutUserAndRedirect} /> : null}
                 </Ul>
             </DivHeader>

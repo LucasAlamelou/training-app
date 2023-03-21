@@ -11,7 +11,11 @@ import {
     updatePerformanceMemberByIdMember,
 } from '../database/update-on-data-base.js';
 import { deleteUserById } from '../database/delete-on-data-base.js';
-import { getUserById, getMemberById } from '../database/connection-data-base.js';
+import {
+    getUserById,
+    getMemberById,
+    getMemberCompletById,
+} from '../database/connection-data-base.js';
 import { generateAccessToken } from '../util/generateToken.js';
 
 /**
@@ -291,3 +295,26 @@ export async function deleteUserController(req, res, next) {
         res.json({ error: { message: error.message } }).status(500);
     }
 }
+
+/**
+ * Récupère les informations du membre en fonction de son id de membre
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
+export const getMemberController = async (req, res, next) => {
+    try {
+        const { idMember } = req.query;
+        console.log(idMember);
+        const member = await getMemberCompletById(idMember);
+        if (!member) {
+            res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
+            return;
+        }
+        res.json({ info: { member }, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        res.json({ error: { message: error.message } }).status(500);
+    }
+};

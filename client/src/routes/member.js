@@ -1,24 +1,25 @@
 import React from 'react';
-import { AllTraining } from '../pages/AllTraining.js';
+import { MemberPage } from '../pages/MemberPage.js';
 import { getLoader } from '../util/Loader.js';
 
 export async function loader({ params }) {
-    const url = 'getTrainingById';
+    const url = 'getMember';
     const method = 'GET';
     const param = {
-        idTraining: params.idTraining,
+        idMember: params.idMembre,
     };
     const result = await getLoader(url, method, param);
+    console.log(result);
     if (!result.info) {
         return result;
     }
     return result.info;
 }
 
-export const ShowTraining = () => {
+export const Membre = () => {
     return (
         <>
-            <AllTraining isUniqueTraining={true} />
+            <MemberPage />
         </>
     );
 };

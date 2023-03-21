@@ -67,7 +67,7 @@ export async function getMemberById(idMember) {
  */
 export async function getMemberCompletById(idMember) {
     const [result] = await pool.query(
-        'SELECT * FROM member m INNER JOIN performanceMember pm ON pm.memberId = m.id INNER JOIN healthMember hm ON hm.memberId = m.id WHERE m.id = ? ',
+        'SELECT * FROM member m LEFT JOIN performanceMember pm ON m.id = pm.memberId LEFT JOIN healthMember hm ON m.id = hm.memberId WHERE m.id = ? ',
         [idMember]
     );
     return result[0];
