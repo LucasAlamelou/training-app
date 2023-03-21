@@ -14,6 +14,7 @@ import {
     loader as myTrainingLoader,
     action as myTrainingAction,
 } from './myTraining.js';
+import { ShowTraining, loader as trainingLoader } from './showTraining.js';
 
 const router = createBrowserRouter([
     {
@@ -43,10 +44,15 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: 'my-training',
+                path: 'my-training/',
                 element: <MyTraining />,
                 loader: myTrainingLoader,
                 action: myTrainingAction,
+            },
+            {
+                path: 'training/:idTraining',
+                element: <ShowTraining />,
+                loader: trainingLoader,
             },
         ],
     },

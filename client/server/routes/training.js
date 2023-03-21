@@ -5,6 +5,7 @@ import {
     deleteTrainingComplet,
     getAllTrainingController,
     getAllTypeOfTrainingController,
+    getTrainingByIdController,
 } from '../controllers/training.js';
 
 const router = Router();
@@ -15,4 +16,5 @@ export function trainingRoute(app) {
     app.delete('/api/deleteTraining', deleteTrainingComplet);
     app.post('/api/getAllTraining', getAllTrainingController);
     app.get('/api/getAllTypeOfTraining', getAllTypeOfTrainingController);
+    app.get('/api/getTrainingById', getTrainingByIdController);
 }

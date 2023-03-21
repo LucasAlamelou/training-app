@@ -16,6 +16,7 @@ import {
     getMemberByEmail,
     getAllDataTrainingByMemberId,
     getAllTypeOfTraining,
+    getTrainingCompletById,
 } from '../database/connection-data-base.js';
 
 /**
@@ -233,6 +234,21 @@ export async function getAllTrainingController(req, res, next) {
 export async function getAllTypeOfTrainingController(req, res, next) {
     try {
         const result = await getAllTypeOfTraining();
+        if (!result) {
+            res.json({ info: null, error: { message: 'Aucune donnée trouvée.' } }).status(404);
+            return null;
+        }
+        res.json({ info: { data: result }, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        res.json({ error: { message: error.message } }).status(500);
+    }
+}
+
+export async function getTrainingByIdController(req, res, next) {
+    const { idTraining } = req.query;
+    try {
+        const result = await getTrainingCompletById(idTraining);
         if (!result) {
             res.json({ info: null, error: { message: 'Aucune donnée trouvée.' } }).status(404);
             return null;

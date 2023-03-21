@@ -110,6 +110,18 @@ export async function getTrainingById(idTraining) {
 }
 
 /**
+ * Requete pour récupèrer le training complet par id
+ * @param {Number} idTraining
+ * @returns {Array} row training complet
+ */
+export async function getTrainingCompletById(idTraining) {
+    const [result] = await pool.query(
+        'SELECT * FROM training t LEFT JOIN typeOfTraining tp ON tp.id = t.idTypeOfTraining LEFT JOIN metricTraining mt ON mt.idTraining = t.id LEFT JOIN metricHealthTraining mht ON mht.idTraining = t.id LEFT JOIN metricOptionalTraining mot ON mot.idTraining = t.id WHERE t.id = ? ',
+        [idTraining]
+    );
+    return result[0];
+}
+/**
  * Requete pour récupèrer la liste des types d'entrainement
  * @returns {Array} row typeOfTraining
  */

@@ -6,8 +6,11 @@ import Swal from 'sweetalert2';
 
 export async function loader({ request }) {
     const url = 'getAllTraining';
-    const method = 'post';
-    const result = await getLoader(url, method);
+    const method = 'POST';
+    const param = {
+        idMember: window.localStorage.getItem('Application_Training_Member'),
+    };
+    const result = await getLoader(url, method, param);
     if (!result.info) {
         return result;
     }
@@ -27,7 +30,7 @@ export async function action({ param, request }) {
 export const MyTraining = () => {
     return (
         <>
-            <AllTraining />
+            <AllTraining isUniqueTraining={false} />
         </>
     );
 };

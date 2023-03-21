@@ -51,7 +51,7 @@ export const ActionFormTraining = async (formData, url, method) => {
     if (Object.keys(errors).length) {
         return errors;
     }
-    donnesForm.idMember = 8; // TODO: récupérer l'id de l'utilisateur connecté
+    donnesForm.idMember = window.localStorage.getItem('Application_Training_Member');
     // intern API call
     const response = await API_call(url, method, donnesForm);
     if (response.error) {

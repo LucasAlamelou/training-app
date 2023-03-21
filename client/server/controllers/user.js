@@ -260,7 +260,6 @@ export async function deleteUserController(req, res, next) {
     const { idMember } = req.body;
     try {
         const member = await getMemberById(idMember);
-        console.log(member);
         if (!member) {
             res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
             return;

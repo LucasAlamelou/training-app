@@ -6,10 +6,11 @@ import { FieldTraining } from '../components/FieldTraining.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from '../components/Pagination.js';
+import { DisplayOneTraining } from '../components/DisplayOneTraining.js';
 
 const PageSize = 5;
 
-export const AllTraining = () => {
+export const AllTraining = ({ isUniqueTraining }) => {
     let submit = useSubmit();
     const data = useLoaderData();
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ export const AllTraining = () => {
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
-        if (trainingList) {
+        if (trainingList.length > 0) {
             return trainingList.slice(firstPageIndex, lastPageIndex);
         }
         return [];
@@ -52,7 +53,9 @@ export const AllTraining = () => {
 
     return (
         <>
-            {data?.error ? (
+            {isUniqueTraining ? (
+                <DisplayOneTraining deleteTraining={confirmDeleteTraining} />
+            ) : data?.error ? (
                 <H3Error style={{ color: 'red' }}>
                     {data.error.message}... rien à afficher veuillez vous reconnectez.
                 </H3Error>

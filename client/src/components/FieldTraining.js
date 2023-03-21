@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faPenSquare } from '@fortawesome/free-solid-svg-icons';
+import { ButtonTrainning } from './ButtonTraining.js';
 
 export const FieldTraining = ({ training, deleteTraining }) => {
     return (
@@ -13,17 +11,11 @@ export const FieldTraining = ({ training, deleteTraining }) => {
                 <Element>{training.along}</Element>
                 <Element>{training.note}</Element>
                 <Element>{training.city}</Element>
-                <Button>
-                    <Link to={`/training/${training._id}`}>
-                        <FontAwesomeIcon icon={faPlus} color="black" />
-                    </Link>
-                    <Link to={`/training/${training._id}`}>
-                        <FontAwesomeIcon icon={faPenSquare} color="blue" />
-                    </Link>
-                    <ButtonDelete type="button" onClick={() => deleteTraining(training)}>
-                        <FontAwesomeIcon icon={faTrash} color="red" />
-                    </ButtonDelete>
-                </Button>
+                <ButtonTrainning
+                    idTraining={training.idTraining}
+                    functionClick={deleteTraining}
+                    uniqueTraining={false}
+                />
             </Training>
         </>
     );
