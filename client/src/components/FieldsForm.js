@@ -18,7 +18,16 @@ export const Field = ({ id, name, value, setValue, label, type, required, placeH
     );
 };
 
-export const FieldSelect = ({ id, name, value, setValue, label, type, required, listOptions }) => {
+export const FieldSelect = ({
+    id,
+    name,
+    value,
+    setValue,
+    label,
+    type = 'select',
+    required,
+    listOptions,
+}) => {
     return (
         <DivChamp>
             <LabelInput htmlFor={id}>{label}</LabelInput>
@@ -35,7 +44,7 @@ export const FieldSelect = ({ id, name, value, setValue, label, type, required, 
                 {listOptions &&
                     listOptions.map((option) => (
                         <option key={option.id} value={option.id}>
-                            {option.nameSport}
+                            {option.nameSport ? option.nameSport : option.name}
                         </option>
                     ))}
             </Select>

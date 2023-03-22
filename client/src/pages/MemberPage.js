@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import { Navigate, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { MemberInfo } from '../components/MemberInfo.js';
 import { ButtonMember } from '../components/ButtonMember.js';
 import { faHeartbeat, faRunning, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -21,11 +21,11 @@ export const MemberPage = () => {
         Swal.fire({
             icon: 'error',
             title: 'Erreur',
-            text: "Une erreur est survenu lors de la récupération des données, vous allez etre redirigé vers la page d'accueil",
+            text: 'Une erreur est survenu lors de la récupération des données...',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
         });
-        return <Navigate to="/home" replace={false} />;
+        //return <Navigate to="/home" replace={false} />;
     }
     const onClickRenderView = (e) => {
         switch (e.target.name) {

@@ -33,35 +33,39 @@ export const Pagination = ({
     //let lastPage = paginationRange[paginationRange.length - 1];
     return (
         <PaginationContainer>
-            <PaginationItem onClick={onPrevious}>
+            <PaginationItem onClick={onPrevious} key={`pagination-previous`}>
                 <FontAwesomeIcon icon={faArrowLeft} />
             </PaginationItem>
             {paginationRange.map((pageNumber) => {
                 if (pageNumber === DOTS) {
-                    return <PaginationItem>&#8230;</PaginationItem>;
+                    return <PaginationItem key={`pagination-dots}`}>&#8230;</PaginationItem>;
                 }
 
                 return (
-                    <PaginationItem onClick={() => onPageChange(pageNumber)}>
+                    <PaginationItem
+                        onClick={() => onPageChange(pageNumber)}
+                        key={`pagination-${pageNumber}`}
+                    >
                         {pageNumber}
                     </PaginationItem>
                 );
             })}
-            <PaginationItem onClick={onNext}>
+            <PaginationItem onClick={onNext} key={`pagination-next`}>
                 <FontAwesomeIcon icon={faArrowRight} />
             </PaginationItem>
         </PaginationContainer>
     );
 };
 
-const PaginationContainer = styled.ul`
+const PaginationContainer = styled.tr`
     display: flex;
     justify-content: center;
     list-style-type: none;
     cursor: pointer;
+    padding: 1rem;
 `;
 
-const PaginationItem = styled.li`
+const PaginationItem = styled.td`
     padding: 0 12px;
     height: 32px;
     text-align: center;

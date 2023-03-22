@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from '../components/Pagination.js';
 import { DisplayOneTraining } from '../components/DisplayOneTraining.js';
+import { ButtonMember } from '../components/ButtonMember.js';
+import { faPersonRunning, faChartSimple } from '@fortawesome/free-solid-svg-icons';
+import { FilterRecap } from '../components/FilterRecap.jsx';
 
 const PageSize = 5;
 
@@ -14,10 +17,18 @@ export const AllTraining = ({ isUniqueTraining }) => {
     let submit = useSubmit();
     const data = useLoaderData();
     const [currentPage, setCurrentPage] = useState(1);
+    const [viewTraining, setViewTraining] = useState(true);
     const trainingList = data?.data;
 
     if (data?.error) {
-        Swal.fire('Erreur!', 'Lors de la récupération des entrainements..', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenu lors de la récupération des données...',
+            showConfirmButton: false,
+            timer: 2000,
+        });
+        //return <Navigate to="/login" replace={false} />;
     }
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
@@ -26,8 +37,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
             return trainingList.slice(firstPageIndex, lastPageIndex);
         }
         return [];
-        // eslint-disable-next-line
-    }, [currentPage]);
+    }, [currentPage, trainingList]);
 
     const confirmDeleteTraining = (training) => {
         Swal.fire({
@@ -52,6 +62,10 @@ export const AllTraining = ({ isUniqueTraining }) => {
         });
     };
 
+    const changeView = (e) => {
+        setViewTraining(!viewTraining);
+    };
+
     return (
         <>
             {isUniqueTraining ? (
@@ -63,6 +77,20 @@ export const AllTraining = ({ isUniqueTraining }) => {
             ) : (
                 <>
                     <H2>Mes entrainements</H2>
+                    <DivButton center={true}>
+                        <ButtonMember
+                            label="Entrainements"
+                            functionClick={changeView}
+                            favicon={faPersonRunning}
+                            isActive={viewTraining}
+                        />
+                        <ButtonMember
+                            label="Statistiques"
+                            functionClick={changeView}
+                            favicon={faChartSimple}
+                            isActive={!viewTraining}
+                        />
+                    </DivButton>
                     <DivButton>
                         <Link to="/my-training/new" style={{ color: 'black' }}>
                             <p>Ajouter un entrainement</p>
@@ -70,37 +98,48 @@ export const AllTraining = ({ isUniqueTraining }) => {
                         </Link>
                     </DivButton>
 
-                    <TrainingContainer>
-                        <thead>
-                            <HeaderTable>
-                                <Th>Nom</Th>
-                                <Th>Distance</Th>
-                                <Th>Temps</Th>
-                                <Th>Commentaires</Th>
-                                <Th>Lieu</Th>
-                            </HeaderTable>
-                        </thead>
-                        <tbody>
-                            {currentTableData.map((training) => {
-                                return (
-                                    <FieldTraining
-                                        training={training}
-                                        key={training.idTraining}
-                                        deleteTraining={confirmDeleteTraining}
-                                    />
-                                );
-                            })}
-                        </tbody>
-                        <Tfoot>
-                            <Pagination
-                                className="pagination-bar"
-                                currentPage={currentPage}
-                                totalCount={trainingList ? trainingList.length : 0}
-                                pageSize={PageSize}
-                                onPageChange={(page) => setCurrentPage(page)}
-                            />
-                        </Tfoot>
-                    </TrainingContainer>
+                    {viewTraining ? (
+                        <TrainingContainer>
+                            <thead>
+                                <HeaderTable>
+                                    <Th>Nom</Th>
+                                    <Th>Distance</Th>
+                                    <Th>Temps</Th>
+                                    <Th>Commentaires</Th>
+                                    <Th>Lieu</Th>
+                                </HeaderTable>
+                            </thead>
+                            <tbody>
+                                {currentTableData.map((training) => {
+                                    return (
+                                        <FieldTraining
+                                            training={training}
+                                            key={
+                                                training.idTraining === null
+                                                    ? training.id
+                                                    : training.idTraining
+                                            }
+                                            deleteTraining={confirmDeleteTraining}
+                                        />
+                                    );
+                                })}
+                            </tbody>
+                            <Tfoot>
+                                <Pagination
+                                    className="pagination-bar"
+                                    currentPage={currentPage}
+                                    totalCount={trainingList ? trainingList.length : 0}
+                                    pageSize={PageSize}
+                                    onPageChange={(page) => setCurrentPage(page)}
+                                    key={'pagination-bar'}
+                                />
+                            </Tfoot>
+                        </TrainingContainer>
+                    ) : (
+                        <>
+                            <FilterRecap />
+                        </>
+                    )}
                 </>
             )}
         </>
@@ -148,7 +187,7 @@ const Th = styled.th`
 
 const DivButton = styled.div`
     display: flex;
-    justify-content: end;
+    justify-content: ${(props) => (props.center ? 'center' : 'flex-end')};
     align-items: center;
     > a {
         display: flex;

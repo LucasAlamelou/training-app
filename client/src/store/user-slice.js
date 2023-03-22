@@ -11,10 +11,13 @@ export const usersReducer = slice.reducer;
 
 // implementation
 function createInitialState() {
+    const user = localStorage.getItem('Application_Training_User');
+    const member = localStorage.getItem('Application_Training_Member');
+    const token = localStorage.getItem('Application_Training_Token');
     return {
         user: localStorage.getItem('Application_Training_User'),
         member: localStorage.getItem('Application_Training_Member'),
-        isConnected: false,
+        isConnected: user === null && token === null && member === null ? false : true,
         token: localStorage.getItem('Application_Training_Token'),
     };
 }
