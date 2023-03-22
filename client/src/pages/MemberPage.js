@@ -91,19 +91,19 @@ export const MemberPage = () => {
             )}
             {viewHealth && (
                 <DivMember>
-                    <MemberInfo label="Poids (en kg)" data={member.weight} />
-                    <MemberInfo label="Taille (en cm)" data={member.height} />
+                    <MemberInfo label="Poids (en kg)" data={member.weight + ' kg'} />
+                    <MemberInfo label="Taille (en cm)" data={member.height + ' cm'} />
                     <MemberInfo label="Heure de sommeil" data={member.hourSleep} />
-                    <MemberInfo label="Fc repos" data={member.fcRest} />
-                    <MemberInfo label="Fc max" data={member.fcMax} />
+                    <MemberInfo label="Fc repos" data={member.fcRest + ' bpm'} />
+                    <MemberInfo label="Fc max" data={member.fcMax + ' bpm'} />
                 </DivMember>
             )}
             {viewPerformance && (
                 <DivMember>
-                    <MemberInfo label="VO2max" data={member.vo2max} />
-                    <MemberInfo label="Seuil lactique(Bpm)" data={member.seuilLactateFc} />
+                    <MemberInfo label="VO2max" data={member.vo2max + ' ml/kg/min'} />
+                    <MemberInfo label="Seuil lactique(Bpm)" data={member.seuilLactateFC + ' bpm'} />
                     <MemberInfo label="Seuil lactique (min/km)" data={member.seuilLactate} />
-                    <MemberInfo label="VMA" data={member.vma} />
+                    <MemberInfo label="VMA" data={member.vma + ' km/h'} />
                 </DivMember>
             )}
         </>
