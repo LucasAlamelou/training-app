@@ -129,3 +129,23 @@ export async function getAllTypeOfTraining() {
     const [result] = await pool.query('SELECT * FROM typeOfTraining');
     return result;
 }
+
+/**
+ * Requete pour récupèrer les users
+ * @returns {Array} row user [id, email, roles]
+ */
+export async function getUsers() {
+    const [result] = await pool.query('SELECT id, email, roles FROM user');
+    return result;
+}
+
+/**
+ * Requete pour récupèrer les membres
+ * @returns {Array} row member [id, userId, firstName, lastName, dateOfBirth]
+ */
+export async function getMembers() {
+    const [result] = await pool.query(
+        'SELECT id, userId, firstName, lastName, dateOfBirth, favoriteSport FROM member m LEFT JOIN performanceMember pm ON pm.memberId = m.id'
+    );
+    return result;
+}

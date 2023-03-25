@@ -44,6 +44,29 @@ app.use(cookieParser());
 app.use(express.static('public'));
 app.use(getRoleMiddleware);
 
+app.all('/api/admin/*', function (req, res, next) {
+    const ROLES = 'ROLE_ADMIN';
+    const userConnected = req.user.roles;
+    if (userConnected.includes(ROLES)) {
+        console.debug('admin');
+        next();
+    } else {
+        console.debug('not admin');
+        res.sendStatus(403);
+    }
+});
+app.all('/api/*', function (req, res, next) {
+    const ROLES = 'ROLE_USER';
+    const userConnected = req.user.roles;
+    if (userConnected.includes(ROLES)) {
+        next();
+    } else if (userConnected.includes('ROLE_ADMIN')) {
+        next();
+    } else {
+        console.error('not user');
+        res.sendStatus(403);
+    }
+});
 routes(app);
 app.all('/*', function (req, res, next) {
     res.sendStatus(404);

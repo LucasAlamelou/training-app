@@ -57,3 +57,9 @@ SELECT * FROM training t
     LEFT JOIN metricHealthTraining mht ON mht.idTraining = t.id
     LEFT JOIN metricOptionalTraining mot ON mot.idTraining = t.id
          WHERE t.idMember = 8 ORDER BY t.date DESC ;
+
+ALTER TABLE user
+ADD roles json NOT NULL;
+
+UPDATE user SET roles ='["ROLE_ADMIN", "ROLE_USER"]' where user.id = 21;
+UPDATE user SET roles ='["ROLE_ADMIN"]' where user.id = 1;

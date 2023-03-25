@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS user
     email varchar(200) NOT NULL,
     hash varchar(200) NOT NULL,
     salt varchar(200) NOT NULL,
+    roles json NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (email)
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
