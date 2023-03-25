@@ -24,19 +24,21 @@ export const ButtonTrainning = ({ idTraining, functionClick, uniqueTraining }) =
 };
 
 const Button = styled.td`
+    width: 15%;
     padding: 0.5rem;
     border-left: ${(props) => (props.uniqueTraining ? '1px solid #000' : null)};
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
-    align-items: end;
+    text-align: end;
 
     > a {
+        margin-left: 0.5rem;
         border-radius: 70%;
         margin-right: 0.5rem;
             
         > svg {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.3rem;
+            height: 1.3rem;
             }
             :hover {
                 animation: pulse 1s infinite;
@@ -45,8 +47,8 @@ const Button = styled.td`
     > button {
         border-radius: 70%;
          > svg {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
         }
         :hover {
             animation: pulse 1s infinite;

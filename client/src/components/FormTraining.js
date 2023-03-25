@@ -12,6 +12,7 @@ export const FormTraining = () => {
     const [idTypeOfTraining, setIdTypeOfTraining] = useState(0);
     const [name, setName] = useState('');
     const [along, setAlong] = useState('');
+    const [date, setDate] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
     const [note, setNote] = useState('');
@@ -34,17 +35,29 @@ export const FormTraining = () => {
     return (
         <>
             <Form method="post">
-                <FieldSelect
-                    type={'select'}
-                    label={'Type de séance'}
-                    name={'idTypeOfTraining'}
-                    id={'idTypeOfTraining-id'}
-                    value={idTypeOfTraining}
-                    required={true}
-                    setValue={setIdTypeOfTraining}
-                    listOptions={trainingList}
-                />
+                <DivDouble>
+                    <FieldSelect
+                        type={'select'}
+                        label={'Type de séance'}
+                        name={'idTypeOfTraining'}
+                        id={'idTypeOfTraining-id'}
+                        value={idTypeOfTraining}
+                        required={true}
+                        setValue={setIdTypeOfTraining}
+                        listOptions={trainingList}
+                    />
+                    <Field
+                        label={'Date de la séance'}
+                        type={'date'}
+                        name={'date'}
+                        id={'date-id'}
+                        value={date}
+                        setValue={setDate}
+                        required={true}
+                    />
+                </DivDouble>
                 <DivError>
+                    {errors?.date && <span>{errors.date}</span>}
                     {errors?.idTypeOfTraining && <span>{errors.idTypeOfTraining}</span>}
                 </DivError>
                 <DivDouble>

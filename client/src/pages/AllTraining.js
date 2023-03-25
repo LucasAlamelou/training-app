@@ -2,44 +2,47 @@ import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { Link, useLoaderData, useSubmit } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { trainingActions } from '../store/index.js';
 import { FieldTraining } from '../components/FieldTraining.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from '../components/Pagination.js';
 import { DisplayOneTraining } from '../components/DisplayOneTraining.js';
 import { ButtonMember } from '../components/ButtonMember.js';
 import { faPersonRunning, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import { FilterRecap } from '../components/FilterRecap.jsx';
+import { logoutUser } from '../util/LogoutUser.js';
 
 const PageSize = 5;
 
 export const AllTraining = ({ isUniqueTraining }) => {
     let submit = useSubmit();
+    const dispatch = useDispatch();
     const data = useLoaderData();
     const [currentPage, setCurrentPage] = useState(1);
     const [viewTraining, setViewTraining] = useState(true);
     const trainingList = data?.data;
+    const { trainingListState } = useSelector((state) => state.training);
 
-    if (data?.error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: 'Une erreur est survenu lors de la récupération des données...',
-            showConfirmButton: false,
-            timer: 2000,
-        });
-        //return <Navigate to="/login" replace={false} />;
+    if (data) {
+        logoutUser(data, dispatch);
+        if (trainingList?.length > 0) {
+            dispatch(trainingActions.addAllTraining({ training: trainingList }));
+        }
     }
+
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
-        if (trainingList?.length > 0) {
-            return trainingList.slice(firstPageIndex, lastPageIndex);
+        if (trainingListState?.length > 0) {
+            return trainingListState.slice(firstPageIndex, lastPageIndex);
         }
         return [];
-    }, [currentPage, trainingList]);
+    }, [currentPage, trainingListState]);
 
     const confirmDeleteTraining = (training) => {
+        let isDelete = false;
         Swal.fire({
             title: 'Vous êtes sur de vouloir supprimer?',
             text: 'Vous ne pouvez pas revenir en arrière!',
@@ -50,6 +53,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
             confirmButtonText: 'Oui, supprimez-le!',
         }).then(async (result) => {
             if (result.isConfirmed) {
+                isDelete = true;
                 submit(
                     { idTraining: training.idTraining },
                     {
@@ -60,6 +64,9 @@ export const AllTraining = ({ isUniqueTraining }) => {
                 Swal.fire('Supprimer!', 'Votre entrainement a été supprimer.', 'success');
             }
         });
+        if (isDelete) {
+            dispatch(trainingActions.removeTrainingById({ idTraining: training.idTraining }));
+        }
     };
 
     const changeView = (e) => {
@@ -71,9 +78,30 @@ export const AllTraining = ({ isUniqueTraining }) => {
             {isUniqueTraining ? (
                 <DisplayOneTraining deleteTraining={confirmDeleteTraining} />
             ) : data?.error ? (
-                <H3Error style={{ color: 'red' }}>
-                    {data.error.message}... rien à afficher veuillez vous reconnectez.
-                </H3Error>
+                <>
+                    <H3Error style={{ color: 'red' }}>
+                        {data.error.message}... rien à afficher veuillez vous reconnectez.
+                    </H3Error>
+                    <DivButton center={true}>
+                        <Link
+                            to="/login"
+                            style={{
+                                color: 'black',
+                                margin: '0 auto',
+                                height: '100%',
+                                width: '100%',
+                                hover: 'text-decoration: underline',
+                            }}
+                        >
+                            {'Se connecter'.toUpperCase()}
+                            <FontAwesomeIcon
+                                icon={faUser}
+                                color="black"
+                                style={{ marginLeft: '10px' }}
+                            />
+                        </Link>
+                    </DivButton>
+                </>
             ) : (
                 <>
                     <H2>Mes entrainements</H2>
@@ -105,8 +133,10 @@ export const AllTraining = ({ isUniqueTraining }) => {
                                     <Th>Nom</Th>
                                     <Th>Distance</Th>
                                     <Th>Temps</Th>
+                                    <Th>Date</Th>
                                     <Th>Commentaires</Th>
                                     <Th>Lieu</Th>
+                                    <Th>Actions</Th>
                                 </HeaderTable>
                             </thead>
                             <tbody>
@@ -114,11 +144,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
                                     return (
                                         <FieldTraining
                                             training={training}
-                                            key={
-                                                training.idTraining === null
-                                                    ? training.id
-                                                    : training.idTraining
-                                            }
+                                            key={training.idTraining}
                                             deleteTraining={confirmDeleteTraining}
                                         />
                                     );

@@ -134,6 +134,83 @@ export async function createPerformanceMemberController(req, res, next) {
     }
 }
 
+export async function updateMemberAllFieldController(req, res, next) {
+    const {
+        idMember,
+        firstName,
+        lastName,
+        dateOfBirth,
+        adress,
+        city,
+        zipCode,
+        country,
+        weight,
+        height,
+        hourSleep,
+        vo2max,
+        seuilLactateFC,
+        seuilLactate,
+        fcRest,
+        fcMax,
+        vma,
+        favoriteSport,
+    } = req.body;
+    try {
+        const result = await updateMemberById(
+            idMember,
+            firstName,
+            lastName,
+            dateOfBirth,
+            adress,
+            city,
+            zipCode,
+            country
+        );
+        const resultHealthMember = await updateHealthMemberByIdMember(
+            idMember,
+            weight,
+            height,
+            hourSleep
+        );
+        const resultPerformanceMember = await updatePerformanceMemberByIdMember(
+            idMember,
+            vo2max,
+            seuilLactateFC,
+            seuilLactate,
+            fcRest,
+            fcMax,
+            vma,
+            favoriteSport
+        );
+        if (
+            result.affectedRows === 0 ||
+            resultHealthMember.affectedRows === 0 ||
+            resultPerformanceMember.affectedRows === 0
+        ) {
+            res.json({ info: null, error: { message: "Le membre n'existe pas" } }).status(400);
+            return;
+        }
+        const infoChanged = {
+            changedRows:
+                result.changedRows +
+                resultHealthMember.changedRows +
+                resultPerformanceMember.changedRows,
+            message: 'Les données ont bien été modifiées.',
+        };
+        res.json({ info: { infoChanged }, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        if (error.code === 'ER_BAD_NULL_ERROR') {
+            res.json({
+                info: null,
+                error: { message: 'Un champ ne peut être null.', champ: error.sqlMessage },
+            }).status(400);
+        } else {
+            res.json({ error: { message: error.message } }).status(500);
+        }
+    }
+}
+
 /**
  * Permet de gérer la modification de la table member
  * @param {*} req

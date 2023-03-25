@@ -9,7 +9,7 @@ export function loader({ request }) {
 
 export async function action({ param, request }) {
     let formData = await request.formData();
-    const result = await ActionFormLoginRegister(formData, 'login', 'post');
+    const result = await ActionFormLoginRegister(formData, 'login', 'POST');
     if (result.token && result.id) {
         /*dispatch(
             authActions.addUserConnected({

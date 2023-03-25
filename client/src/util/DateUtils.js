@@ -53,3 +53,35 @@ export const getListDay = (month, year) => {
     }
     return listDay;
 };
+
+export const convertDateToFrenchDate = (date) => {
+    const dateForConvert = new Date(date);
+    if (dateForConvert.toString() === 'Invalid Date') {
+        return null;
+    }
+    const day = dateForConvert.getDate();
+    const month = dateForConvert.getMonth() + 1;
+    const year = dateForConvert.getFullYear();
+    const dateConverted = `${day}/${month}/${year}`;
+    return dateConverted;
+};
+
+export const convertFrenchDateToDataBase = (date) => {
+    const dateForConvert = date.split('/');
+    if (dateForConvert.length !== 3 || dateForConvert[2].length !== 4) {
+        return null;
+    }
+    const day = dateForConvert[0];
+    const month = dateForConvert[1];
+    const year = dateForConvert[2];
+    const dateConverted = `${year}-${month}-${day}`;
+    return dateConverted;
+};
+
+export const validateIsDate = (date) => {
+    const dateForValidate = new Date(date);
+    if (dateForValidate.toString() === 'Invalid Date') {
+        return false;
+    }
+    return true;
+};

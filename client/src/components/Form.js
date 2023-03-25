@@ -30,7 +30,6 @@ export const Form = ({ pageLogin }) => {
         if (user.token && user.isConnected) {
             return <Navigate to="/my-training" replace={false} />;
         }
-        return <Navigate to="/home" replace={false} />;
     }
 
     return (

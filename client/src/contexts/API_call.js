@@ -16,11 +16,11 @@ export const API_call = async (url, method, data) => {
 
     if (response.status > 500) {
         console.error('Erreur serveur');
-        return { error: { message: 'Erreur serveur' } };
+        return { error: { message: 'Erreur serveur', code: 500 } };
     }
     if (response.status === 401) {
         console.error("Erreur d'authentification");
-        return { error: { message: "Erreur d'authentification" } };
+        return { error: { message: "Erreur d'authentification", code: 401 } };
     }
     if (response.data) {
         return response.data;
@@ -37,14 +37,19 @@ export const API_call = async (url, method, data) => {
  */
 const feetchAxios = async (url, method, data) => {
     return await axios({
-        headers: headers,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Authorization: window.localStorage.getItem('Application_Training_Token'),
+        },
         method: method,
         url: `/api/${url}`,
         data: data,
+        /*
         validateStatus: function (status) {
             return status < 500; // la requête résout tant que le code de sa réponse est
             // inférieur à 500
-        },
+        },*/
     })
         .then((response) => {
             return response;
@@ -64,7 +69,10 @@ const feetchAxios = async (url, method, data) => {
  */
 const feetchAxiosGet = async (url, method, data) => {
     return await axios({
-        headers: headers,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            Authorization: window.localStorage.getItem('Application_Training_Token'),
+        },
         method: method,
         url: `/api/${url}`,
         params: data,
@@ -80,9 +88,4 @@ const feetchAxiosGet = async (url, method, data) => {
             console.error(error);
             return error;
         });
-};
-const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json',
-    Authorization: window.localStorage.getItem('Application_Training_Token'),
 };

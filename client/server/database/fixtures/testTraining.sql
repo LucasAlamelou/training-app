@@ -50,3 +50,10 @@ ADD date DATE;
 
 ALTER TABLE training
 MODIFY date DATE NOT NULL;
+
+SELECT * FROM training t
+    LEFT JOIN typeOfTraining tp ON tp.id = t.idTypeOfTraining
+    LEFT JOIN metricTraining mt ON mt.idTraining = t.id
+    LEFT JOIN metricHealthTraining mht ON mht.idTraining = t.id
+    LEFT JOIN metricOptionalTraining mot ON mot.idTraining = t.id
+         WHERE t.idMember = 8 ORDER BY t.date DESC ;

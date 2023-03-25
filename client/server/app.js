@@ -46,7 +46,8 @@ app.use(getRoleMiddleware);
 
 routes(app);
 app.all('/*', function (req, res, next) {
-    res.json({ info: null, error: `La route : ${req.path} non trouvé.` }).status(404);
+    res.sendStatus(404);
+    //res.json({ info: null, error: `La route : ${req.path} non trouvé.` });
 });
 
 /**

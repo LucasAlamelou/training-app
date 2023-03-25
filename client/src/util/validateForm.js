@@ -1,9 +1,14 @@
+import {
+    convertDateToFrenchDate,
+    convertFrenchDateToDataBase,
+    validateIsDate,
+} from './DateUtils.js';
+
 const LENGTH_MAX = 30;
 const LENGTH_MIN = 3;
+const LENGTH_MAX_ZIPCODE = 5;
 
 export const validateForm = (donnesForm) => {
-    const LENGTH_MAX_ZIPCODE = 5;
-
     const regexExp_EMAIL = new RegExp(
         // eslint-disable-next-line
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i
@@ -13,7 +18,7 @@ export const validateForm = (donnesForm) => {
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/
     );
 
-    const { email, password, lastName, firstName, dateOfBirth, address, city, zipCode, country } =
+    const { email, password, lastName, firstName, dateOfBirth, adress, city, zipCode, country } =
         donnesForm;
     const errors = {};
     if (
@@ -37,11 +42,21 @@ export const validateForm = (donnesForm) => {
         lastName !== undefined ||
         firstName !== undefined ||
         dateOfBirth !== undefined ||
-        address !== undefined ||
+        adress !== undefined ||
         city !== undefined ||
         zipCode !== undefined ||
         country !== undefined
     ) {
+        const errorMember = validateFormMember({
+            lastName,
+            firstName,
+            dateOfBirth,
+            adress,
+            city,
+            zipCode,
+            country,
+        });
+        /*
         if (typeof lastName !== 'string' || lastName === '' || lastName.length > LENGTH_MAX) {
             errors.lastName = 'Veuillez saisir un nom de famille !';
         }
@@ -75,9 +90,59 @@ export const validateForm = (donnesForm) => {
             country.length < LENGTH_MIN
         ) {
             errors.country = 'Veuillez saisir un pays valide!';
+        }*/
+        for (let key in errorMember) {
+            errors[key] = errorMember[key];
         }
     }
 
+    return errors;
+};
+
+export const validateFormMember = (donnesForm) => {
+    // eslint-disable-next-line
+    const regexExp_LASTNAME = new RegExp(/^[A-Z][A-Za-z\é\è\ê\-]+$/);
+    const { lastName, firstName, dateOfBirth, adress, city, zipCode, country } = donnesForm;
+    const errors = {};
+    if (
+        typeof lastName !== 'string' ||
+        lastName === '' ||
+        lastName.length > LENGTH_MAX ||
+        !regexExp_LASTNAME.test(lastName)
+    ) {
+        errors.lastName = 'Veuillez saisir un nom de famille valide !';
+    }
+    if (typeof firstName !== 'string' || firstName === '' || firstName.length > LENGTH_MAX) {
+        errors.firstName = 'Veuillez saisir un prénom valide!';
+    }
+
+    const dateOfBirthConvert = convertFrenchDateToDataBase(dateOfBirth);
+    const dateOfBirthForValidate =
+        dateOfBirthConvert !== null ? validateIsDate(dateOfBirthConvert) : false;
+
+    if (dateOfBirthForValidate === false) {
+        const dateOfBirthForValidateDataBaseToFrench = convertDateToFrenchDate(dateOfBirthConvert);
+        const dateOfBirthForValidateFrench =
+            dateOfBirthForValidateDataBaseToFrench !== null
+                ? validateIsDate(dateOfBirthForValidateDataBaseToFrench)
+                : false;
+        if (dateOfBirthForValidateFrench === false) {
+            errors.dateOfBirth = 'Veuillez saisir une date de naissance valide!';
+        }
+    }
+    if (typeof adress !== 'string' || adress.length > LENGTH_MAX || adress.length < LENGTH_MIN) {
+        errors.address = 'Veuillez saisir une adresse valide valide!';
+    }
+    if (typeof city !== 'string' || city.length > LENGTH_MAX) {
+        errors.city = 'Veuillez saisir une ville valide valide!';
+    }
+    const zipCodeForValidate = zipCode !== '' ? parseInt(zipCode) : '';
+    if (typeof zipCodeForValidate !== 'number' || zipCodeForValidate.length > LENGTH_MAX_ZIPCODE) {
+        errors.zipCode = 'Veuillez saisir un code postal valide!';
+    }
+    if (typeof country !== 'string' || country.length > LENGTH_MAX || country.length < LENGTH_MIN) {
+        errors.country = 'Veuillez saisir un pays valide!';
+    }
     return errors;
 };
 
@@ -86,6 +151,7 @@ export const validateFormTraining = (donnesForm) => {
         name,
         idTypeOfTraining,
         along,
+        date,
         city,
         country,
         note,
@@ -111,6 +177,10 @@ export const validateFormTraining = (donnesForm) => {
     const alongForValidate = along !== '' ? new Date(along) : '';
     if (typeof alongForValidate !== 'object' && along !== null) {
         errors.along = 'Veuillez saisir une durée !';
+    }
+    const dateForValidate = date !== '' ? validateIsDate(date) : '';
+    if (typeof dateForValidate !== 'object' && date === false) {
+        errors.date = 'Veuillez saisir une date !';
     }
     if ((typeof city !== 'string' || city.length > LENGTH_MAX) && city !== null) {
         errors.city = 'Veuillez saisir une ville valide !';

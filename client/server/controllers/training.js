@@ -224,6 +224,10 @@ export async function getAllTrainingController(req, res, next) {
             return null;
         }
         const result = await getAllDataTrainingByMemberId(idMember);
+        if (!result) {
+            res.json({ info: null, error: { message: 'Aucune donnée trouvée.' } }).status(404);
+            return null;
+        }
         res.json({ info: { data: result }, error: null }).status(200);
     } catch (error) {
         console.error(error);
@@ -238,6 +242,7 @@ export async function getAllTypeOfTrainingController(req, res, next) {
             res.json({ info: null, error: { message: 'Aucune donnée trouvée.' } }).status(404);
             return null;
         }
+
         res.json({ info: { data: result }, error: null }).status(200);
     } catch (error) {
         console.error(error);

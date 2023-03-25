@@ -9,7 +9,7 @@ export const FormRegister = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
-    const [address, setAddress] = useState('');
+    const [adress, setAdress] = useState('');
     const [city, setCity] = useState('');
     const [zipCode, setZipCode] = useState('');
     const [country, setCountry] = useState('');
@@ -76,12 +76,12 @@ export const FormRegister = () => {
                 <Field
                     type={'text'}
                     label={'Adresse'}
-                    name={'address'}
-                    id={'address-id'}
-                    value={address}
-                    setValue={setAddress}
+                    name={'adress'}
+                    id={'adress-id'}
+                    value={adress}
+                    setValue={setAdress}
                 />
-                <DivError>{errors?.address && <span>{errors.address}</span>}</DivError>
+                <DivError>{errors?.adress && <span>{errors.adress}</span>}</DivError>
 
                 <Field
                     type={'number'}

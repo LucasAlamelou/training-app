@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { convertDateToFrenchDate } from '../util/DateUtils.js';
 import { ButtonTrainning } from './ButtonTraining.js';
 
 export const FieldTraining = ({ training, deleteTraining }) => {
@@ -9,8 +10,9 @@ export const FieldTraining = ({ training, deleteTraining }) => {
                 <Element>{training.name}</Element>
                 <Element>{training.km === null ? 0 : training.km}</Element>
                 <Element>{training.along}</Element>
-                <Element>{training.note}</Element>
-                <Element>{training.city}</Element>
+                <Element>{convertDateToFrenchDate(training?.date)}</Element>
+                <Element>{training.note ? training.note : ''}</Element>
+                <Element>{training.city ? training.city : ''}</Element>
                 <ButtonTrainning
                     idTraining={training.idTraining}
                     functionClick={deleteTraining}
@@ -34,21 +36,4 @@ const Element = styled.td`
     padding: 1rem;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
-`;
-
-const Button = styled.td`
-    padding: 0.5rem;
-    border-bottom: 1px solid #000;
-    border-top: 1px solid #000;
-    align-items: end;
-    > a {
-        margin-right: 0.5rem;
-    }
-`;
-
-const ButtonDelete = styled.button`
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
 `;

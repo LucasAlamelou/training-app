@@ -15,10 +15,10 @@ function createInitialState() {
     const member = localStorage.getItem('Application_Training_Member');
     const token = localStorage.getItem('Application_Training_Token');
     return {
-        user: localStorage.getItem('Application_Training_User'),
-        member: localStorage.getItem('Application_Training_Member'),
+        user: user,
+        member: member,
         isConnected: user === null && token === null && member === null ? false : true,
-        token: localStorage.getItem('Application_Training_Token'),
+        token: token,
     };
 }
 
@@ -32,14 +32,13 @@ function userConnectedReducer() {
         const user = payload.user;
         const member = payload.member;
         const token = payload.token;
-        const isConnected = payload.isConnected;
         window.localStorage.setItem('Application_Training_Token', token);
         window.localStorage.setItem('Application_Training_Member', member);
         window.localStorage.setItem('Application_Training_User', user);
         state.user = user;
         state.token = token;
         state.member = member;
-        state.isConnected = isConnected;
+        state.isConnected = true;
     }
 
     function removeUserConnected(state, action) {
@@ -48,6 +47,7 @@ function userConnectedReducer() {
         window.localStorage.removeItem('Application_Training_Member');
         state.user = null;
         state.token = null;
+        state.member = null;
         state.isConnected = false;
     }
 }

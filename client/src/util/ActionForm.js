@@ -1,5 +1,6 @@
 import { API_call } from '../contexts/API_call.js';
-import { validateForm, validateFormTraining } from './validateForm.js';
+import { convertFrenchDateToDataBase } from './DateUtils.js';
+import { validateForm, validateFormTraining, validateFormMember } from './validateForm.js';
 
 /**
  * Action du formulaire Login et Register
@@ -58,6 +59,28 @@ export const ActionFormTraining = async (formData, url, method) => {
         errors = response;
         return errors;
     }
-    // Set les training présent dans le state global ? ou pas ?
     return response.info;
+};
+
+export const ActionFormMember = async (memberState, data) => {
+    const url = 'updateMemberAllField';
+    const method = 'put';
+    const member = { ...memberState, ...data };
+    if (data?.dateOfBirth) {
+        member.dateOfBirth = convertFrenchDateToDataBase(member.dateOfBirth);
+    } else {
+        const date = new Date(member.dateOfBirth);
+        member.dateOfBirth = date.toISOString().split('T')[0];
+    }
+    let errors = validateFormMember(member);
+    if (Object.keys(errors).length) {
+        return { error: errors };
+    }
+
+    console.log(member);
+    const result = await API_call(url, method, member);
+    if (result.error) {
+        return result;
+    }
+    return result.info;
 };

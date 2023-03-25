@@ -36,7 +36,7 @@ export const FilterRecap = () => {
             if (!km_total) {
                 setKm(0);
             } else {
-                setKm(km_total);
+                setKm(Number.parseFloat(km_total).toFixed(2));
             }
             if (!fc_moy) {
                 setFcMoy(0);

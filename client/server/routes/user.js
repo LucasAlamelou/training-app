@@ -9,6 +9,7 @@ import {
     updatePerformanceMemberController,
     deleteUserController,
     getMemberController,
+    updateMemberAllFieldController,
 } from '../controllers/user.js';
 
 const router = Router();
@@ -21,9 +22,10 @@ export function userRoute(app) {
     app.post('/api/createPerformanceMember', createPerformanceMemberController);
 
     // Update user/ member/ healthMember/ performanceMember
-    app.post('/api/updateMember', updateMemberController);
-    app.post('/api/updateHealthMember', updateHealthMemberController);
-    app.post('/api/updatePerformanceMember', updatePerformanceMemberController);
+    app.put('/api/updateMember', updateMemberController);
+    app.put('/api/updateHealthMember', updateHealthMemberController);
+    app.put('/api/updatePerformanceMember', updatePerformanceMemberController);
+    app.put('/api/updateMemberAllField', updateMemberAllFieldController);
 
     // Delete user
     app.delete('/api/deleteUser', deleteUserController);
