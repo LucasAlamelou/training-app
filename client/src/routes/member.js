@@ -2,7 +2,7 @@ import React from 'react';
 import { MemberPage } from '../pages/MemberPage.js';
 import { getLoader } from '../util/Loader.js';
 
-export async function loader({ params }) {
+export async function loader({ request, params }) {
     const url = 'getMember';
     const method = 'GET';
     const param = {

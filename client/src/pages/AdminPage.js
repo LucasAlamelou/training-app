@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 export const ACTION_DELETE_MEMBER = 'deleteMember';
 export const ACTION_DELETE_USER = 'deleteUser';
+export const ACTION_GET_MEMBER = 'getMember';
 
 export const AdminPage = () => {
     const { members, users } = useLoaderData();

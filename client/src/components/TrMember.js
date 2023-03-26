@@ -15,7 +15,7 @@ export const TrMember = ({ member, deleteMember }) => {
                 <TdField field={member.userId} />
                 <ButtonsPanelActions
                     idTarget={member.id}
-                    linkAction={'/admin/member'}
+                    linkAction={'/admin/membre'}
                     functionClick={deleteMember}
                     displayShowMore={false}
                 />

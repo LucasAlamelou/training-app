@@ -15,7 +15,7 @@ const UTILISATEUR = 'Utilisateur';
 const HEALTH = 'Santé';
 const PERFORMANCE = 'Performance';
 
-export const MemberPage = () => {
+export const MemberPage = ({ isAdmin }) => {
     const data = useLoaderData();
     const dispatch = useDispatch();
     const member = data?.member;
@@ -24,6 +24,7 @@ export const MemberPage = () => {
     const [viewHealth, setViewHealth] = React.useState(false);
     const [viewPerformance, setViewPerformance] = React.useState(false);
     const [fieldModify, setFieldModify] = React.useState({});
+    console.log(memberState);
 
     if (!member && !memberState) {
         Swal.fire({
@@ -37,7 +38,9 @@ export const MemberPage = () => {
         // return <Navigate to="/login" replace={false} />;
     }
     if (member) {
-        dispatch(memberActions.addMember({ member }));
+        if (!isAdmin) {
+            dispatch(memberActions.addMember({ member }));
+        }
     }
     const onClickRenderView = (e) => {
         switch (e.target.name) {
@@ -141,10 +144,12 @@ export const MemberPage = () => {
     };
 
     useEffect(() => {
-        if (Object.keys(fieldModify).length > 0) {
-            dispatch(memberActions.modifyMember({ ...memberState, fieldModify }));
+        if (!isAdmin) {
+            if (Object.keys(fieldModify).length > 0) {
+                dispatch(memberActions.modifyMember({ ...memberState, fieldModify }));
+            }
         }
-    }, [fieldModify, dispatch, memberState]);
+    }, [fieldModify, dispatch, memberState, isAdmin]);
 
     return (
         <>
@@ -171,11 +176,28 @@ export const MemberPage = () => {
                     favicon={faRunning}
                 />
             </DivButton>
+
             {viewMember && (
                 <DivMember>
+                    {isAdmin && (
+                        <>
+                            <MemberInfo
+                                label="Email"
+                                data={memberState ? member?.email : memberState?.email}
+                                name="email"
+                                functionOnClick={openModal}
+                                isModify={true}
+                            />
+                            <MemberInfo
+                                label="Nb Entrainement"
+                                data={memberState ? member?.nbTraining : memberState?.nbTraining}
+                                name="nbTraining"
+                            />
+                        </>
+                    )}
                     <MemberInfo
                         label="Nom"
-                        data={memberState?.lastName}
+                        data={memberState ? member?.lastName : memberState?.lastName}
                         name="lastName"
                         functionOnClick={openModal}
                         isModify={true}
@@ -183,7 +205,7 @@ export const MemberPage = () => {
                     <MemberInfo
                         label="Prénom"
                         name="firstName"
-                        data={memberState?.firstName}
+                        data={memberState ? member?.firstName : memberState?.firstName}
                         functionOnClick={openModal}
                         isModify={true}
                     />
@@ -198,14 +220,18 @@ export const MemberPage = () => {
                     <MemberInfo
                         label="Date de naissance"
                         name={'dateOfBirth'}
-                        data={convertDateToFrenchDate(member?.dateOfBirth)}
+                        data={
+                            memberState
+                                ? convertDateToFrenchDate(member?.dateOfBirth)
+                                : convertDateToFrenchDate(memberState?.dateOfBirth)
+                        }
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Sport pratiqué"
                         name={'favoriteSport'}
-                        data={memberState?.favoriteSport}
+                        data={memberState ? member?.favoriteSport : memberState?.favoriteSport}
                         functionOnClick={openModal}
                         isModify={true}
                     />
@@ -215,35 +241,37 @@ export const MemberPage = () => {
                 <DivMember>
                     <MemberInfo
                         label="Poids (en kg)"
-                        data={memberState?.weight + ' kg'}
+                        data={memberState ? member?.weight + ' kg' : memberState?.weight + ' kg'}
                         name={'weight'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Taille (en cm)"
-                        data={memberState?.height + ' cm'}
+                        data={memberState ? member?.height + ' cm' : memberState?.height + ' cm'}
                         name={'height'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Heure de sommeil"
-                        data={memberState?.hourSleep}
+                        data={
+                            memberState ? member?.hourSleep + ' h' : memberState?.hourSleep + ' h'
+                        }
                         name={'hourSleep'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Fc repos"
-                        data={memberState?.fcRest + ' bpm'}
+                        data={memberState ? member?.fcRest + ' bpm' : memberState?.fcRest + ' bpm'}
                         name={'fcRest'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Fc max"
-                        data={memberState?.fcMax + ' bpm'}
+                        data={memberState ? member?.fcMax + ' bpm' : memberState?.fcMax + ' bpm'}
                         name={'fcMax'}
                         functionOnClick={openModal}
                         isModify={true}
@@ -254,28 +282,40 @@ export const MemberPage = () => {
                 <DivMember>
                     <MemberInfo
                         label="VO2max"
-                        data={memberState?.vo2max + ' ml/kg/min'}
+                        data={
+                            memberState
+                                ? member?.vo2max + ' ml/kg/min'
+                                : memberState?.vo2max + ' ml/kg/min'
+                        }
                         name={'vo2max'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Seuil lactique(Bpm)"
-                        data={memberState?.seuilLactateFC + ' bpm'}
+                        data={
+                            memberState
+                                ? member?.seuilLactateFC + ' bpm'
+                                : memberState?.seuilLactateFC + ' bpm'
+                        }
                         name={'seuilLactateFC'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Seuil lactique (min/km)"
-                        data={memberState?.seuilLactate}
+                        data={
+                            memberState
+                                ? member?.seuilLactate + ' min/km'
+                                : memberState?.seuilLactate + ' min/km'
+                        }
                         name={'seuilLactate'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="VMA"
-                        data={memberState?.vma + ' km/h'}
+                        data={memberState ? member?.vma + ' km/h' : memberState?.vma + ' km/h'}
                         name={'vma'}
                         functionOnClick={openModal}
                         isModify={true}

@@ -15,7 +15,9 @@ import {
     getUserById,
     getMemberById,
     getMemberCompletById,
+    getUserAndMemberById,
 } from '../database/connection-data-base.js';
+import { countTrainingByMemberId } from '../database/count-on-data-base.js';
 import { generateAccessToken } from '../util/generateToken.js';
 
 const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -419,6 +421,57 @@ export const getMemberController = async (req, res, next) => {
             return;
         }
         res.json({ info: { member }, error: null }).status(200);
+    } catch (error) {
+        console.error(error);
+        res.json({ error: { message: error.message } }).status(500);
+    }
+};
+
+export const getUserAndMemberAllController = async (req, res, next) => {
+    const roles = req.user.roles;
+    if (!roles.includes(ROLE_ADMIN)) {
+        res.json({
+            info: null,
+            error: { message: "Vous n'avez pas les droits pour accéder à cette page." },
+        }).status(400);
+        return;
+    }
+    const { idMember, idUser } = req.query;
+    if (!idMember && !idUser) {
+        res.json({ info: null, error: { message: "Aucun id n'a été renseigné." } }).status(400);
+        return;
+    }
+    try {
+        let user;
+        if (idMember) {
+            const member = await getMemberById(idMember);
+            if (!member) {
+                res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
+                return;
+            }
+            user = await getUserAndMemberById(member.userId);
+            if (!user) {
+                res.json({ info: null, error: { message: "L'utilisateur n'existe pas." } }).status(
+                    400
+                );
+                return;
+            }
+        }
+        if (idUser) {
+            user = await getUserAndMemberById(idUser);
+            if (!user) {
+                res.json({ info: null, error: { message: "L'utilisateur n'existe pas." } }).status(
+                    400
+                );
+                return;
+            }
+        }
+        const nbTraining = await countTrainingByMemberId(user.id);
+        const data = {
+            ...user,
+            ...nbTraining,
+        };
+        res.json({ info: { member: data }, error: null }).status(200);
     } catch (error) {
         console.error(error);
         res.json({ error: { message: error.message } }).status(500);

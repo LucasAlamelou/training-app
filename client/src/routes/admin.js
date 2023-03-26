@@ -27,11 +27,11 @@ export async function action({ request, parms }) {
     return null;
 }
 
-export async function deleteMember({ idMember }) {
+async function deleteMember({ idMember }) {
     return await deleteAction({ idMember }, 'admin/deleteMember');
 }
 
-export async function deleteUser({ idUser }) {
+async function deleteUser({ idUser }) {
     return await deleteAction({ idUser }, 'admin/deleteUser');
 }
 

@@ -149,3 +149,11 @@ export async function getMembers() {
     );
     return result;
 }
+
+export async function getUserAndMemberById(idUser) {
+    const [result] = await pool.query(
+        'SELECT userId, email, roles, firstName, lastName, dateOfBirth, adress, zipCode, city, country, height, weight, hourSleep, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport performanceMember FROM user u LEFT JOIN member m ON m.userId = u.id LEFT JOIN healthMember hm ON hm.memberId = m.id LEFT JOIN performanceMember pm ON pm.memberId = m.id WHERE u.id = ?',
+        [idUser]
+    );
+    return result[0];
+}
