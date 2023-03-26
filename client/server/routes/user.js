@@ -7,7 +7,6 @@ import {
     updateMemberController,
     updateHealthMemberController,
     updatePerformanceMemberController,
-    deleteUserController,
     getMemberController,
     updateMemberAllFieldController,
 } from '../controllers/user.js';
@@ -26,9 +25,6 @@ export function userRoute(app) {
     app.put('/api/updateHealthMember', updateHealthMemberController);
     app.put('/api/updatePerformanceMember', updatePerformanceMemberController);
     app.put('/api/updateMemberAllField', updateMemberAllFieldController);
-
-    // Delete user
-    app.delete('/api/deleteUser', deleteUserController);
 
     // Get user/ member/ healthMember/ performanceMember
     app.get('/api/getMember', getMemberController);

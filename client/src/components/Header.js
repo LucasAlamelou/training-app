@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { authActions } from '../store/index.js';
 
+const ROLE = 'ROLE_ADMIN';
+
 export function Header() {
     const isToken = useSelector((state) => state.user.token);
     const dispatch = useDispatch();
@@ -19,6 +21,9 @@ export function Header() {
                 <H2>Mes entrainements</H2>
                 <Ul>
                     <Item path={'/home'} name={'Acceuil'} />
+                    {user.roles.includes(ROLE) ? (
+                        <Item path={'/admin'} name={'Admin-Interface'} />
+                    ) : null}
                     {!isToken ? <Item path={'/login'} name={'Connexion'} /> : null}
                     {!isToken ? <Item path={'/register'} name={'Inscription'} /> : null}
                     {!user.token && !user.isConnected ? null : (

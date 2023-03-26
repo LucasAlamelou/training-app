@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { Link, useLoaderData } from 'react-router-dom';
-import { ButtonTrainning } from './ButtonTraining.js';
+import { ButtonsPanelActions } from './ButtonsPanelActions.js';
 
 export const DisplayOneTraining = ({ deleteTraining }) => {
     const data = useLoaderData();
@@ -28,10 +28,11 @@ export const DisplayOneTraining = ({ deleteTraining }) => {
                         {training.name} - {training.nameSport}
                     </H2>
                     <DivButtons>
-                        <ButtonTrainning
-                            idTraining={training.idTraining}
+                        <ButtonsPanelActions
+                            idTarget={training.idTraining}
                             functionClick={deleteTraining}
-                            uniqueTraining={true}
+                            linkAction={'/training'}
+                            displayShowMore={true}
                         />
                     </DivButtons>
 

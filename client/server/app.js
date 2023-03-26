@@ -48,25 +48,34 @@ app.all('/api/admin/*', function (req, res, next) {
     const ROLES = 'ROLE_ADMIN';
     const userConnected = req.user.roles;
     if (userConnected.includes(ROLES)) {
-        console.debug('admin');
+        console.debug('Route rôle : admin');
         next();
+        return;
     } else {
-        console.debug('not admin');
+        console.debug('Route admin : not admin');
         res.sendStatus(403);
     }
 });
+/*
 app.all('/api/*', function (req, res, next) {
+    if (req.path === '/api/login' || req.path === '/api/register') {
+        next();
+        return;
+    }
     const ROLES = 'ROLE_USER';
     const userConnected = req.user.roles;
     if (userConnected.includes(ROLES)) {
         next();
+        return;
     } else if (userConnected.includes('ROLE_ADMIN')) {
         next();
+        return;
     } else {
         console.error('not user');
         res.sendStatus(403);
     }
 });
+*/
 routes(app);
 app.all('/*', function (req, res, next) {
     res.sendStatus(404);

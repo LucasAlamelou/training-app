@@ -4,6 +4,7 @@ import {
     getMembersAdminControllers,
     getCountTrainingByMemberIdControllers,
 } from '../controllers/admin.js';
+import { deleteUserController } from '../controllers/user.js';
 
 const router = Router();
 
@@ -16,4 +17,7 @@ export function adminRoute(app) {
     // post routes
     // app.post('/api/admin/postUsers', postUsersAdminControllers);
     // app.post('/api/admin/postMembers', postMembersAdminControllers);
+
+    // Delete user
+    app.delete('/api/admin/deleteUser', deleteUserController);
 }

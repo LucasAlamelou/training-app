@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { convertDateToFrenchDate } from '../util/DateUtils.js';
-import { ButtonTrainning } from './ButtonTraining.js';
+import { ButtonsPanelActions } from './ButtonsPanelActions.js';
 
 export const FieldTraining = ({ training, deleteTraining }) => {
     return (
@@ -13,10 +13,11 @@ export const FieldTraining = ({ training, deleteTraining }) => {
                 <Element>{convertDateToFrenchDate(training?.date)}</Element>
                 <Element>{training.note ? training.note : ''}</Element>
                 <Element>{training.city ? training.city : ''}</Element>
-                <ButtonTrainning
-                    idTraining={training.idTraining}
+                <ButtonsPanelActions
+                    idTarget={training.idTraining}
+                    linkAction={'/training'}
                     functionClick={deleteTraining}
-                    uniqueTraining={false}
+                    displayShowMore={false}
                 />
             </Training>
         </>

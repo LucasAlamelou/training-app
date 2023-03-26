@@ -16,6 +16,7 @@ import {
 } from './myTraining.js';
 import { ShowTraining, loader as trainingLoader } from './showTraining.js';
 import { Membre, loader as membreLoader } from './member.js';
+import { Admin, loader as adminLoader, action as adminAction } from './admin.js';
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,12 @@ const router = createBrowserRouter([
                 path: 'membre/:idMembre',
                 element: <Membre />,
                 loader: membreLoader,
+            },
+            {
+                path: 'admin',
+                element: <Admin />,
+                loader: adminLoader,
+                action: adminAction,
             },
         ],
     },

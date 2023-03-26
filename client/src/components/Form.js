@@ -19,6 +19,7 @@ export const Form = ({ pageLogin }) => {
                 user: dataAuthResult.id,
                 member: dataAuthResult.idMember,
                 token: dataAuthResult.token,
+                roles: dataAuthResult.roles,
             })
         );
         Swal.fire({

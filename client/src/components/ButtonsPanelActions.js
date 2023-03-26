@@ -3,19 +3,19 @@ import { faPlus, faTrash, faPenSquare } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const ButtonTrainning = ({ idTraining, functionClick, uniqueTraining }) => {
+export const ButtonsPanelActions = ({ idTarget, functionClick, displayShowMore, linkAction }) => {
     return (
         <>
-            <Button uniqueTraining={uniqueTraining}>
-                {uniqueTraining ? null : (
-                    <Link to={`/training/${idTraining}`}>
+            <Button uniqueTraining={displayShowMore}>
+                {displayShowMore ? null : (
+                    <Link to={`${linkAction}/${idTarget}`}>
                         <FontAwesomeIcon icon={faPlus} color="black" />
                     </Link>
                 )}
-                <Link to={`/training/${idTraining}`}>
+                <Link to={`${linkAction}/${idTarget}`}>
                     <FontAwesomeIcon icon={faPenSquare} color="blue" />
                 </Link>
-                <ButtonDelete type="button" onClick={() => functionClick(idTraining)}>
+                <ButtonDelete type="button" onClick={() => functionClick(idTarget)}>
                     <FontAwesomeIcon icon={faTrash} color="red" />
                 </ButtonDelete>
             </Button>
@@ -26,7 +26,7 @@ export const ButtonTrainning = ({ idTraining, functionClick, uniqueTraining }) =
 const Button = styled.td`
     width: 15%;
     padding: 0.5rem;
-    border-left: ${(props) => (props.uniqueTraining ? '1px solid #000' : null)};
+    border-left: ${(props) => (props.displayShowMore ? '1px solid #000' : null)};
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
     text-align: end;

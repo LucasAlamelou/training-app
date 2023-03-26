@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { API_call } from '../contexts/API_call.js';
 
 /**
@@ -9,5 +10,12 @@ import { API_call } from '../contexts/API_call.js';
  */
 export const getLoader = async (url, method, param) => {
     const result = await API_call(url, method, param);
+    if (result.error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: result.error.message,
+        });
+    }
     return result;
 };

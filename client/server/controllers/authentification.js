@@ -29,7 +29,9 @@ export async function loginController(req, res, next) {
                 id: user.userId,
                 roles: user.roles,
             });
-            res.json({ info: { token, id: user.userId, idMember: user.id } }).status(200);
+            res.json({
+                info: { token, id: user.userId, idMember: user.id, roles: user.roles },
+            }).status(200);
         } else {
             res.json({ error: { message: 'Mot de passe invalide' }, info: null }).status(401);
         }
