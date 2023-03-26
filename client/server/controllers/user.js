@@ -18,6 +18,8 @@ import {
 } from '../database/connection-data-base.js';
 import { generateAccessToken } from '../util/generateToken.js';
 
+const ROLE_ADMIN = 'ROLE_ADMIN';
+
 /**
  * Permet de gérer la création d'un utilisateur
  * Table user uniquement
@@ -330,7 +332,7 @@ export async function updatePerformanceMemberController(req, res, next) {
 }
 
 /**
- * Supprime un utilisateur de la base de données en fonction de son id de membre
+ * Supprime un utilisateur de la base de données en fonction de son id member ou de son id user
  * Supprime également le membre associé en cascade
  * @param {*} req
  * @param {*} res
@@ -338,25 +340,53 @@ export async function updatePerformanceMemberController(req, res, next) {
  * @returns
  */
 export async function deleteUserController(req, res, next) {
-    const { idMember } = req.body;
+    const roles = req.user.roles;
+    const { idMember, idUser } = req.body;
+    if (!idMember && !idUser) {
+        res.json({ info: null, error: { message: "Aucun id n'a été renseigné." } }).status(400);
+        return;
+    }
     try {
-        const member = await getMemberById(idMember);
-        if (!member) {
-            res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
-            return;
+        let user;
+        if (idMember) {
+            const member = await getMemberById(idMember);
+            if (!member) {
+                res.json({ info: null, error: { message: "Le membre n'existe pas." } }).status(400);
+                return;
+            }
+            user = await getUserById(member.userId);
+            if (!user) {
+                res.json({ info: null, error: { message: "L'utilisateur n'existe pas." } }).status(
+                    400
+                );
+                return;
+            }
+            if (!roles.includes(ROLE_ADMIN)) {
+                res.json({
+                    info: null,
+                    error: { message: "Vous n'avez pas les droits pour supprimer ce membre." },
+                }).status(400);
+                return;
+            }
         }
-        const user = await getUserById(member.userId);
-        if (!user) {
-            res.json({ info: null, error: { message: "L'utilisateur n'existe pas." } }).status(400);
-            return;
+
+        if (idUser) {
+            user = await getUserById(idUser);
+            if (!user) {
+                res.json({ info: null, error: { message: "L'utilisateur n'existe pas." } }).status(
+                    400
+                );
+                return;
+            }
+            if (!roles.includes(ROLE_ADMIN)) {
+                res.json({
+                    info: null,
+                    error: { message: "Vous n'avez pas les droits pour supprimer ce membre." },
+                }).status(400);
+                return;
+            }
         }
-        if (user.email !== req.user.email) {
-            res.json({
-                info: null,
-                error: { message: "Vous n'avez pas les droits pour supprimer ce membre." },
-            }).status(400);
-            return;
-        }
+
         const result = await deleteUserById(user.id);
         if (result.affectedRows === 0) {
             res.json({ info: null, error: { message: 'Aucune données effacé.' } }).status(400);
