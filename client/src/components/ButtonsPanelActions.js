@@ -12,7 +12,7 @@ export const ButtonsPanelActions = ({ idTarget, functionClick, displayShowMore, 
                         <FontAwesomeIcon icon={faPlus} color="black" />
                     </Link>
                 )}
-                <Link to={`${linkAction}/${idTarget}`}>
+                <Link to={`${linkAction}/edit/${idTarget}`}>
                     <FontAwesomeIcon icon={faPenSquare} color="blue" />
                 </Link>
                 <ButtonDelete type="button" onClick={() => functionClick(idTarget)}>

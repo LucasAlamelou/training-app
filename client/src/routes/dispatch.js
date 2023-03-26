@@ -53,6 +53,11 @@ const router = createBrowserRouter([
                 action: myTrainingAction,
             },
             {
+                path: 'training/edit/:idTraining',
+                element: <CreateTraining />,
+                loader: createTrainingLoader,
+            },
+            {
                 path: 'training/:idTraining',
                 element: <ShowTraining />,
                 loader: trainingLoader,

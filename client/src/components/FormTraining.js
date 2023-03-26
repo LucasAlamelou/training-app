@@ -6,27 +6,28 @@ import styled from 'styled-components';
 
 export const FormTraining = () => {
     const loaderData = useLoaderData();
-    const trainingList = loaderData?.data;
+    const typeOfTraining = loaderData.typeOfTraining?.data;
+    const training = loaderData.training?.data;
     const errors = useActionData();
     const [showMore, setShowMore] = useState(false);
-    const [idTypeOfTraining, setIdTypeOfTraining] = useState(0);
-    const [name, setName] = useState('');
-    const [along, setAlong] = useState('');
-    const [date, setDate] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [note, setNote] = useState('');
-    const [km, setKm] = useState('');
-    const [moyPerKm, setMoyPerKm] = useState('');
-    const [speedMoy, setSpeedMoy] = useState('');
-    const [speedMax, setSpeedMax] = useState('');
-    const [fcMoy, setFcMoy] = useState('');
-    const [fcMax, setFcMax] = useState('');
-    const [hikeUp, setHikeUp] = useState('');
-    const [hikeDown, setHikeDown] = useState('');
-    const [cadenceMoy, setCadenceMoy] = useState('');
-    const [cadenceMax, setCadenceMax] = useState('');
-    const [moyForSwim, setMoyForSwim] = useState('');
+    const [idTypeOfTraining, setIdTypeOfTraining] = useState(training?.idTypeOfTraining || '');
+    const [name, setName] = useState(training?.name || '');
+    const [along, setAlong] = useState(training?.along || '');
+    const [date, setDate] = useState(training?.date || '');
+    const [city, setCity] = useState(training?.city || '');
+    const [country, setCountry] = useState(training?.country || '');
+    const [note, setNote] = useState(training?.note || '');
+    const [km, setKm] = useState(training?.km || '');
+    const [moyPerKm, setMoyPerKm] = useState(training?.moyPerKm || '');
+    const [speedMoy, setSpeedMoy] = useState(training?.speedMoy || '');
+    const [speedMax, setSpeedMax] = useState(training?.speedMax || '');
+    const [fcMoy, setFcMoy] = useState(training?.fcMoy || '');
+    const [fcMax, setFcMax] = useState(training?.fcMax || '');
+    const [hikeUp, setHikeUp] = useState(training?.hikeUp || '');
+    const [hikeDown, setHikeDown] = useState(training?.hikeDown || '');
+    const [cadenceMoy, setCadenceMoy] = useState(training?.cadenceMoy || '');
+    const [cadenceMax, setCadenceMax] = useState(training?.cadenceMax || '');
+    const [moyForSwim, setMoyForSwim] = useState(training?.moyForSwim || '');
 
     const showMoreOptions = () => {
         setShowMore(!showMore);
@@ -44,7 +45,7 @@ export const FormTraining = () => {
                         value={idTypeOfTraining}
                         required={true}
                         setValue={setIdTypeOfTraining}
-                        listOptions={trainingList}
+                        listOptions={typeOfTraining}
                     />
                     <Field
                         label={'Date de la séance'}
@@ -288,7 +289,7 @@ const optionForCadence = (cadenceMoy, cadenceMax, setCadenceMoy, setCadenceMax, 
                     id={'cadenceMoy-id'}
                     value={cadenceMoy}
                     setValue={setCadenceMoy}
-                    placeHolder={'950'}
+                    placeHolder={'90'}
                 />
 
                 <Field
@@ -298,7 +299,7 @@ const optionForCadence = (cadenceMoy, cadenceMax, setCadenceMoy, setCadenceMax, 
                     id={'cadenceMax-id'}
                     value={cadenceMax}
                     setValue={setCadenceMax}
-                    placeHolder={'198'}
+                    placeHolder={'110'}
                 />
             </DivDouble>
             <DivError>{errors?.cadenceMoy && <span>{errors.cadenceMoy}</span>}</DivError>
@@ -318,6 +319,8 @@ const optionForSwim = (moyForSwim, setMoyForSwim, errors) => {
                 value={moyForSwim}
                 setValue={setMoyForSwim}
                 placeHolder={'00:01:30'}
+                min={'00:00:00'}
+                max={'00:10:00'}
             />
 
             <DivError>{errors?.moyForSwim && <span>{errors.moyForSwim}</span>}</DivError>

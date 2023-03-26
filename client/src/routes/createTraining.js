@@ -5,7 +5,14 @@ import { API_call } from '../contexts/API_call.js';
 import { FormCreateModifyTraining } from '../components/FormCreateModifyTraining.js';
 import Swal from 'sweetalert2';
 
-export async function loader({ request }) {
+let isCreate = true;
+export async function loader({ request, params }) {
+    let result;
+    if (params?.idTraining) {
+        isCreate = false;
+        result = await getTraining({ idTraining: params.idTraining });
+        console.log(result);
+    }
     const url = 'getAllTypeOfTraining';
     const method = 'get';
     const response = await API_call(url, method, null);
@@ -15,7 +22,7 @@ export async function loader({ request }) {
     if (!response.info) {
         return null;
     }
-    return response.info;
+    return { typeOfTraining: response?.info, training: result?.info };
 }
 
 export async function action({ param, request }) {
@@ -34,8 +41,16 @@ export async function action({ param, request }) {
     return result;
 }
 
+const getTraining = async ({ idTraining }) => {
+    const url = 'getTrainingById';
+    const method = 'get';
+    const param = {
+        idTraining: idTraining,
+    };
+    return await API_call(url, method, param);
+};
+
 export const CreateTraining = () => {
-    const isCreate = true;
     return (
         <>
             <FormCreateModifyTraining formCreate={isCreate} />
