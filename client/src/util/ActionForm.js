@@ -1,6 +1,12 @@
 import { API_call } from '../contexts/API_call.js';
 import { convertFrenchDateToDataBase } from './DateUtils.js';
-import { validateForm, validateFormTraining, validateFormMember } from './validateForm.js';
+import {
+    validateForm,
+    validateFormTraining,
+    validateFormMember,
+    validatePassword,
+    valideSamePassword,
+} from './validateForm.js';
 
 /**
  * Action du formulaire Login et Register
@@ -83,4 +89,41 @@ export const ActionFormMember = async (memberState, data) => {
         return result;
     }
     return result.info;
+};
+
+export const ActionFormMemberPassword = async ({
+    email,
+    password,
+    newPassword,
+    newPasswordConfirm,
+}) => {
+    const url = 'changePassword';
+    const method = 'post';
+    if (!valideSamePassword(newPassword, newPasswordConfirm)) {
+        return {
+            error: {
+                message: 'Les mots de passe ne sont pas identiques',
+                champ: 'newPasswordConfirm',
+            },
+        };
+    }
+    if (!validatePassword(newPassword)) {
+        return {
+            error: {
+                message:
+                    'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre',
+                champ: 'newPassword',
+            },
+        };
+    }
+    const data = {
+        email,
+        password,
+        newPassword,
+    };
+    const result = await API_call(url, method, data);
+    if (result?.error) {
+        return result;
+    }
+    return result?.info;
 };

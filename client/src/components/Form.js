@@ -12,7 +12,11 @@ export const Form = ({ pageLogin }) => {
     const dispatch = useDispatch();
     const dataAuthResult = useActionData();
     const user = useSelector((state) => state.user);
-    if (dataAuthResult?.token && dataAuthResult?.id) {
+
+    if (
+        (dataAuthResult?.token && dataAuthResult?.id) ||
+        (dataAuthResult?.token && dataAuthResult?.userId)
+    ) {
         dispatch(
             authActions.addUserConnected({
                 isConnected: true,
@@ -20,6 +24,7 @@ export const Form = ({ pageLogin }) => {
                 member: dataAuthResult.idMember,
                 token: dataAuthResult.token,
                 roles: dataAuthResult.roles,
+                email: dataAuthResult.email,
             })
         );
         Swal.fire({

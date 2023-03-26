@@ -30,7 +30,7 @@ export async function loginController(req, res, next) {
                 roles: user.roles,
             });
             res.json({
-                info: { token, id: user.userId, idMember: user.id, roles: user.roles },
+                info: { token, id: user.userId, idMember: user.id, roles: user.roles, email },
             }).status(200);
         } else {
             res.json({ error: { message: 'Mot de passe invalide' }, info: null }).status(401);
@@ -67,7 +67,7 @@ export async function changePassword(req, res, next) {
         const { hash, salt } = user;
         const actualPassword = decryptPassword(salt, hash, password);
         if (actualPassword) {
-            if (!user.validate()) {
+            if (!new User(email, newPassword).validate()) {
                 res.json({
                     error: { message: 'Nouveau mot de passe invalide' },
                     info: null,

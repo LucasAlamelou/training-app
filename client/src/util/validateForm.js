@@ -7,17 +7,16 @@ import {
 const LENGTH_MAX = 30;
 const LENGTH_MIN = 3;
 const LENGTH_MAX_ZIPCODE = 5;
+const regexExp_EMAIL = new RegExp(
+    // eslint-disable-next-line
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i
+);
+const regexExp_PASSWORD = new RegExp(
+    // eslint-disable-next-line
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/
+);
 
 export const validateForm = (donnesForm) => {
-    const regexExp_EMAIL = new RegExp(
-        // eslint-disable-next-line
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i
-    );
-    const regexExp_PASSWORD = new RegExp(
-        // eslint-disable-next-line
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/
-    );
-
     const { email, password, lastName, firstName, dateOfBirth, adress, city, zipCode, country } =
         donnesForm;
     const errors = {};
@@ -245,4 +244,18 @@ export const validateFormTraining = (donnesForm) => {
         errors.moyForSwim = 'Veuillez saisir une moyenne valide !';
     }
     return errors;
+};
+
+export const valideSamePassword = (password, passwordConfirm) => {
+    if (password !== passwordConfirm) {
+        return false;
+    }
+    return true;
+};
+
+export const validatePassword = (password) => {
+    if (regexExp_PASSWORD.test(password)) {
+        return true;
+    }
+    return false;
 };

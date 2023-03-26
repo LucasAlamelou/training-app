@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { memberActions } from '../store/member-slice.js';
 import { ActionFormMember } from '../util/ActionForm.js';
 import { convertDateToFrenchDate } from '../util/DateUtils.js';
+import { onModifyPassword } from '../util/EditPassword.js';
 
 const UTILISATEUR = 'Utilisateur';
 const HEALTH = 'Santé';
@@ -20,11 +21,11 @@ export const MemberPage = ({ isAdmin }) => {
     const dispatch = useDispatch();
     const member = data?.member;
     const { memberState } = useSelector((state) => state.member);
+    const { user } = useSelector((state) => state);
     const [viewMember, setViewMember] = React.useState(true);
     const [viewHealth, setViewHealth] = React.useState(false);
     const [viewPerformance, setViewPerformance] = React.useState(false);
     const [fieldModify, setFieldModify] = React.useState({});
-    console.log(memberState);
 
     if (!member && !memberState) {
         Swal.fire({
@@ -72,6 +73,10 @@ export const MemberPage = ({ isAdmin }) => {
         const dataField = e.target.lastChild.outerText;
         const nameField = e.target.name;
         let html;
+        if (nameField === 'password') {
+            onModifyPassword(e, user);
+            return;
+        }
         if (nameField === 'adress') {
             html = `
             <div class="swal2-input-group">
@@ -178,64 +183,82 @@ export const MemberPage = ({ isAdmin }) => {
             </DivButton>
 
             {viewMember && (
-                <DivMember>
-                    {isAdmin && (
-                        <>
-                            <MemberInfo
-                                label="Email"
-                                data={memberState ? member?.email : memberState?.email}
-                                name="email"
-                                functionOnClick={openModal}
-                                isModify={true}
-                            />
-                            <MemberInfo
-                                label="Nb Entrainement"
-                                data={memberState ? member?.nbTraining : memberState?.nbTraining}
-                                name="nbTraining"
-                            />
-                        </>
-                    )}
-                    <MemberInfo
-                        label="Nom"
-                        data={memberState ? member?.lastName : memberState?.lastName}
-                        name="lastName"
-                        functionOnClick={openModal}
-                        isModify={true}
-                    />
-                    <MemberInfo
-                        label="Prénom"
-                        name="firstName"
-                        data={memberState ? member?.firstName : memberState?.firstName}
-                        functionOnClick={openModal}
-                        isModify={true}
-                    />
-                    <MemberInfo
-                        label="Adresse"
-                        name={'adress'}
-                        data={[memberState?.adress, memberState?.zipCode, memberState?.city]}
-                        multiFiedls={true}
-                        functionOnClick={openModal}
-                        isModify={true}
-                    />
-                    <MemberInfo
-                        label="Date de naissance"
-                        name={'dateOfBirth'}
-                        data={
-                            memberState
-                                ? convertDateToFrenchDate(member?.dateOfBirth)
-                                : convertDateToFrenchDate(memberState?.dateOfBirth)
-                        }
-                        functionOnClick={openModal}
-                        isModify={true}
-                    />
-                    <MemberInfo
-                        label="Sport pratiqué"
-                        name={'favoriteSport'}
-                        data={memberState ? member?.favoriteSport : memberState?.favoriteSport}
-                        functionOnClick={openModal}
-                        isModify={true}
-                    />
-                </DivMember>
+                <>
+                    <DivMember>
+                        {isAdmin && (
+                            <>
+                                <MemberInfo
+                                    label="Email"
+                                    data={memberState ? member?.email : memberState?.email}
+                                    name="email"
+                                    functionOnClick={openModal}
+                                    isModify={true}
+                                />
+                                <MemberInfo
+                                    label="Nb Entrainement"
+                                    data={
+                                        memberState ? member?.nbTraining : memberState?.nbTraining
+                                    }
+                                    name="nbTraining"
+                                />
+                            </>
+                        )}
+                        <MemberInfo
+                            label="Nom"
+                            data={memberState ? member?.lastName : memberState?.lastName}
+                            name="lastName"
+                            functionOnClick={openModal}
+                            isModify={true}
+                        />
+                        <MemberInfo
+                            label="Prénom"
+                            name="firstName"
+                            data={memberState ? member?.firstName : memberState?.firstName}
+                            functionOnClick={openModal}
+                            isModify={true}
+                        />
+                        <MemberInfo
+                            label="Adresse"
+                            name={'adress'}
+                            data={[memberState?.adress, memberState?.zipCode, memberState?.city]}
+                            multiFiedls={true}
+                            functionOnClick={openModal}
+                            isModify={true}
+                        />
+                        <MemberInfo
+                            label="Date de naissance"
+                            name={'dateOfBirth'}
+                            data={
+                                memberState
+                                    ? convertDateToFrenchDate(member?.dateOfBirth)
+                                    : convertDateToFrenchDate(memberState?.dateOfBirth)
+                            }
+                            functionOnClick={openModal}
+                            isModify={true}
+                        />
+                        <MemberInfo
+                            label="Sport pratiqué"
+                            name={'favoriteSport'}
+                            data={memberState ? member?.favoriteSport : memberState?.favoriteSport}
+                            functionOnClick={openModal}
+                            isModify={true}
+                        />
+                    </DivMember>
+                    <DivMember>
+                        <MemberInfo
+                            label="Email"
+                            data={''} //TODO : EMAIL a rajouter non modifiable
+                            name="email"
+                        />
+                        <MemberInfo
+                            label="Mot de passe"
+                            name={'password'}
+                            data={'********'}
+                            functionOnClick={openModal}
+                            isModify={true}
+                        />
+                    </DivMember>
+                </>
             )}
             {viewHealth && (
                 <DivMember>

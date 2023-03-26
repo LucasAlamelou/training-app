@@ -11,7 +11,6 @@ export async function loader({ request, params }) {
     if (params?.idTraining) {
         isCreate = false;
         result = await getTraining({ idTraining: params.idTraining });
-        console.log(result);
     }
     const url = 'getAllTypeOfTraining';
     const method = 'get';

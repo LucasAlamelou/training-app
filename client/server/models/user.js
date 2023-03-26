@@ -1,7 +1,8 @@
 export class User {
-    constructor(email, password) {
+    constructor(email, password, roles) {
         this.email = email;
         this.password = password;
+        this.roles = roles;
         this.hash = this.hash;
         this.salt = this.salt;
     }
@@ -53,5 +54,11 @@ export class User {
     }
     getSalt() {
         return this.salt;
+    }
+    setRoles(roles) {
+        this.roles = roles;
+    }
+    getRoles() {
+        return this.roles;
     }
 }
