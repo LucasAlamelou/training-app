@@ -2,7 +2,6 @@ import Swal from 'sweetalert2';
 import { ActionFormMemberPassword } from './ActionForm.js';
 
 export const onModifyPassword = (e, user) => {
-    console.log(user);
     const html = `
     <div class="swal2-input-group">
         <label class="swal2-label" for="swal2-input">Mot de passe actuel</label>

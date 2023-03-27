@@ -5,7 +5,6 @@ import { ButtonsPanelActions } from './ButtonsPanelActions.js';
 import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const FieldTraining = ({ training, deleteTraining, content }) => {
-    console.log(content);
     return (
         <>
             <Training>

@@ -79,12 +79,10 @@ export const convertFrenchDateToDataBase = (date) => {
 };
 
 export const validateIsDate = (date) => {
-    console.log(date);
     const dateForValidate = new Date(date);
     if (dateForValidate.toString() === 'Invalid Date') {
         return false;
     }
-    console.log(dateForValidate);
     if (dateForValidate > new Date()) {
         return false;
     }

@@ -3,7 +3,6 @@ import { Field, FieldSelect, DivChamp, TextAera } from './FieldsForm.js';
 import { DivError, Button } from './FormLogin.js';
 import { useActionData, useLoaderData, Form } from 'react-router-dom';
 import styled from 'styled-components';
-import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const FormTraining = () => {
     const loaderData = useLoaderData();

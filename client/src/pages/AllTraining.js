@@ -23,7 +23,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
     const data = useLoaderData();
     const [currentPage, setCurrentPage] = useState(1);
     const [viewTraining, setViewTraining] = useState(true);
-    const trainingList = data?.data;
+    const trainingList = data?.training?.data;
     const { trainingListState } = useSelector((state) => state.training);
 
     if (data) {
@@ -142,7 +142,6 @@ export const AllTraining = ({ isUniqueTraining }) => {
                             </Thead>
                             <Tbody>
                                 {currentTableData.map((training, index) => {
-                                    console.log('training', training);
                                     return (
                                         <FieldTraining
                                             training={training}

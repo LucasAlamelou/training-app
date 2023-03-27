@@ -83,7 +83,6 @@ export const ActionFormMember = async (memberState, data) => {
         return { error: errors };
     }
 
-    console.log(member);
     const result = await API_call(url, method, member);
     if (result.error) {
         return result;

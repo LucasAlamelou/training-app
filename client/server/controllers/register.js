@@ -22,7 +22,6 @@ export async function registerController(req, res) {
         user.setHash(hash);
         user.setSalt(salt);
         try {
-            console.log('Avant create user');
             const resultUserId = await createUser(user);
             member.setUserId(resultUserId);
             const resultMemberId = await createMember(member);
@@ -35,8 +34,6 @@ export async function registerController(req, res) {
                 id: resultUserId,
                 roles: resultUser.roles,
             });
-            console.log('user', user);
-            console.log('member', member);
             res.json({ info: { id: resultUserId, member, token, email }, error: null }).status(201);
         } catch (error) {
             console.error(error);

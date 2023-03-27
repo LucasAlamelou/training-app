@@ -5,14 +5,24 @@ import { getListDay, getListMonth, getListYear } from '../util/DateUtils.js';
 import { API_call } from '../contexts/API_call.js';
 import { MemberInfo } from './MemberInfo.js';
 import { useSelector } from 'react-redux';
+import { useLoaderData } from 'react-router-dom';
 
 export const FilterRecap = () => {
     const user = useSelector((x) => x.user);
+    const loaderData = useLoaderData();
+    const typeOfTrainingList = loaderData?.typeOfTraining?.data;
     const idMember = user.member;
+
+    // Filtre par date
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1);
     const [day, setDay] = useState(new Date().getDate());
     const [listDay, setListDay] = useState(getListDay(month, year));
+
+    // Filtre par sport
+    const [idTypeOfTraining, setIdTypeOfTraining] = useState('');
+
+    // Resultat du filtre
     const [along, setAlong] = useState('00:00:00');
     const [km, setKm] = useState(0);
     const [fcMoy, setFcMoy] = useState(0);
@@ -23,7 +33,7 @@ export const FilterRecap = () => {
 
     useEffect(() => {
         async function getRecap() {
-            const params = { idMember, year, month, day };
+            const params = { idMember, year, month, day, idTypeOfTraining };
             const result = await API_call(`recapitualtif/all`, 'GET', params);
             const { total_training, km_total, fc_moy, fc_max, speed_moy, hike_up, hike_down } =
                 result.info?.data;
@@ -65,7 +75,7 @@ export const FilterRecap = () => {
             }
         }
         getRecap();
-    }, [year, month, day, idMember]);
+    }, [year, month, day, idMember, idTypeOfTraining]);
 
     useEffect(() => {
         setListDay(getListDay(parseInt(month), parseInt(year)));
@@ -99,6 +109,16 @@ export const FilterRecap = () => {
                     listOptions={listDay}
                 />
             </DivFieldSelect>
+            <DivFieldSelect>
+                <FieldSelect
+                    id="typeOfTraining"
+                    name="typeOfTraining"
+                    value={idTypeOfTraining}
+                    setValue={setIdTypeOfTraining}
+                    label="Sport"
+                    listOptions={typeOfTrainingList}
+                />
+            </DivFieldSelect>
             <DivData>
                 <MemberInfo label={'Total Km'} data={[km, 'km']} multiFiedls={true} />
                 <MemberInfo label={'Total Heures'} data={along} />
@@ -119,7 +139,8 @@ export const FilterRecap = () => {
 const DivFieldSelect = styled.div`
     display: flex;
     align-items: center;
-    max-width: 25%;
+    justify-content: center;
+    max-width: 35%;
     margin-left: 0.3rem;
     padding: 0.5rem;
     border: 1px solid #0554f2;

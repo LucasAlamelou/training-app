@@ -115,9 +115,15 @@ export async function getRecapHikeDownTrainingController(req, res, next) {
 }
 
 export async function getRecapAllParametersTrainingController(req, res, next) {
-    const { idMember, year, month, day } = req.query;
+    const { idMember, year, month, day, idTypeOfTraining } = req.query;
     try {
-        const result = await getRecapAllParametersTrainingByMemberId(idMember, year, month, day);
+        const result = await getRecapAllParametersTrainingByMemberId(
+            idMember,
+            year,
+            month,
+            day,
+            idTypeOfTraining
+        );
         if (!result) {
             res.json({ info: null, error: { message: 'Aucune donnée trouvée.' } }).status(404);
             return null;

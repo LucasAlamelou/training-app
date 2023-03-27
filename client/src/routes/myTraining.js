@@ -6,15 +6,19 @@ import Swal from 'sweetalert2';
 
 export async function loader({ request }) {
     const url = 'getAllTraining';
-    const method = 'POST';
+    const urlTypeSport = 'getAllTypeOfTraining';
+    const methodGet = 'GET';
+    const methodPost = 'POST';
     const param = {
         idMember: window.localStorage.getItem('Application_Training_Member'),
     };
-    const result = await getLoader(url, method, param);
-    if (!result.info) {
+    const result = await getLoader(url, methodPost, param);
+    const resultTypeSport = await getLoader(urlTypeSport, methodGet);
+    // TODO recup type sport pour le filtre
+    if (!result.info || !resultTypeSport.info) {
         return result;
     }
-    return result.info;
+    return { training: result.info, typeOfTraining: resultTypeSport.info };
 }
 
 export async function action({ param, request }) {

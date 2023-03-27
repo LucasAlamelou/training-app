@@ -41,6 +41,7 @@ export const FieldSelect = ({
                 }}
                 required={required}
             >
+                <option value="">--Choisir--</option>
                 {listOptions &&
                     listOptions.map((option) => (
                         <option key={option.id} value={option.id}>
