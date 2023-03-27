@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 import { useLoaderData } from 'react-router-dom';
 import { MemberInfo } from '../components/MemberInfo.js';
 import { ButtonMember } from '../components/ButtonMember.js';
@@ -158,7 +159,7 @@ export const MemberPage = ({ isAdmin }) => {
 
     return (
         <>
-            <H3>Votre profil :</H3>
+            <H3>Votre profil</H3>
             <DivButton>
                 <ButtonMember
                     label={UTILISATEUR}
@@ -362,20 +363,34 @@ const DivMember = styled.div`
 
 const DivButton = styled.div`
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid #0554f2;
     flex-wrap: wrap;
-    margin: 0 auto;
-    margin-top: 1rem;
-    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    @media ${DEVICE_WIDTH.tablet} {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 auto;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid #0554f2;
+    }
 `;
 
 const H3 = styled.h3`
-    font-size: 2rem;
-    font-weight: 600;
+    font-weight: 800;
     color: #0554f2;
-    text-align: center;
+    font-size: 1.5rem;
     margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    @media ${DEVICE_WIDTH.tablet} {
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 2rem;
+    }
 `;

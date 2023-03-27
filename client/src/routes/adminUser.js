@@ -1,6 +1,7 @@
 import React from 'react';
 import { MemberPage } from '../pages/MemberPage.js';
 import { getLoader } from '../util/Loader.js';
+import styled from 'styled-components';
 
 export async function loader({ request, params }) {
     const url = 'admin/getUserAndMemberAll';
@@ -26,8 +27,18 @@ export async function loader({ request, params }) {
 export const AdminUser = () => {
     return (
         <>
-            <h2>Mode : Adminstrateur</h2>
+            <H2>Attention mode : Adminstrateur</H2>
             <MemberPage isAdmin={true} />
         </>
     );
 };
+
+const H2 = styled.h2`
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    padding: 0;
+    text-decoration: underline;
+`;

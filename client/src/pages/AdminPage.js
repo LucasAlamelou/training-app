@@ -1,6 +1,6 @@
 import React from 'react';
 import { useActionData, useLoaderData, useSubmit } from 'react-router-dom';
-import { TableList } from '../components/TableList.js';
+import { TableListAdmin } from '../components/TableListAdmin.js';
 import Swal from 'sweetalert2';
 
 export const ACTION_DELETE_MEMBER = 'deleteMember';
@@ -42,8 +42,6 @@ export const AdminPage = () => {
                 submit({ id: id, actionMethod: action }, { method: 'delete', action: 'admin' });
             }
         });
-
-        console.log('userDelete', id);
     };
 
     const onClickDeleteMember = (id) => {
@@ -54,8 +52,12 @@ export const AdminPage = () => {
     };
     return (
         <>
-            <TableList isMember={true} members={members} onDeleteAction={onClickDeleteMember} />
-            <TableList isUser={true} users={users} onDeleteAction={onClickDeleteUser} />
+            <TableListAdmin
+                isMember={true}
+                members={members}
+                onDeleteAction={onClickDeleteMember}
+            />
+            <TableListAdmin isUser={true} users={users} onDeleteAction={onClickDeleteUser} />
         </>
     );
 };

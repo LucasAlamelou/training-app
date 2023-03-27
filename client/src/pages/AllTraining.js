@@ -13,6 +13,7 @@ import { ButtonMember } from '../components/ButtonMember.js';
 import { faPersonRunning, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import { FilterRecap } from '../components/FilterRecap.jsx';
 import { logoutUser } from '../util/LogoutUser.js';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 const PageSize = 5;
 
@@ -72,7 +73,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
     const changeView = (e) => {
         setViewTraining(!viewTraining);
     };
-
+    const headerTable = ['Nom', 'Distance', 'Temps', 'Date', 'Commentaires', 'Lieu', 'Actions'];
     return (
         <>
             {isUniqueTraining ? (
@@ -128,28 +129,30 @@ export const AllTraining = ({ isUniqueTraining }) => {
 
                     {viewTraining ? (
                         <TrainingContainer>
-                            <thead>
+                            <Thead>
                                 <HeaderTable>
-                                    <Th>Nom</Th>
-                                    <Th>Distance</Th>
-                                    <Th>Temps</Th>
-                                    <Th>Date</Th>
-                                    <Th>Commentaires</Th>
-                                    <Th>Lieu</Th>
-                                    <Th>Actions</Th>
+                                    {headerTable.map((header) => {
+                                        return (
+                                            <Th key={header} datalabel={header}>
+                                                {header}
+                                            </Th>
+                                        );
+                                    })}
                                 </HeaderTable>
-                            </thead>
-                            <tbody>
-                                {currentTableData.map((training) => {
+                            </Thead>
+                            <Tbody>
+                                {currentTableData.map((training, index) => {
+                                    console.log('training', training);
                                     return (
                                         <FieldTraining
                                             training={training}
                                             key={training.idTraining}
                                             deleteTraining={confirmDeleteTraining}
+                                            content={headerTable}
                                         />
                                     );
                                 })}
-                            </tbody>
+                            </Tbody>
                             <Tfoot>
                                 <Pagination
                                     className="pagination-bar"
@@ -173,22 +176,33 @@ export const AllTraining = ({ isUniqueTraining }) => {
 };
 
 const TrainingContainer = styled.table`
-    width: 90%;
-    height: 90%;
-    max-height: 90%;
-    margin: 0 auto;
-    margin-top: 2rem;
+    width: 80%;
     background-color: #fff;
-    border: 1px solid #000;
+    border: 2px solid #0554f2;
     border-collapse: collapse;
+    overflow-x: auto;
+    margin: 0 auto;
+    @media ${DEVICE_WIDTH.tablet} {
+        display: table;
+        width: 90%;
+        height: 90%;
+        max-height: 90%;
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
 `;
 
 const HeaderTable = styled.tr`
+    display: flex;
+    flex-direction: column;
     align-items: center;
     margin: 0 auto;
     margin-top: 1.5rem;
     padding: 1rem;
     margin-bottom: 1rem;
+    @media ${DEVICE_WIDTH.tablet} {
+        display: table-row;
+    }
 `;
 
 const Tfoot = styled.tfoot`
@@ -199,12 +213,65 @@ const Tfoot = styled.tfoot`
 `;
 
 const H2 = styled.h2`
-    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #000;
-    margin-top: 1rem;
-    margin-left: 50%;
-    transform: translateX(-25%);
+
+    @media ${DEVICE_WIDTH.tablet} {
+        font-size: 2rem;
+        margin-top: 1rem;
+        margin-left: 50%;
+        transform: translateX(-25%);
+    }
+`;
+
+const Thead = styled.thead`
+    display: none;
+    flex-direction: column;
+    height: 250px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    overflow-x: auto;
+    > th {
+        display: block;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    @media ${DEVICE_WIDTH.tablet} {
+        display: table;
+        width: 90%;
+        height: 90%;
+        max-height: 90%;
+        margin: 0 auto;
+        margin-top: 2rem;
+
+        > th {
+            display: table-row;
+        }
+    }
+`;
+
+const Tbody = styled.tbody`
+    background-color: #fff;
+    border-collapse: collapse;
+    overflow-x: auto;
+    @media ${DEVICE_WIDTH.tablet} {
+        display: table;
+        width: 90%;
+        height: 90%;
+        max-height: 90%;
+        border: 1px solid #000;
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
 `;
 
 const Th = styled.th`
@@ -213,6 +280,7 @@ const Th = styled.th`
 
 const DivButton = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: ${(props) => (props.center ? 'center' : 'flex-end')};
     align-items: center;
     > a {
@@ -224,6 +292,9 @@ const DivButton = styled.div`
         > p {
             margin-right: 0.5rem;
         }
+    }
+    @media ${DEVICE_WIDTH.tablet} {
+        flex-direction: row;
     }
 `;
 

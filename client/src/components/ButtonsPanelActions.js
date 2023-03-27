@@ -2,8 +2,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faPenSquare } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
-export const ButtonsPanelActions = ({ idTarget, functionClick, displayShowMore, linkAction }) => {
+export const ButtonsPanelActions = ({
+    idTarget,
+    functionClick,
+    displayShowMore,
+    linkAction,
+    displayDelete,
+}) => {
+    if (displayDelete) {
+        return (
+            <>
+                <Button uniqueTraining={displayShowMore}>
+                    <ButtonDelete type="button" onClick={() => functionClick(idTarget)}>
+                        <FontAwesomeIcon icon={faTrash} color="red" />
+                    </ButtonDelete>
+                </Button>
+            </>
+        );
+    }
     return (
         <>
             <Button uniqueTraining={displayShowMore}>
@@ -15,6 +33,7 @@ export const ButtonsPanelActions = ({ idTarget, functionClick, displayShowMore, 
                 <Link to={`${linkAction}/edit/${idTarget}`}>
                     <FontAwesomeIcon icon={faPenSquare} color="blue" />
                 </Link>
+
                 <ButtonDelete type="button" onClick={() => functionClick(idTarget)}>
                     <FontAwesomeIcon icon={faTrash} color="red" />
                 </ButtonDelete>
@@ -24,12 +43,18 @@ export const ButtonsPanelActions = ({ idTarget, functionClick, displayShowMore, 
 };
 
 const Button = styled.td`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 15%;
     padding: 0.5rem;
     border-left: ${(props) => (props.displayShowMore ? '1px solid #000' : null)};
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
     text-align: end;
+    @media ${DEVICE_WIDTH.tablet}{
+       display: table-cell;
+    }
 
     > a {
         margin-left: 0.5rem;

@@ -3,6 +3,7 @@ import { Field, FieldSelect, DivChamp, TextAera } from './FieldsForm.js';
 import { DivError, Button } from './FormLogin.js';
 import { useActionData, useLoaderData, Form } from 'react-router-dom';
 import styled from 'styled-components';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const FormTraining = () => {
     const loaderData = useLoaderData();
@@ -330,8 +331,12 @@ const optionForSwim = (moyForSwim, setMoyForSwim, errors) => {
 
 const DivDouble = styled.div`
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
     width: 100%;
+    @media (max-width: 768px) {
+        justify-content: flex-start;
+        flex-direction: rows;
+    }
 `;
 const ButtonOption = styled.button`
     background-color: #fff;

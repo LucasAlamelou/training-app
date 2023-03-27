@@ -11,10 +11,11 @@ export const TrUser = ({ user, deleteUser }) => {
                 <TdField field={user.email} />
                 <TdField field={user.roles} />
                 <ButtonsPanelActions
+                    displayDelete={true}
                     idTarget={user.id}
                     linkAction={'/admin/user'}
                     functionClick={deleteUser}
-                    displayShowMore={false}
+                    displayShowMore={true}
                 />
             </Tr>
         </>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormTraining } from './FormTraining.js';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const FormCreateModifyTraining = ({ formCreate }) => {
     const [isCreate] = React.useState(formCreate);
@@ -26,8 +27,12 @@ const DivForm = styled.div`
 `;
 
 const H2 = styled.h2`
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-top: 1.9rem;
     font-weight: 600;
     color: #0554f2;
     text-align: center;
+    @media ${DEVICE_WIDTH.tablet} {
+        font-size: 2rem;
+    }
 `;

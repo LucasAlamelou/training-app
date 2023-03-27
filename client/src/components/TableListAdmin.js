@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TrMember } from '../components/TrMember.js';
-import { TrUser } from '../components/TrUser.js';
+import { TrMember } from './TrMember.js';
+import { TrUser } from './TrUser.js';
 
-export const TableList = ({ isMember, isUser, members, users, onDeleteAction }) => {
+export const TableListAdmin = ({ isMember, isUser, members, users, onDeleteAction }) => {
     return (
         <>
             <DivTable>

@@ -466,7 +466,7 @@ export const getUserAndMemberAllController = async (req, res, next) => {
                 return;
             }
         }
-        const nbTraining = await countTrainingByMemberId(user.id);
+        const nbTraining = await countTrainingByMemberId(idMember ? idMember : idUser);
         const data = {
             ...user,
             ...nbTraining,

@@ -1,8 +1,4 @@
-import {
-    convertDateToFrenchDate,
-    convertFrenchDateToDataBase,
-    validateIsDate,
-} from './DateUtils.js';
+import { isFrenchDate, convertFrenchDateToDataBase, validateIsDate } from './DateUtils.js';
 
 const LENGTH_MAX = 30;
 const LENGTH_MIN = 3;
@@ -115,20 +111,17 @@ export const validateFormMember = (donnesForm) => {
         errors.firstName = 'Veuillez saisir un prénom valide!';
     }
 
-    const dateOfBirthConvert = convertFrenchDateToDataBase(dateOfBirth);
-    const dateOfBirthForValidate =
-        dateOfBirthConvert !== null ? validateIsDate(dateOfBirthConvert) : false;
-
-    if (dateOfBirthForValidate === false) {
-        const dateOfBirthForValidateDataBaseToFrench = convertDateToFrenchDate(dateOfBirthConvert);
-        const dateOfBirthForValidateFrench =
-            dateOfBirthForValidateDataBaseToFrench !== null
-                ? validateIsDate(dateOfBirthForValidateDataBaseToFrench)
-                : false;
-        if (dateOfBirthForValidateFrench === false) {
+    if (isFrenchDate(dateOfBirth)) {
+        const dateOfBirthForValidateFrench = convertFrenchDateToDataBase(dateOfBirth);
+        if (validateIsDate(dateOfBirthForValidateFrench) === false) {
+            errors.dateOfBirth = 'Veuillez saisir une date de naissance valide!';
+        }
+    } else {
+        if (validateIsDate(dateOfBirth) === false) {
             errors.dateOfBirth = 'Veuillez saisir une date de naissance valide!';
         }
     }
+
     if (typeof adress !== 'string' || adress.length > LENGTH_MAX || adress.length < LENGTH_MIN) {
         errors.address = 'Veuillez saisir une adresse valide valide!';
     }
