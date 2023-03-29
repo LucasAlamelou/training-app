@@ -19,6 +19,7 @@ import {
 } from '../database/connection-data-base.js';
 import { countTrainingByMemberId } from '../database/count-on-data-base.js';
 import { generateAccessToken } from '../util/generateToken.js';
+import { asErrorValidator } from '../validator/errors_validator.js';
 
 const ROLE_ADMIN = 'ROLE_ADMIN';
 
@@ -30,6 +31,10 @@ const ROLE_ADMIN = 'ROLE_ADMIN';
  * @param {*} next
  */
 export async function createUserController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { email, password } = req.body;
     const { hash, salt } = await encryptPassword(password);
     try {
@@ -59,6 +64,10 @@ export async function createUserController(req, res, next) {
  * @param {*} next
  */
 export async function createMemberController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { userId, firstName, lastName, dateOfBirth, adress, city, zipCode, country } = req.body;
     try {
         const result = await createMember(
@@ -93,6 +102,10 @@ export async function createMemberController(req, res, next) {
  * @param {*} next
  */
 export async function createHealthMemberController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, weight, height, hourSleep } = req.body;
     try {
         const result = await createHealthMember(idMember, weight, height, hourSleep);
@@ -111,6 +124,10 @@ export async function createHealthMemberController(req, res, next) {
  * @param {*} next
  */
 export async function createPerformanceMemberController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport } =
         req.body;
     try {
@@ -139,6 +156,10 @@ export async function createPerformanceMemberController(req, res, next) {
 }
 
 export async function updateMemberAllFieldController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const {
         idMember,
         firstName,
@@ -223,6 +244,10 @@ export async function updateMemberAllFieldController(req, res, next) {
  * @returns
  */
 export async function updateMemberController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, firstName, lastName, dateOfBirth, adress, city, zipCode, country } = req.body;
     try {
         const result = await updateMemberById(
@@ -265,6 +290,10 @@ export async function updateMemberController(req, res, next) {
  * @returns
  */
 export async function updateHealthMemberController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, weight, height, hourSleep } = req.body;
     try {
         const result = await updateHealthMemberByIdMember(idMember, weight, height, hourSleep);
@@ -298,6 +327,10 @@ export async function updateHealthMemberController(req, res, next) {
  * @returns
  */
 export async function updatePerformanceMemberController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport } =
         req.body;
     try {
@@ -342,6 +375,10 @@ export async function updatePerformanceMemberController(req, res, next) {
  * @returns
  */
 export async function deleteUserController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const roles = req.user.roles;
     const { idMember, idUser } = req.body;
     if (!idMember && !idUser) {
@@ -413,6 +450,10 @@ export async function deleteUserController(req, res, next) {
  * @returns
  */
 export const getMemberController = async (req, res, next) => {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     try {
         const { idMember } = req.query;
         const member = await getMemberCompletById(idMember);
@@ -428,6 +469,10 @@ export const getMemberController = async (req, res, next) => {
 };
 
 export const getUserAndMemberAllController = async (req, res, next) => {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const roles = req.user.roles;
     if (!roles.includes(ROLE_ADMIN)) {
         res.json({

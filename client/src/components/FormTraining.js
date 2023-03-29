@@ -146,12 +146,21 @@ export const FormTraining = () => {
 
                 <DivChamp>
                     <DivError>
-                        {errors?.error?.message && (
+                        {(errors?.error && (
                             <>
-                                <span> {errors.error.message}</span>
-                                <span>Le champ {errors.error.champ} ne peut pas être vide.</span>
+                                {errors?.error.map((message, index) => (
+                                    <span key={index}>{message}</span>
+                                ))}
                             </>
-                        )}
+                        )) ||
+                            (errors?.error?.message && (
+                                <>
+                                    <span> {errors.error.message}</span>
+                                    <span>
+                                        Le champ {errors.error.champ} ne peut pas être vide.
+                                    </span>
+                                </>
+                            ))}
                     </DivError>
                     <Button type="submit">Ajouter</Button>
                 </DivChamp>

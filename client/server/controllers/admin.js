@@ -1,5 +1,6 @@
 import { getUsers, getMembers } from '../database/connection-data-base.js';
 import { countTrainingByMemberId } from '../database/count-on-data-base.js';
+import { asErrorValidator } from '../validator/errors_validator.js';
 
 export const getUsersAdminControllers = async (req, res) => {
     try {
@@ -20,6 +21,10 @@ export const getMembersAdminControllers = async (req, res) => {
 };
 
 export const getCountTrainingByMemberIdControllers = async (req, res) => {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     try {
         const idMember = Number(req.query.idMember);
         if (!idMember) {

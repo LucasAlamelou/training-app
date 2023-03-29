@@ -4,6 +4,7 @@ import { createUser, createMember } from '../database/create-on-data-base.js';
 import { getUserById } from '../database/connection-data-base.js';
 import { encryptPassword } from '../util/encrypt_password.js';
 import { generateAccessToken } from '../util/generateToken.js';
+import { asErrorValidator } from '../validator/errors_validator.js';
 
 /**
  * Permet de gérer l'inscription d'un utilisateur
@@ -12,6 +13,10 @@ import { generateAccessToken } from '../util/generateToken.js';
  * @param {*} res
  */
 export async function registerController(req, res) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     // Register controller
     const { firstName, lastName, dateOfBirth, adress, zipCode, city, country } = req.body;
     const { email, password } = req.body;

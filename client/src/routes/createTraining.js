@@ -27,7 +27,7 @@ export async function loader({ request, params }) {
 export async function action({ param, request }) {
     let formData = await request.formData();
     const result = await ActionFormTraining(formData, 'createTraining', 'post');
-    if (result.id) {
+    if (result?.id) {
         Swal.fire({
             icon: 'success',
             title: 'Entrainement créer',

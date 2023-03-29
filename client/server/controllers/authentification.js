@@ -4,6 +4,7 @@ import { generateAccessToken } from '../util/generateToken.js';
 import { getUserByEmail } from '../database/connection-data-base.js';
 import { updateUserPasswordById } from '../database/update-on-data-base.js';
 import { User } from '../models/user.js';
+import { asErrorValidator } from '../validator/errors_validator.js';
 
 /**
  * Permet de gérer la connexion d'un utilisateur
@@ -12,6 +13,10 @@ import { User } from '../models/user.js';
  * @param {*} next
  */
 export async function loginController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { email, password } = req.body;
     try {
         const user = await getUserByEmail(email);
@@ -50,6 +55,10 @@ export async function loginController(req, res, next) {
  * @returns
  */
 export async function changePassword(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { email, password, newPassword } = req.body;
     const user = new User(email, newPassword);
     try {

@@ -30,7 +30,19 @@ export const FormLogin = () => {
                 />
                 <DivError>{errors?.password && <span>{errors.password}</span>}</DivError>
                 <DivChamp>
-                    <DivError>{errors?.error && <span>{errors.error.message}</span>}</DivError>
+                    {(errors?.error && (
+                        <DivError>
+                            {errors?.error.map((message, index) => (
+                                <span key={index}>{message}</span>
+                            ))}
+                        </DivError>
+                    )) ||
+                        (errors?.error?.message && (
+                            <DivError>
+                                {errors?.error && <span>{errors.error.message}</span>}
+                            </DivError>
+                        ))}
+
                     <Button type="submit">Connexion</Button>
                 </DivChamp>
             </Form>

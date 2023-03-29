@@ -18,6 +18,7 @@ import {
     getAllTypeOfTraining,
     getTrainingCompletById,
 } from '../database/connection-data-base.js';
+import { asErrorValidator } from '../validator/errors_validator.js';
 
 /**
  * Permet de gérer la création d'un entrainement complet avec tout les champs
@@ -26,6 +27,10 @@ import {
  * @param {*} next
  */
 export async function createTrainingComplet(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const {
         idMember,
         name,
@@ -99,6 +104,10 @@ export async function createTrainingComplet(req, res, next) {
  * @param {*} next
  */
 export async function updateTrainingComplet(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const {
         idTraining,
         name,
@@ -180,6 +189,10 @@ export async function updateTrainingComplet(req, res, next) {
  * @param {*} next
  */
 export async function deleteTrainingComplet(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idTraining } = req.body;
     try {
         const trainingForDelete = await getTrainingById(idTraining);
@@ -212,6 +225,10 @@ export async function deleteTrainingComplet(req, res, next) {
  * @returns
  */
 export async function getAllTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember } = req.body;
     try {
         const user = await getMemberByEmail(req.user.email);
@@ -251,6 +268,7 @@ export async function getAllTypeOfTrainingController(req, res, next) {
 }
 
 export async function getTrainingByIdController(req, res, next) {
+    asErrorValidator(req, res);
     const { idTraining } = req.query;
     try {
         const result = await getTrainingCompletById(idTraining);

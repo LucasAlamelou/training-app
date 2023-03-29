@@ -187,8 +187,9 @@ export const validateFormTraining = (donnesForm) => {
     if (typeof kmForValidate !== 'number' && km !== null) {
         errors.km = 'Veuillez saisir un nombre de km valide !';
     }
-    const moyPerKmForValidate = moyPerKm !== '' ? parseInt(moyPerKm) : '';
-    if (typeof moyPerKmForValidate !== 'number' && moyPerKm !== null) {
+    //TODO a revoir c'est un type date
+    const moyPerKmForValidate = moyPerKm !== '' ? new Date(moyPerKm) : '';
+    if (typeof moyPerKmForValidate !== 'object' && moyPerKm !== null) {
         errors.moyPerKm = 'Veuillez saisir une moyenne par km valide !';
     }
     const speedMoyForValidate = speedMoy !== '' ? parseInt(speedMoy) : '';

@@ -114,7 +114,18 @@ export const FormRegister = () => {
                 <DivError>{errors?.country && <span>{errors.country}</span>}</DivError>
 
                 <DivChamp>
-                    <DivError>{errors?.error && <span>{errors.error.message}</span>}</DivError>
+                    {(errors?.error && (
+                        <DivError>
+                            {errors?.error.map((message, index) => (
+                                <span key={index}>{message}</span>
+                            ))}
+                        </DivError>
+                    )) ||
+                        (errors?.error?.message && (
+                            <DivError>
+                                {errors?.error && <span>{errors.error.message}</span>}
+                            </DivError>
+                        ))}
                     <Button type="submit">S'inscrire</Button>
                 </DivChamp>
             </Form>

@@ -8,8 +8,13 @@ import {
     getHikeDownTrainingByMemberId,
     getRecapAllParametersTrainingByMemberId,
 } from '../database/filtre-training-data-base.js';
+import { asErrorValidator } from '../validator/errors_validator.js';
 
 export async function getRecapHoursTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getSumTimeTrainingByMemberId(idMember, year, month, day);
@@ -25,6 +30,10 @@ export async function getRecapHoursTrainingController(req, res, next) {
 }
 
 export async function getRecapDistanceTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getSumDistanceTrainingByMemberId(idMember, year, month, day);
@@ -40,6 +49,10 @@ export async function getRecapDistanceTrainingController(req, res, next) {
 }
 
 export async function getRecapFcMaxTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getFcMaxTrainingByMemberId(idMember, year, month, day);
@@ -55,6 +68,10 @@ export async function getRecapFcMaxTrainingController(req, res, next) {
 }
 
 export async function getRecapMoyFcTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getMoyFcTrainingByMemberId(idMember, year, month, day);
@@ -70,6 +87,10 @@ export async function getRecapMoyFcTrainingController(req, res, next) {
 }
 
 export async function getRecapMoySpeedTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getMoySpeedTrainingByMemberId(idMember, year, month, day);
@@ -85,6 +106,10 @@ export async function getRecapMoySpeedTrainingController(req, res, next) {
 }
 
 export async function getRecapHikeUpTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getHikeUpTrainingByMemberId(idMember, year, month, day);
@@ -100,6 +125,10 @@ export async function getRecapHikeUpTrainingController(req, res, next) {
 }
 
 export async function getRecapHikeDownTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day } = req.query;
     try {
         const result = await getHikeDownTrainingByMemberId(idMember, year, month, day);
@@ -115,6 +144,10 @@ export async function getRecapHikeDownTrainingController(req, res, next) {
 }
 
 export async function getRecapAllParametersTrainingController(req, res, next) {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idMember, year, month, day, idTypeOfTraining } = req.query;
     try {
         const result = await getRecapAllParametersTrainingByMemberId(

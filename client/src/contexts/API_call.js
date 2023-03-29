@@ -45,11 +45,11 @@ const feetchAxios = async (url, method, data) => {
         method: method,
         url: `/api/${url}`,
         data: data,
-        /*
+
         validateStatus: function (status) {
             return status < 500; // la requête résout tant que le code de sa réponse est
             // inférieur à 500
-        },*/
+        },
     })
         .then((response) => {
             return response;
