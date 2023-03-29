@@ -94,7 +94,6 @@ export async function getSumDistanceTrainingByMemberId(
                         'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
-                    console.log('day && idType', result);
                     return result[0];
                 }
 
@@ -125,7 +124,6 @@ export async function getSumDistanceTrainingByMemberId(
                         'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
-                    console.log('day && !idType', result);
                     return result[0];
                 }
                 const [result] = await pool.query(

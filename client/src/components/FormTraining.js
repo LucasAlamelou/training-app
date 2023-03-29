@@ -146,7 +146,7 @@ export const FormTraining = () => {
 
                 <DivChamp>
                     <DivError>
-                        {errors?.error.message && (
+                        {errors?.error?.message && (
                             <>
                                 <span> {errors.error.message}</span>
                                 <span>Le champ {errors.error.champ} ne peut pas être vide.</span>

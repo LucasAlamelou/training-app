@@ -170,9 +170,9 @@ export const validateFormTraining = (donnesForm) => {
     if (typeof alongForValidate !== 'object' && along !== null) {
         errors.along = 'Veuillez saisir une durée !';
     }
-    const dateForValidate = date !== '' ? validateIsDate(date) : '';
-    if (typeof dateForValidate !== 'object' && date === false) {
-        errors.date = 'Veuillez saisir une date !';
+    const dateForValidate = validateIsDate(date);
+    if (dateForValidate === false) {
+        errors.date = 'Veuillez saisir une date valide !';
     }
     if ((typeof city !== 'string' || city.length > LENGTH_MAX) && city !== null) {
         errors.city = 'Veuillez saisir une ville valide !';

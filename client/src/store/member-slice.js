@@ -38,8 +38,7 @@ function userConnectedReducer() {
      * @param {*} action
      */
     function modifyMember(state, action) {
-        //const { payload } = action;
-        /*console.log(payload);
+        const { payload } = action;
         const data = payload.fieldModify;
         let field;
         let value;
@@ -47,7 +46,7 @@ function userConnectedReducer() {
             field = key;
             value = value1;
         }
-        console.log(field);*/
+        state.memberState = { ...state.memberState, [field]: value };
         // TODO : modifier le state avec le champ et la valeur
         //state.memberState[field] = value;
     }

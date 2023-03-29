@@ -83,7 +83,7 @@ export const validateIsDate = (date) => {
     if (dateForValidate.toString() === 'Invalid Date') {
         return false;
     }
-    if (dateForValidate > new Date()) {
+    if (dateForValidate >= new Date()) {
         return false;
     }
     return true;

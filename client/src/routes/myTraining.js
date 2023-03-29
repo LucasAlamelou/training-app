@@ -14,7 +14,6 @@ export async function loader({ request }) {
     };
     const result = await getLoader(url, methodPost, param);
     const resultTypeSport = await getLoader(urlTypeSport, methodGet);
-    // TODO recup type sport pour le filtre
     if (!result.info || !resultTypeSport.info) {
         return result;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import styled from 'styled-components';
 import { FieldSelect } from './FieldsForm';
 import { getListDay, getListMonth, getListYear } from '../util/DateUtils.js';
@@ -6,6 +6,7 @@ import { API_call } from '../contexts/API_call.js';
 import { MemberInfo } from './MemberInfo.js';
 import { useSelector } from 'react-redux';
 import { useLoaderData } from 'react-router-dom';
+import { Spinner } from './Spinner.js';
 
 export const FilterRecap = () => {
     const user = useSelector((x) => x.user);

@@ -221,9 +221,7 @@ const H2 = styled.h2`
 
     @media ${DEVICE_WIDTH.tablet} {
         font-size: 2rem;
-        margin-top: 1rem;
-        margin-left: 50%;
-        transform: translateX(-25%);
+        margin-top: 2rem;
     }
 `;
 

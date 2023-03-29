@@ -19,11 +19,13 @@ export const DisplayOneTraining = ({ deleteTraining }) => {
                 </H3Error>
             ) : (
                 <TrainingContainer>
-                    <Link to={'/my-training'} style={{ color: 'red' }}>
-                        {/* TODO a styliser en css button retour la page des entrainements
-                         */}
-                        Retour
-                    </Link>
+                    <ButtonBack>
+                        <Link to={'/my-training'}>
+                            {/* TODO a styliser en css button retour la page des entrainements
+                             */}
+                            Retour
+                        </Link>
+                    </ButtonBack>
                     <H2>
                         {training.name} - {training.nameSport}
                     </H2>
@@ -105,6 +107,24 @@ const DivButtons = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
+`;
+
+const ButtonBack = styled.button`
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    &:hover {
+        background-color: #6bb3f2;
+        color: #fff;
+    }
+    > a {
+        color: #0554f2;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
 `;
 
 const H3Error = styled.h3`

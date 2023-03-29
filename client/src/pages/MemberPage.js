@@ -23,6 +23,7 @@ export const MemberPage = ({ isAdmin }) => {
     const member = data?.member;
     const { memberState } = useSelector((state) => state.member);
     const { user } = useSelector((state) => state);
+    const [memberStateList, setMemberStateList] = React.useState({});
     const [viewMember, setViewMember] = React.useState(true);
     const [viewHealth, setViewHealth] = React.useState(false);
     const [viewPerformance, setViewPerformance] = React.useState(false);
@@ -39,9 +40,12 @@ export const MemberPage = ({ isAdmin }) => {
         logoutUser(data);
         // return <Navigate to="/login" replace={false} />;
     }
-    if (member) {
+
+    if (member && Object.keys(memberState).length === 0) {
+        console.log('dispatch');
         if (!isAdmin) {
             dispatch(memberActions.addMember({ member }));
+            setMemberStateList(member);
         }
     }
     const onClickRenderView = (e) => {
@@ -73,6 +77,8 @@ export const MemberPage = ({ isAdmin }) => {
         const nameLabel = e.target.firstChild.outerText;
         const dataField = e.target.lastChild.outerText;
         const nameField = e.target.name;
+        const arrayValue = dataField.split(' ');
+        console.log(arrayValue);
         let html;
         if (nameField === 'password') {
             onModifyPassword(e, user);
@@ -100,7 +106,9 @@ export const MemberPage = ({ isAdmin }) => {
             html = `
             <div class="swal2-input-group">
             <label class="swal2-label" for="swal2-input">${nameLabel}</label>
-            <input class="swal2-input" id="swal2-input-${nameField}" name="${nameField}" value="${dataField}">
+            <input class="swal2-input" id="swal2-input-${nameField}" name="${nameField}" value="${
+                arrayValue.length === 2 ? arrayValue[0] : dataField
+            }">
             </div>`;
         }
 
@@ -139,6 +147,7 @@ export const MemberPage = ({ isAdmin }) => {
                             showConfirmButton: false,
                             timer: 2500,
                         });
+
                         setFieldModify({ [nameField]: data[nameField] });
                         return result;
                     }
@@ -148,14 +157,17 @@ export const MemberPage = ({ isAdmin }) => {
             allowOutsideClick: () => !Swal.isLoading(),
         });
     };
-
     useEffect(() => {
-        if (!isAdmin) {
-            if (Object.keys(fieldModify).length > 0) {
-                dispatch(memberActions.modifyMember({ ...memberState, fieldModify }));
-            }
+        function onFetchMember() {
+            dispatch(
+                memberActions.modifyMember({
+                    fieldModify,
+                })
+            );
+            setMemberStateList(memberState);
         }
-    }, [fieldModify, dispatch, memberState, isAdmin]);
+        onFetchMember();
+    }, [dispatch, fieldModify]);
 
     return (
         <>
@@ -190,7 +202,7 @@ export const MemberPage = ({ isAdmin }) => {
                             <>
                                 <MemberInfo
                                     label="Email"
-                                    data={memberState ? member?.email : memberState?.email}
+                                    data={memberState ? memberState?.email : member?.email}
                                     name="email"
                                     functionOnClick={openModal}
                                     isModify={true}
@@ -198,7 +210,7 @@ export const MemberPage = ({ isAdmin }) => {
                                 <MemberInfo
                                     label="Nb Entrainement"
                                     data={
-                                        memberState ? member?.nbTraining : memberState?.nbTraining
+                                        memberState ? memberState?.nbTraining : member?.nbTraining
                                     }
                                     name="nbTraining"
                                 />
@@ -206,7 +218,7 @@ export const MemberPage = ({ isAdmin }) => {
                         )}
                         <MemberInfo
                             label="Nom"
-                            data={memberState ? member?.lastName : memberState?.lastName}
+                            data={memberState ? memberState?.lastName : member?.lastName}
                             name="lastName"
                             functionOnClick={openModal}
                             isModify={true}
@@ -214,7 +226,7 @@ export const MemberPage = ({ isAdmin }) => {
                         <MemberInfo
                             label="Prénom"
                             name="firstName"
-                            data={memberState ? member?.firstName : memberState?.firstName}
+                            data={memberState ? memberStateList?.firstName : member?.firstName}
                             functionOnClick={openModal}
                             isModify={true}
                         />
@@ -231,8 +243,8 @@ export const MemberPage = ({ isAdmin }) => {
                             name={'dateOfBirth'}
                             data={
                                 memberState
-                                    ? convertDateToFrenchDate(member?.dateOfBirth)
-                                    : convertDateToFrenchDate(memberState?.dateOfBirth)
+                                    ? convertDateToFrenchDate(memberState?.dateOfBirth)
+                                    : convertDateToFrenchDate(member?.dateOfBirth)
                             }
                             functionOnClick={openModal}
                             isModify={true}
@@ -240,7 +252,7 @@ export const MemberPage = ({ isAdmin }) => {
                         <MemberInfo
                             label="Sport pratiqué"
                             name={'favoriteSport'}
-                            data={memberState ? member?.favoriteSport : memberState?.favoriteSport}
+                            data={memberState ? memberState?.favoriteSport : member?.favoriteSport}
                             functionOnClick={openModal}
                             isModify={true}
                         />
@@ -265,14 +277,14 @@ export const MemberPage = ({ isAdmin }) => {
                 <DivMember>
                     <MemberInfo
                         label="Poids (en kg)"
-                        data={memberState ? member?.weight + ' kg' : memberState?.weight + ' kg'}
+                        data={memberState ? memberState?.weight + ' kg' : member?.weight + ' kg'}
                         name={'weight'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Taille (en cm)"
-                        data={memberState ? member?.height + ' cm' : memberState?.height + ' cm'}
+                        data={memberState ? memberState?.height + ' cm' : member?.height + ' cm'}
                         name={'height'}
                         functionOnClick={openModal}
                         isModify={true}
@@ -280,7 +292,7 @@ export const MemberPage = ({ isAdmin }) => {
                     <MemberInfo
                         label="Heure de sommeil"
                         data={
-                            memberState ? member?.hourSleep + ' h' : memberState?.hourSleep + ' h'
+                            memberState ? memberState?.hourSleep + ' h' : member?.hourSleep + ' h'
                         }
                         name={'hourSleep'}
                         functionOnClick={openModal}
@@ -288,14 +300,14 @@ export const MemberPage = ({ isAdmin }) => {
                     />
                     <MemberInfo
                         label="Fc repos"
-                        data={memberState ? member?.fcRest + ' bpm' : memberState?.fcRest + ' bpm'}
+                        data={memberState ? memberState?.fcRest + ' bpm' : member?.fcRest + ' bpm'}
                         name={'fcRest'}
                         functionOnClick={openModal}
                         isModify={true}
                     />
                     <MemberInfo
                         label="Fc max"
-                        data={memberState ? member?.fcMax + ' bpm' : memberState?.fcMax + ' bpm'}
+                        data={memberState ? memberState?.fcMax + ' bpm' : member?.fcMax + ' bpm'}
                         name={'fcMax'}
                         functionOnClick={openModal}
                         isModify={true}
@@ -308,8 +320,8 @@ export const MemberPage = ({ isAdmin }) => {
                         label="VO2max"
                         data={
                             memberState
-                                ? member?.vo2max + ' ml/kg/min'
-                                : memberState?.vo2max + ' ml/kg/min'
+                                ? memberState?.vo2max + ' ml/kg/min'
+                                : member?.vo2max + ' ml/kg/min'
                         }
                         name={'vo2max'}
                         functionOnClick={openModal}
@@ -319,8 +331,8 @@ export const MemberPage = ({ isAdmin }) => {
                         label="Seuil lactique(Bpm)"
                         data={
                             memberState
-                                ? member?.seuilLactateFC + ' bpm'
-                                : memberState?.seuilLactateFC + ' bpm'
+                                ? memberState?.seuilLactateFC + ' bpm'
+                                : member?.seuilLactateFC + ' bpm'
                         }
                         name={'seuilLactateFC'}
                         functionOnClick={openModal}
@@ -330,8 +342,8 @@ export const MemberPage = ({ isAdmin }) => {
                         label="Seuil lactique (min/km)"
                         data={
                             memberState
-                                ? member?.seuilLactate + ' min/km'
-                                : memberState?.seuilLactate + ' min/km'
+                                ? memberState?.seuilLactate + ' min/km'
+                                : member?.seuilLactate + ' min/km'
                         }
                         name={'seuilLactate'}
                         functionOnClick={openModal}
@@ -339,7 +351,7 @@ export const MemberPage = ({ isAdmin }) => {
                     />
                     <MemberInfo
                         label="VMA"
-                        data={memberState ? member?.vma + ' km/h' : memberState?.vma + ' km/h'}
+                        data={memberState ? memberState?.vma + ' km/h' : member?.vma + ' km/h'}
                         name={'vma'}
                         functionOnClick={openModal}
                         isModify={true}
