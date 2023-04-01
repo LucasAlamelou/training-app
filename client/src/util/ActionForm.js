@@ -29,7 +29,7 @@ export const ActionFormLoginRegister = async (formData, url, method) => {
     }
     // intern API call
     const response = await API_call(url, method, donnesForm);
-    if (response?.error || response?.error.length > 0) {
+    if (response?.error || response?.error?.length > 0) {
         errors = response;
         return errors;
     }

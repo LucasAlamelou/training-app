@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Form, useActionData } from 'react-router-dom';
 import { Field, DivChamp } from './FieldsForm.js';
 
-export const FormRegister = () => {
+export const FormRegister = ({ isAdmin }) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -17,6 +17,7 @@ export const FormRegister = () => {
 
     return (
         <>
+            {isAdmin && <H3>Vous etes en mode adminstrateur</H3>}
             <Form method="post">
                 <Field
                     label={'Email'}
@@ -114,18 +115,19 @@ export const FormRegister = () => {
                 <DivError>{errors?.country && <span>{errors.country}</span>}</DivError>
 
                 <DivChamp>
-                    {(errors?.error && (
-                        <DivError>
-                            {errors?.error.map((message, index) => (
-                                <span key={index}>{message}</span>
-                            ))}
-                        </DivError>
-                    )) ||
-                        (errors?.error?.message && (
+                    {errors?.error?.message &&
+                        ((
                             <DivError>
                                 {errors?.error && <span>{errors.error.message}</span>}
                             </DivError>
-                        ))}
+                        ) ||
+                            (errors?.error && (
+                                <DivError>
+                                    {errors?.error.map((message, index) => (
+                                        <span key={index}>{message}</span>
+                                    ))}
+                                </DivError>
+                            )))}
                     <Button type="submit">S'inscrire</Button>
                 </DivChamp>
             </Form>
@@ -160,4 +162,13 @@ export const DivError = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 0.6rem;
+`;
+
+const H3 = styled.h3`
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: #0554f2;
+    text-decoration: underline;
 `;

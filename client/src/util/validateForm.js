@@ -122,17 +122,26 @@ export const validateFormMember = (donnesForm) => {
         }
     }
 
-    if (typeof adress !== 'string' || adress.length > LENGTH_MAX || adress.length < LENGTH_MIN) {
+    if (
+        adress !== '' &&
+        (typeof adress !== 'string' || adress.length > LENGTH_MAX || adress.length < LENGTH_MIN)
+    ) {
         errors.address = 'Veuillez saisir une adresse valide valide!';
     }
-    if (typeof city !== 'string' || city.length > LENGTH_MAX) {
+    if (city !== '' && (typeof city !== 'string' || city.length > LENGTH_MAX)) {
         errors.city = 'Veuillez saisir une ville valide valide!';
     }
-    const zipCodeForValidate = zipCode !== '' ? parseInt(zipCode) : '';
-    if (typeof zipCodeForValidate !== 'number' || zipCodeForValidate.length > LENGTH_MAX_ZIPCODE) {
+    const zipCodeForValidate = zipCode !== '' ? parseInt(zipCode) : null;
+    if (
+        zipCode &&
+        (typeof zipCodeForValidate !== 'number' || zipCodeForValidate.length > LENGTH_MAX_ZIPCODE)
+    ) {
         errors.zipCode = 'Veuillez saisir un code postal valide!';
     }
-    if (typeof country !== 'string' || country.length > LENGTH_MAX || country.length < LENGTH_MIN) {
+    if (
+        country !== '' &&
+        (typeof country !== 'string' || country.length > LENGTH_MAX || country.length < LENGTH_MIN)
+    ) {
         errors.country = 'Veuillez saisir un pays valide!';
     }
     return errors;

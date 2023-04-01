@@ -1,7 +1,9 @@
 import React from 'react';
-import { useActionData, useLoaderData, useSubmit } from 'react-router-dom';
+import { useActionData, useLoaderData, useSubmit, Link } from 'react-router-dom';
 import { TableListAdmin } from '../components/TableListAdmin.js';
 import Swal from 'sweetalert2';
+import { ButtonMember } from '../components/ButtonMember.js';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 export const ACTION_DELETE_MEMBER = 'deleteMember';
 export const ACTION_DELETE_USER = 'deleteUser';
@@ -52,12 +54,19 @@ export const AdminPage = () => {
     };
     return (
         <>
-            <TableListAdmin
-                isMember={true}
-                members={members}
-                onDeleteAction={onClickDeleteMember}
-            />
-            <TableListAdmin isUser={true} users={users} onDeleteAction={onClickDeleteUser} />
+            <h1>Page d'administration</h1>
+
+            <>
+                <Link to={'/admin/add-membre'}>
+                    <ButtonMember label={'Ajouter un utilisateur'} favicon={faUserPlus} />
+                </Link>
+                <TableListAdmin
+                    isMember={true}
+                    members={members}
+                    onDeleteAction={onClickDeleteMember}
+                />
+                <TableListAdmin isUser={true} users={users} onDeleteAction={onClickDeleteUser} />
+            </>
         </>
     );
 };

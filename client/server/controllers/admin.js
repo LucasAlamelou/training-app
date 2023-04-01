@@ -1,6 +1,7 @@
 import { getUsers, getMembers } from '../database/connection-data-base.js';
 import { countTrainingByMemberId } from '../database/count-on-data-base.js';
 import { asErrorValidator } from '../validator/errors_validator.js';
+import { registerController } from './register.js';
 
 export const getUsersAdminControllers = async (req, res) => {
     try {
@@ -40,4 +41,16 @@ export const getCountTrainingByMemberIdControllers = async (req, res) => {
 
 export const postUsersAdminControllers = async (req, res) => {
     res.json({ info: 'postUsersAdminControllers' }).status(200);
+};
+
+export const addMemberAdminControllers = async (req, res) => {
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
+
+    // Genrateur de mot de passe? https://www.npmjs.com/package/password-generator
+    // Si le mot de passe est vide, on génère un mot de passe aléatoire
+
+    registerController(req, res);
 };

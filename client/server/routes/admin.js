@@ -3,9 +3,12 @@ import {
     getUsersAdminControllers,
     getMembersAdminControllers,
     getCountTrainingByMemberIdControllers,
+    addMemberAdminControllers,
 } from '../controllers/admin.js';
 import { deleteUserController, getUserAndMemberAllController } from '../controllers/user.js';
 import { idMemberValidator } from '../validator/id_validator.js';
+import { loginValidator } from '../validator/login_validator.js';
+import { memberValidator } from '../validator/member_validator.js';
 
 const router = Router();
 
@@ -22,7 +25,13 @@ export function adminRoute(app) {
 
     // post routes
     // app.post('/api/admin/postUsers', postUsersAdminControllers);
-    // app.post('/api/admin/postMembers', postMembersAdminControllers);
+    app.post(
+        '/api/admin/addMember',
+        memberValidator(),
+        loginValidator(),
+        addMemberAdminControllers
+    );
+    // app.post('/api/admin/postUserAndMemberAll', getUserAndMemberAllController)
 
     // Delete user
     app.delete('/api/admin/deleteUser', deleteUserController);

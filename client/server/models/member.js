@@ -5,10 +5,10 @@ export class Member {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.adress = adress;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.country = country;
+        this.adress = adress === '' ? null : adress;
+        this.zipCode = zipCode === '' ? null : parseInt(zipCode);
+        this.city = city === '' ? null : city;
+        this.country = country === '' ? null : country;
     }
     /**
      * Vérifie que les données du membre sont valides
@@ -96,7 +96,7 @@ export class Member {
         this.zipCode = zipCode;
     }
     getZipCode() {
-        return this.zipCode;
+        return parseInt(this.zipCode);
     }
     setCity(city) {
         this.city = city;
