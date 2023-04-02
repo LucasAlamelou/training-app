@@ -30,6 +30,7 @@ function userConnectedReducer() {
     return {
         addUserConnected,
         removeUserConnected,
+        setUserNotConnected,
     };
     function addUserConnected(state, action) {
         const { payload } = action;
@@ -60,6 +61,9 @@ function userConnectedReducer() {
         state.user = null;
         state.token = null;
         state.member = null;
+        state.isConnected = false;
+    }
+    function setUserNotConnected(state, action) {
         state.isConnected = false;
     }
 }

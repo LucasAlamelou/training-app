@@ -105,6 +105,8 @@ const DivHeader = styled.div`
     background-color: #6bb3f2;
     border: 0.3px solid #0554f2;
     @media ${DEVICE_WIDTH.tablet} {
+    }
+    @media ${DEVICE_WIDTH.laptop} {
         position: fixed;
         top: 0;
         display: flex;
@@ -121,6 +123,8 @@ const H2 = styled.h2`
     font-size: 1.5rem;
     margin-top: 1.9rem;
     @media ${DEVICE_WIDTH.tablet} {
+    }
+    @media ${DEVICE_WIDTH.laptop} {
         font-size: 2rem;
     }
 `;
@@ -133,6 +137,8 @@ const DivTitleButton = styled.div`
     margin: 1.2rem;
     cursor: pointer;
     @media ${DEVICE_WIDTH.tablet} {
+    }
+    @media ${DEVICE_WIDTH.laptop} {
         display: none;
     }
 `;

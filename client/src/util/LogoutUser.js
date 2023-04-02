@@ -15,3 +15,17 @@ export const logoutUser = (data, dispatch) => {
         return Navigate('/login');
     }
 };
+
+export const setUserNotConnected = (data, dispatch) => {
+    if (data.error?.code === 401) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: "Erreur d'authentification",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+        dispatch(authActions.setUserNotConnected({}));
+        //return Navigate('/login');
+    }
+};

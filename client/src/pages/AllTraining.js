@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { Link, useLoaderData, useSubmit } from 'react-router-dom';
@@ -12,7 +12,7 @@ import { DisplayOneTraining } from '../components/DisplayOneTraining.js';
 import { ButtonMember } from '../components/ButtonMember.js';
 import { faPersonRunning, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import { FilterRecap } from '../components/FilterRecap.jsx';
-import { logoutUser } from '../util/LogoutUser.js';
+import { logoutUser, setUserNotConnected } from '../util/LogoutUser.js';
 import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 const PageSize = 5;
@@ -25,6 +25,10 @@ export const AllTraining = ({ isUniqueTraining }) => {
     const [viewTraining, setViewTraining] = useState(true);
     const trainingList = data?.training?.data;
     const { trainingListState } = useSelector((state) => state.training);
+
+    useEffect(() => {
+        setUserNotConnected(data, dispatch);
+    }, [data, dispatch]);
 
     if (data) {
         logoutUser(data, dispatch);

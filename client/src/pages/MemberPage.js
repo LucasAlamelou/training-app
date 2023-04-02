@@ -6,7 +6,7 @@ import { useLoaderData } from 'react-router-dom';
 import { MemberInfo } from '../components/MemberInfo.js';
 import { ButtonMember } from '../components/ButtonMember.js';
 import { faHeartbeat, faRunning, faUser } from '@fortawesome/free-solid-svg-icons';
-import { logoutUser } from '../util/LogoutUser.js';
+import { logoutUser, setUserNotConnected } from '../util/LogoutUser.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { memberActions } from '../store/member-slice.js';
 import { ActionFormMember } from '../util/ActionForm.js';
@@ -28,6 +28,10 @@ export const MemberPage = ({ isAdmin }) => {
     const [viewHealth, setViewHealth] = React.useState(false);
     const [viewPerformance, setViewPerformance] = React.useState(false);
     const [fieldModify, setFieldModify] = React.useState({});
+
+    useEffect(() => {
+        setUserNotConnected(data, dispatch);
+    }, [data, dispatch]);
 
     if (!member && !memberState) {
         Swal.fire({
@@ -205,7 +209,7 @@ export const MemberPage = ({ isAdmin }) => {
                                     data={memberState ? memberState?.email : member?.email}
                                     name="email"
                                     functionOnClick={openModal}
-                                    isModify={true}
+                                    isModify={user?.isConnected ? true : false}
                                 />
                                 <MemberInfo
                                     label="Nb Entrainement"
@@ -221,14 +225,14 @@ export const MemberPage = ({ isAdmin }) => {
                             data={memberState ? memberState?.lastName : member?.lastName}
                             name="lastName"
                             functionOnClick={openModal}
-                            isModify={true}
+                            isModify={user?.isConnected ? true : false}
                         />
                         <MemberInfo
                             label="Prénom"
                             name="firstName"
                             data={memberState ? memberStateList?.firstName : member?.firstName}
                             functionOnClick={openModal}
-                            isModify={true}
+                            isModify={user?.isConnected ? true : false}
                         />
                         <MemberInfo
                             label="Adresse"
@@ -236,7 +240,7 @@ export const MemberPage = ({ isAdmin }) => {
                             data={[memberState?.adress, memberState?.zipCode, memberState?.city]}
                             multiFiedls={true}
                             functionOnClick={openModal}
-                            isModify={true}
+                            isModify={user?.isConnected ? true : false}
                         />
                         <MemberInfo
                             label="Date de naissance"
@@ -247,20 +251,20 @@ export const MemberPage = ({ isAdmin }) => {
                                     : convertDateToFrenchDate(member?.dateOfBirth)
                             }
                             functionOnClick={openModal}
-                            isModify={true}
+                            isModify={user?.isConnected ? true : false}
                         />
                         <MemberInfo
                             label="Sport pratiqué"
                             name={'favoriteSport'}
                             data={memberState ? memberState?.favoriteSport : member?.favoriteSport}
                             functionOnClick={openModal}
-                            isModify={true}
+                            isModify={user?.isConnected ? true : false}
                         />
                     </DivMember>
                     <DivMember>
                         <MemberInfo
                             label="Email"
-                            data={''} //TODO : EMAIL a rajouter non modifiable
+                            data={user?.email} //TODO : EMAIL a rajouter non modifiable
                             name="email"
                         />
                         <MemberInfo
@@ -268,7 +272,7 @@ export const MemberPage = ({ isAdmin }) => {
                             name={'password'}
                             data={'********'}
                             functionOnClick={openModal}
-                            isModify={true}
+                            isModify={user?.isConnected ? true : false}
                         />
                     </DivMember>
                 </>
@@ -280,14 +284,14 @@ export const MemberPage = ({ isAdmin }) => {
                         data={memberState ? memberState?.weight + ' kg' : member?.weight + ' kg'}
                         name={'weight'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Taille (en cm)"
                         data={memberState ? memberState?.height + ' cm' : member?.height + ' cm'}
                         name={'height'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Heure de sommeil"
@@ -296,21 +300,21 @@ export const MemberPage = ({ isAdmin }) => {
                         }
                         name={'hourSleep'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Fc repos"
                         data={memberState ? memberState?.fcRest + ' bpm' : member?.fcRest + ' bpm'}
                         name={'fcRest'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Fc max"
                         data={memberState ? memberState?.fcMax + ' bpm' : member?.fcMax + ' bpm'}
                         name={'fcMax'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                 </DivMember>
             )}
@@ -325,7 +329,7 @@ export const MemberPage = ({ isAdmin }) => {
                         }
                         name={'vo2max'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Seuil lactique(Bpm)"
@@ -336,7 +340,7 @@ export const MemberPage = ({ isAdmin }) => {
                         }
                         name={'seuilLactateFC'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Seuil lactique (min/km)"
@@ -347,14 +351,14 @@ export const MemberPage = ({ isAdmin }) => {
                         }
                         name={'seuilLactate'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="VMA"
                         data={memberState ? memberState?.vma + ' km/h' : member?.vma + ' km/h'}
                         name={'vma'}
                         functionOnClick={openModal}
-                        isModify={true}
+                        isModify={user?.isConnected ? true : false}
                     />
                 </DivMember>
             )}

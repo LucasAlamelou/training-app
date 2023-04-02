@@ -1,18 +1,27 @@
 import React from 'react';
 import { useActionData, useLoaderData, useSubmit, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { TableListAdmin } from '../components/TableListAdmin.js';
 import Swal from 'sweetalert2';
 import { ButtonMember } from '../components/ButtonMember.js';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { setUserNotConnected } from '../util/LogoutUser.js';
 
 export const ACTION_DELETE_MEMBER = 'deleteMember';
 export const ACTION_DELETE_USER = 'deleteUser';
 export const ACTION_GET_MEMBER = 'getMember';
 
 export const AdminPage = () => {
+    const data = useLoaderData();
+    const dispatch = useDispatch();
     const { members, users } = useLoaderData();
     const submit = useSubmit();
     const actionData = useActionData();
+
+    useEffect(() => {
+        setUserNotConnected(data, dispatch);
+    }, [data, dispatch]);
 
     if (actionData?.error) {
         Swal.fire({

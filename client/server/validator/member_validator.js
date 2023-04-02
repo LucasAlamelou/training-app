@@ -77,7 +77,7 @@ export function memberPerformanceValidator() {
             .optional({ nullable: true, checkFalsy: true })
             .withMessage('Veillez saisir une fréquence cardiaque maximale valide'),
         check('vma', 'Veillez saisir une VMA valide')
-            .isInt({ min: 0, max: 30 })
+            .isFloat({ min: 0, max: 30 })
             .optional({ nullable: true, checkFalsy: true })
             .withMessage('Veillez saisir une VMA valide'),
         check('favoriteSport', 'Veillez saisir un sport favori valide')
