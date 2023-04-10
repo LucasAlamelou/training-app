@@ -12,10 +12,15 @@ export const ACTION_DELETE_MEMBER = 'deleteMember';
 export const ACTION_DELETE_USER = 'deleteUser';
 export const ACTION_GET_MEMBER = 'getMember';
 
+export const ACTION_MODIFY_FONCTIONNALITE = 'modifyFonctionnalite';
+export const ACTION_ADD_FONCTIONNALITE = 'addFonctionnalite';
+export const ACTION_DELETE_FONCTIONNALITE = 'deleteFonctionnalite';
+export const ACTION_SET_ACTIVE_FONCTIONNALITE = 'setActiveFonctionnalite';
+
 export const AdminPage = () => {
     const data = useLoaderData();
     const dispatch = useDispatch();
-    const { members, users } = useLoaderData();
+    const { members, users, fonctionnalites } = useLoaderData();
     const submit = useSubmit();
     const actionData = useActionData();
 
@@ -28,7 +33,6 @@ export const AdminPage = () => {
             icon: 'error',
             title: 'Oops...',
             text: actionData.error.message,
-            timer: 3000,
         });
     }
     if (actionData?.infoChanged) {
@@ -61,13 +65,34 @@ export const AdminPage = () => {
     const onClickDeleteUser = (id) => {
         onClickDelete(id, ACTION_DELETE_USER);
     };
+    const onClickDeleteFonctionnalite = (id) => {
+        onClickDelete(id, ACTION_DELETE_FONCTIONNALITE);
+    };
+
+    /*
+    const handleChange = (value) => {
+        console.log('value', value);
+        submit({ id: value.id, actionMethod: ACTION_MODIFY_FONCTIONNALITE, texte: value.texte }, { method: 'post', action: 'admin' });
+    };
+    */
+
     return (
         <>
             <h1>Page d'administration</h1>
-
             <>
                 <Link to={'/admin/add-membre'}>
-                    <ButtonMember label={'Ajouter un utilisateur'} favicon={faUserPlus} />
+                    <ButtonMember
+                        label={'Ajouter un utilisateur'}
+                        favicon={faUserPlus}
+                        functionClick={() => {}}
+                    />
+                </Link>
+                <Link to={'/admin/fonctionnalite/edit/add'}>
+                    <ButtonMember
+                        label={'Ajouter une fonctionnalité'}
+                        favicon={faUserPlus}
+                        functionClick={() => {}}
+                    />
                 </Link>
                 <TableListAdmin
                     isMember={true}
@@ -75,6 +100,11 @@ export const AdminPage = () => {
                     onDeleteAction={onClickDeleteMember}
                 />
                 <TableListAdmin isUser={true} users={users} onDeleteAction={onClickDeleteUser} />
+                <TableListAdmin
+                    isFonctionnalite={true}
+                    fonctionnalites={fonctionnalites}
+                    onDeleteAction={onClickDeleteFonctionnalite}
+                />
             </>
         </>
     );

@@ -2,8 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { TrMember } from './TrMember.js';
 import { TrUser } from './TrUser.js';
+import { TrFonctionnalite } from './TrFonctionnalite.js';
 
-export const TableListAdmin = ({ isMember, isUser, members, users, onDeleteAction }) => {
+export const TableListAdmin = ({
+    isMember,
+    isUser,
+    isFonctionnalite,
+    members,
+    users,
+    fonctionnalites,
+    onDeleteAction,
+}) => {
     return (
         <>
             <DivTable>
@@ -29,6 +38,16 @@ export const TableListAdmin = ({ isMember, isUser, members, users, onDeleteActio
                                     <Th>Action</Th>
                                 </>
                             )}
+                            {isFonctionnalite && (
+                                <>
+                                    <Th>Id</Th>
+                                    <Th>Nom</Th>
+                                    <Th>Est active</Th>
+                                    <Th>Date création</Th>
+                                    <Th>Date modification</Th>
+                                    <Th>Action</Th>
+                                </>
+                            )}
                         </Tr>
                     </thead>
                     <tbody>
@@ -51,6 +70,17 @@ export const TableListAdmin = ({ isMember, isUser, members, users, onDeleteActio
                                         key={`user_${user.id}`}
                                         user={user}
                                         deleteUser={onDeleteAction}
+                                    />
+                                ))}
+                            </>
+                        )}
+                        {isFonctionnalite && (
+                            <>
+                                {fonctionnalites?.map((fonctionnalite) => (
+                                    <TrFonctionnalite
+                                        key={`fonctionnalite_${fonctionnalite.id}`}
+                                        fonctionnalite={fonctionnalite}
+                                        deleteFonctionnalite={onDeleteAction}
                                     />
                                 ))}
                             </>
@@ -84,7 +114,7 @@ const Th = styled.th`
 const DivTable = styled.div`
     margin: 0 auto;
     margin-top: 5rem;
-    width: 80%;
+    width: 90%;
     height: 60%;
     padding: 1rem;
     background-color: #fff;

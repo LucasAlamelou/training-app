@@ -195,3 +195,40 @@ export async function updateMetricOptionalTraining(
     );
     return result;
 }
+
+/**
+ * Update une fonctionnalité par son id
+ * @param {Int} idFonctionnalite
+ * @param {String[Text]} name
+ * @param {String[Text]} description
+ * @param {Date} updateDate
+ * @returns
+ */
+export async function updateFonctionnaliteById(
+    idFonctionnalite,
+    name,
+    description,
+    updateDate,
+    isActive
+) {
+    const [result] = await pool.query(
+        'UPDATE fonctionnalites SET name = ?, description = ?, updateDate = ?, isActive = ? WHERE fonctionnalites.id = ?',
+        [name, description, updateDate, isActive, idFonctionnalite]
+    );
+    return result;
+}
+
+/**
+ * Update le isActive d'une fonctionnalité par son id
+ * @param {Int} idFonctionnalite
+ * @param {Boolean} isActive
+ * @param {Date} updateDate
+ * @returns
+ */
+export async function updateFonctionnaliteActiveById(idFonctionnalite, isActive, updateDate) {
+    const [result] = await pool.query(
+        'UPDATE fonctionnalites SET isActive = ?, updateDate = ? WHERE fonctionnalites.id = ?',
+        [isActive, updateDate, idFonctionnalite]
+    );
+    return result;
+}

@@ -68,3 +68,15 @@ export async function deleteMetricOptionalTrainingByIdTraining(idTraining) {
     );
     return result;
 }
+
+/**
+ * Supprime la fonctionnalité par id
+ * @param {Int} idFonctionnalite
+ * @returns
+ */
+export async function deleteFonctionnaliteById(idFonctionnalite) {
+    const [result] = await pool.query('DELETE FROM fonctionnalites WHERE fonctionnalites.id = ?', [
+        idFonctionnalite,
+    ]);
+    return result;
+}

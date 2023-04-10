@@ -35,3 +35,12 @@ export function idTypeOfTrainingValidator() {
             .withMessage('Veillez saisir un id type of training valide'),
     ];
 }
+
+export function idFonctionnaliteValidator() {
+    return [
+        check('idFonctionnalite', 'Veillez saisir un id fonctionnalite valide')
+            .notEmpty()
+            .isNumeric({ no_symbols: true })
+            .withMessage('Veillez saisir un id fonctionnalite valide'),
+    ];
+}

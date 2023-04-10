@@ -157,3 +157,20 @@ export async function getUserAndMemberById(idUser) {
     );
     return result[0];
 }
+
+export async function getAllFonctionnalites() {
+    const [result] = await pool.query('SELECT * FROM fonctionnalites');
+    return result;
+}
+
+export async function getFonctionnalitesById(idFonctionnalite) {
+    const [result] = await pool.query('SELECT * FROM fonctionnalites WHERE id = ?', [
+        idFonctionnalite,
+    ]);
+    return result[0];
+}
+
+export async function getAllFonctionnalitesIsActive() {
+    const [result] = await pool.query('SELECT * FROM fonctionnalites WHERE isActive = 1');
+    return result;
+}

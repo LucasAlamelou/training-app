@@ -19,6 +19,11 @@ import { Membre, loader as membreLoader } from './member.js';
 import { Admin, loader as adminLoader, action as adminAction } from './admin.js';
 import { AdminUser, loader as adminUserLoader } from './adminUser.js';
 import { AdminAddMember, action as adminAddMembreAction } from './adminAddMember.js';
+import {
+    AdminFonctionnalite,
+    loader as adminFonctionnaliteLoader,
+    action as adminFonctionnaliteAction,
+} from './adminFonctionnalite.js';
 
 const router = createBrowserRouter([
     {
@@ -83,6 +88,12 @@ const router = createBrowserRouter([
                 path: 'admin/add-membre',
                 element: <AdminAddMember />,
                 action: adminAddMembreAction,
+            },
+            {
+                path: 'admin/fonctionnalite/edit/:idFonctionnalite',
+                element: <AdminFonctionnalite />,
+                loader: adminFonctionnaliteLoader,
+                action: adminFonctionnaliteAction,
             },
         ],
     },

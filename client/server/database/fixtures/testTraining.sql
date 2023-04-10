@@ -63,3 +63,21 @@ ADD roles json NOT NULL;
 
 UPDATE user SET roles ='["ROLE_ADMIN", "ROLE_USER"]' where user.id = 21;
 UPDATE user SET roles ='["ROLE_ADMIN"]' where user.id = 1;
+
+ALTER TABLE fonctionnalites
+    DROP name,
+    ADD text text NOT NULL;
+
+ALTER TABLE fonctionnalites
+    ADD isActive boolean NOT NULL default true;
+
+INSERT INTO fonctionnalites (text, date)
+    VALUES ('test', '2023-04-09');
+
+ALTER TABLE fonctionnalites
+    DROP text,
+    ADD description text NOT NULL;
+
+
+ALTER TABLE fonctionnalites
+    ADD name varchar(60) NOT NULL;

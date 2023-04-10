@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS healthMember
     height INT NULL,
     hourSleep TIME NULL,
     memberId INT,
-    PRIMARY KEY (id),
+    PRIMARY KEY (idHealthMember),
     FOREIGN KEY (memberId) REFERENCES member(id)
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS performanceMember
     vma FLOAT NULL,
     favoriteSport varchar(100) NOT NULL,
     memberId INT,
-    PRIMARY KEY (id),
+    PRIMARY KEY (idPerformanceMember),
     FOREIGN KEY (memberId) REFERENCES member(id)
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS metricTraining
     speedMoy FLOAT NULL,
     speedMax FLOAT NULL,
     idTraining INT NOT NULL,
-    PRIMARY KEY (id),
+    PRIMARY KEY (idMetricTraining),
     FOREIGN KEY (idTraining) REFERENCES training(id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS metricHealthTraining
     fcMoy INT NULL,
     fcMax INT NULL,
     idTraining INT NOT NULL,
-    PRIMARY KEY (id),
+    PRIMARY KEY (idMetricHealthTraining),
     FOREIGN KEY (idTraining) REFERENCES training(id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
@@ -122,7 +122,17 @@ CREATE TABLE IF NOT EXISTS metricOptionalTraining
     cadenceMax INT NULL,
     moyForSwim TIME NULL,
     idTraining INT NOT NULL,
-    PRIMARY KEY (id),
+    PRIMARY KEY (idMetricOptionalTraining),
     FOREIGN KEY (idTraining) REFERENCES training(id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS fonctionnalites
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    name varchar(60) NOT NULL,
+    description text NOT NULL,
+    date DATE NOT NULL,
+    updateDate DATE NULL,
+    isActive boolean NOT NULL default false,
+    PRIMARY KEY (id)
+)DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;

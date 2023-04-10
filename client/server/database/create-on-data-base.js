@@ -187,3 +187,11 @@ export async function createMetricOptionalTraining(
     );
     return result.insertId;
 }
+
+export async function createFonctionnalite(description, name, date, isActive) {
+    const [result] = await pool.query(
+        'INSERT INTO fonctionnalites (description, name, date, isActive) VALUES (?, ?, ?, ?)',
+        [description, name, date, isActive]
+    );
+    return result.insertId;
+}

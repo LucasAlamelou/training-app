@@ -62,7 +62,7 @@ export const convertDateToFrenchDate = (date) => {
     const day = dateForConvert.getDate();
     const month = dateForConvert.getMonth() + 1;
     const year = dateForConvert.getFullYear();
-    const dateConverted = `${day}/${month}/${year}`;
+    const dateConverted = `${day}/${month < 10 ? `0${month}` : month}/${year}`;
     return dateConverted;
 };
 
