@@ -6,6 +6,7 @@ import { FormCreateModifyTraining } from '../components/FormCreateModifyTraining
 import Swal from 'sweetalert2';
 
 let isCreate = true;
+
 export async function loader({ request, params }) {
     let result;
     if (params?.idTraining) {

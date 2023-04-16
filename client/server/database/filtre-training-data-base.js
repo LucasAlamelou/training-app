@@ -15,25 +15,25 @@ export async function getSumTimeTrainingByMemberId(idMember, year, month, day, i
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND YEAR(date) = ? AND MONTH(date) = ? AND DAY(date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND YEAR(date) = ? AND MONTH(date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND YEAR(date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember]
         );
@@ -42,25 +42,25 @@ export async function getSumTimeTrainingByMemberId(idMember, year, month, day, i
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND YEAR(date) = ? AND MONTH(date) = ? AND DAY(date) = ? ',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND YEAR(date) = ? AND MONTH(date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND YEAR(date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ?',
             [idMember]
         );
@@ -90,28 +90,28 @@ export async function getSumDistanceTrainingByMemberId(
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
 
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
         );
@@ -120,25 +120,25 @@ export async function getSumDistanceTrainingByMemberId(
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ?',
             [idMember]
         );
@@ -161,27 +161,27 @@ export async function getMoyFcTrainingByMemberId(idMember, year, month, day, idT
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
         );
@@ -190,25 +190,25 @@ export async function getMoyFcTrainingByMemberId(idMember, year, month, day, idT
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT AVG(fcMoy) AS fc_moy FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ?',
             [idMember]
         );
@@ -231,27 +231,27 @@ export async function getMoySpeedTrainingByMemberId(idMember, year, month, day, 
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
         );
@@ -260,25 +260,25 @@ export async function getMoySpeedTrainingByMemberId(idMember, year, month, day, 
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT AVG(speedMoy) AS speed_moy FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ?',
             [idMember]
         );
@@ -301,27 +301,27 @@ export async function getFcMaxTrainingByMemberId(idMember, year, month, day, idT
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
         );
@@ -330,25 +330,25 @@ export async function getFcMaxTrainingByMemberId(idMember, year, month, day, idT
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ? AND YEAR(t.date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT MAX(fcMax) AS fc_max FROM metricHealthTraining mht INNER JOIN training t ON mht.idTraining = t.id WHERE t.idMember = ?',
             [idMember]
         );
@@ -370,27 +370,27 @@ export const getHikeUpTrainingByMemberId = async (idMember, year, month, day, id
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
         );
@@ -399,27 +399,27 @@ export const getHikeUpTrainingByMemberId = async (idMember, year, month, day, id
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ?',
             [idMember]
         );
@@ -448,27 +448,27 @@ export const getHikeDownTrainingByMemberId = async (
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ? AND t.idTypeOfTraining = ?',
                         [idMember, year, month, day, idTypeOfTraining]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND t.idTypeOfTraining = ?',
                     [idMember, year, month, idTypeOfTraining]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND t.idTypeOfTraining = ?',
                 [idMember, year, idTypeOfTraining]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
 
             [idMember, idTypeOfTraining]
@@ -478,27 +478,27 @@ export const getHikeDownTrainingByMemberId = async (
         if (year) {
             if (month) {
                 if (day) {
-                    const [result] = await pool.query(
+                    const [result] = await pool.execute(
                         'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ? AND DAY(t.date) = ?',
                         [idMember, year, month, day]
                     );
                     return result[0];
                 }
 
-                const [result] = await pool.query(
+                const [result] = await pool.execute(
                     'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ? AND MONTH(t.date) = ?',
                     [idMember, year, month]
                 );
                 return result[0];
             }
 
-            const [result] = await pool.query(
+            const [result] = await pool.execute(
                 'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND YEAR(t.date) = ?',
                 [idMember, year]
             );
             return result[0];
         }
-        const [result] = await pool.query(
+        const [result] = await pool.execute(
             'SELECT SUM(hikeDown) AS hike_down FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ?',
             [idMember]
         );

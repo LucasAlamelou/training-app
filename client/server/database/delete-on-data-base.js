@@ -62,7 +62,7 @@ export async function deleteMetricHealthTrainingByIdTraining(idTraining) {
  * @returns
  */
 export async function deleteMetricOptionalTrainingByIdTraining(idTraining) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'DELETE FROM metricOptionalTraining WHERE metricOptionalTraining.idTraining = ?',
         [idTraining]
     );
@@ -75,8 +75,9 @@ export async function deleteMetricOptionalTrainingByIdTraining(idTraining) {
  * @returns
  */
 export async function deleteFonctionnaliteById(idFonctionnalite) {
-    const [result] = await pool.query('DELETE FROM fonctionnalites WHERE fonctionnalites.id = ?', [
-        idFonctionnalite,
-    ]);
+    const [result] = await pool.execute(
+        'DELETE FROM fonctionnalites WHERE fonctionnalites.id = ?',
+        [idFonctionnalite]
+    );
     return result;
 }

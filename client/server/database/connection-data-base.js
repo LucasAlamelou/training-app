@@ -26,7 +26,7 @@ export const pool = mysql
  * @returns {object} user
  */
 export async function getUserById(idUser) {
-    const [result] = await pool.query('SELECT * FROM user WHERE user.id = ?', [idUser]);
+    const [result] = await pool.execute('SELECT * FROM user WHERE user.id = ?', [idUser]);
     return result[0];
 }
 
@@ -36,7 +36,7 @@ export async function getUserById(idUser) {
  * @returns {object} user
  */
 export async function getUserByEmail(emailUser) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT * FROM user INNER JOIN member ON member.userId = user.id WHERE user.email = ?',
         [emailUser]
     );
@@ -49,14 +49,14 @@ export async function getUserByEmail(emailUser) {
  * @returns {object} member
  */
 export async function getMemberByEmail(emailUser) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT * FROM user u INNER JOIN member m ON m.userId = u.id WHERE u.email = ?',
         [emailUser]
     );
     return result[0];
 }
 export async function getMemberById(idMember) {
-    const [result] = await pool.query('SELECT * FROM member WHERE member.id = ?', [idMember]);
+    const [result] = await pool.execute('SELECT * FROM member WHERE member.id = ?', [idMember]);
     return result[0];
 }
 /**
@@ -66,7 +66,7 @@ export async function getMemberById(idMember) {
  * @returns {object} membre complet
  */
 export async function getMemberCompletById(idMember) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT * FROM member m LEFT JOIN performanceMember pm ON m.id = pm.memberId LEFT JOIN healthMember hm ON m.id = hm.memberId WHERE m.id = ? ',
         [idMember]
     );
@@ -80,7 +80,7 @@ export async function getMemberCompletById(idMember) {
  * @returns {Array}
  */
 export async function getAllDataTrainingByMemberId(idMember) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT * FROM training t LEFT JOIN typeOfTraining tp ON tp.id = t.idTypeOfTraining LEFT JOIN metricTraining mt ON mt.idTraining = t.id LEFT JOIN metricHealthTraining mht ON mht.idTraining = t.id LEFT JOIN metricOptionalTraining mot ON mot.idTraining = t.id WHERE t.idMember = ? ORDER BY t.date DESC',
         [idMember]
     );
@@ -94,7 +94,9 @@ export async function getAllDataTrainingByMemberId(idMember) {
  * @returns {Array} training par id du membre
  */
 export async function getAllTrainingByMemberId(idMember) {
-    const [result] = await pool.query('SELECT * FROM training t WHERE t.idMember = ? ', [idMember]);
+    const [result] = await pool.execute('SELECT * FROM training t WHERE t.idMember = ? ', [
+        idMember,
+    ]);
     return result;
 }
 
@@ -105,7 +107,7 @@ export async function getAllTrainingByMemberId(idMember) {
  * @returns {Array} row training par id
  */
 export async function getTrainingById(idTraining) {
-    const [result] = await pool.query('SELECT * FROM training t WHERE t.id = ? ', [idTraining]);
+    const [result] = await pool.execute('SELECT * FROM training t WHERE t.id = ? ', [idTraining]);
     return result[0];
 }
 
@@ -115,7 +117,7 @@ export async function getTrainingById(idTraining) {
  * @returns {Array} row training complet
  */
 export async function getTrainingCompletById(idTraining) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT * FROM training t LEFT JOIN typeOfTraining tp ON tp.id = t.idTypeOfTraining LEFT JOIN metricTraining mt ON mt.idTraining = t.id LEFT JOIN metricHealthTraining mht ON mht.idTraining = t.id LEFT JOIN metricOptionalTraining mot ON mot.idTraining = t.id WHERE t.id = ? ',
         [idTraining]
     );
@@ -126,7 +128,7 @@ export async function getTrainingCompletById(idTraining) {
  * @returns {Array} row typeOfTraining
  */
 export async function getAllTypeOfTraining() {
-    const [result] = await pool.query('SELECT * FROM typeOfTraining');
+    const [result] = await pool.execute('SELECT * FROM typeOfTraining');
     return result;
 }
 
@@ -135,7 +137,7 @@ export async function getAllTypeOfTraining() {
  * @returns {Array} row user [id, email, roles]
  */
 export async function getUsers() {
-    const [result] = await pool.query('SELECT id, email, roles FROM user');
+    const [result] = await pool.execute('SELECT id, email, roles FROM user');
     return result;
 }
 
@@ -144,14 +146,14 @@ export async function getUsers() {
  * @returns {Array} row member [id, userId, firstName, lastName, dateOfBirth]
  */
 export async function getMembers() {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT id, userId, firstName, lastName, dateOfBirth, favoriteSport FROM member m LEFT JOIN performanceMember pm ON pm.memberId = m.id'
     );
     return result;
 }
 
 export async function getUserAndMemberById(idUser) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'SELECT userId, email, roles, firstName, lastName, dateOfBirth, adress, zipCode, city, country, height, weight, hourSleep, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport performanceMember FROM user u LEFT JOIN member m ON m.userId = u.id LEFT JOIN healthMember hm ON hm.memberId = m.id LEFT JOIN performanceMember pm ON pm.memberId = m.id WHERE u.id = ?',
         [idUser]
     );
@@ -159,18 +161,18 @@ export async function getUserAndMemberById(idUser) {
 }
 
 export async function getAllFonctionnalites() {
-    const [result] = await pool.query('SELECT * FROM fonctionnalites');
+    const [result] = await pool.execute('SELECT * FROM fonctionnalites');
     return result;
 }
 
 export async function getFonctionnalitesById(idFonctionnalite) {
-    const [result] = await pool.query('SELECT * FROM fonctionnalites WHERE id = ?', [
+    const [result] = await pool.execute('SELECT * FROM fonctionnalites WHERE id = ?', [
         idFonctionnalite,
     ]);
     return result[0];
 }
 
 export async function getAllFonctionnalitesIsActive() {
-    const [result] = await pool.query('SELECT * FROM fonctionnalites WHERE isActive = 1');
+    const [result] = await pool.execute('SELECT * FROM fonctionnalites WHERE isActive = 1');
     return result;
 }

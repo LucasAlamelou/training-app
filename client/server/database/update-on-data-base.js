@@ -7,7 +7,7 @@ import { pool } from './connection-data-base.js';
  * @returns
  */
 export async function updateUserById(idUser, email) {
-    const [result] = await pool.query('UPDATE user SET email = ? WHERE user.id = ?', [
+    const [result] = await pool.execute('UPDATE user SET email = ? WHERE user.id = ?', [
         email,
         idUser,
     ]);
@@ -22,7 +22,7 @@ export async function updateUserById(idUser, email) {
  * @returns
  */
 export async function updateUserPasswordById(idUser, hash, salt) {
-    const [result] = await pool.query('UPDATE user SET hash = ?, salt = ? WHERE user.id = ?', [
+    const [result] = await pool.execute('UPDATE user SET hash = ?, salt = ? WHERE user.id = ?', [
         hash,
         salt,
         idUser,
@@ -52,7 +52,7 @@ export async function updateMemberById(
     zipCode,
     country
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE member SET firstName = ?, lastName = ?, dateOfBirth = ?, adress = ?, city = ?, zipCode = ?, country = ? WHERE member.id = ?',
         [firstName, lastName, dateOfBirth, adress, city, zipCode, country, idMember]
     );
@@ -68,7 +68,7 @@ export async function updateMemberById(
  * @returns
  */
 export async function updateHealthMemberByIdMember(idMember, weight, height, hourSleep) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE healthMember SET weight = ?, height = ?, hourSleep = ? WHERE healthMember.memberId = ?',
         [weight, height, hourSleep, idMember]
     );
@@ -97,7 +97,7 @@ export async function updatePerformanceMemberByIdMember(
     vma,
     favoriteSport
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE performanceMember SET vo2max = ?, seuilLactateFC = ?, seuilLactate = ?, fcRest = ?, fcMax = ?, vma = ?, favoriteSport = ?  WHERE performanceMember.memberId = ?',
         [vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport, idMember]
     );
@@ -126,7 +126,7 @@ export async function updateTrainingById(
     dateTraining,
     idTypeOfTraining
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE training SET name = ?, note = ?, along = ?, city = ?, country = ?, date = ? ,idTypeOfTraining = ? WHERE training.id = ?',
         [name, note, along, city, country, dateTraining, idTypeOfTraining, idTraining]
     );
@@ -149,7 +149,7 @@ export async function updateMetricTrainingByIdTraining(
     speedMoy,
     speedMax
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE metricTraining SET km = ?, moyPerKm = ?, speedMoy = ?, speedMax = ? WHERE metricTraining.idTraining = ?',
         [km, moyPerKm, speedMoy, speedMax, idTraining]
     );
@@ -164,7 +164,7 @@ export async function updateMetricTrainingByIdTraining(
  * @returns
  */
 export async function updateMetricHealthTrainingByIdTraining(idTraining, fcMoy, fcMax) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE metricHealthTraining SET fcMoy = ?, fcMax = ? WHERE metricHealthTraining.idTraining = ?',
         [fcMoy, fcMax, idTraining]
     );
@@ -189,7 +189,7 @@ export async function updateMetricOptionalTraining(
     cadenceMax,
     moyForSwim
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE metricOptionalTraining SET hikeUp = ?, hikeDown = ?, cadenceMoy = ?, cadenceMax = ?, moyForSwim = ? WHERE metricOptionalTraining.idTraining = ?',
         [hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim, idTraining]
     );
@@ -211,7 +211,7 @@ export async function updateFonctionnaliteById(
     updateDate,
     isActive
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE fonctionnalites SET name = ?, description = ?, updateDate = ?, isActive = ? WHERE fonctionnalites.id = ?',
         [name, description, updateDate, isActive, idFonctionnalite]
     );
@@ -226,7 +226,7 @@ export async function updateFonctionnaliteById(
  * @returns
  */
 export async function updateFonctionnaliteActiveById(idFonctionnalite, isActive, updateDate) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'UPDATE fonctionnalites SET isActive = ?, updateDate = ? WHERE fonctionnalites.id = ?',
         [isActive, updateDate, idFonctionnalite]
     );

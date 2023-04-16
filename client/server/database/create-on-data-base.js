@@ -9,7 +9,7 @@ import { pool } from './connection-data-base.js';
  * @returns {Int}  id User
  */
 export async function createUser({ email, hash, salt }) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO user (email, hash, salt, roles) VALUES (?, ?, ?, \'["ROLE_USER"]\')',
         [email, hash, salt]
     );
@@ -38,7 +38,7 @@ export async function createMember({
     zipCode,
     country,
 }) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO member (userId, firstName, lastName, dateOfBirth, adress, city, zipCode, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [userId, firstName, lastName, dateOfBirth, adress, city, zipCode, country]
     );
@@ -54,7 +54,7 @@ export async function createMember({
  * @returns {Int} idHealthMember
  */
 export async function createHealthMember(idMember, weight, height, hourSleep) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO healthMember (memberId, weight, height, hourSleep) VALUES (?, ?, ?, ?)',
         [idMember, weight, height, hourSleep]
     );
@@ -83,7 +83,7 @@ export async function createPerformanceMember(
     vma,
     favoriteSport
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO performanceMember (memberId, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [idMember, vo2max, seuilLactateFC, seuilLactate, fcRest, fcMax, vma, favoriteSport]
     );
@@ -96,7 +96,7 @@ export async function createPerformanceMember(
  * @returns  {Int} idTypeOfTraining
  */
 export async function createTypeOfTraining(nameTypeOfTraining) {
-    const [result] = await pool.query('INSERT INTO typeOfTraining (nameSport) VALUES (?)', [
+    const [result] = await pool.execute('INSERT INTO typeOfTraining (nameSport) VALUES (?)', [
         nameTypeOfTraining,
     ]);
     return result.insertId;
@@ -124,7 +124,7 @@ export async function createTraining(
     dateTraining,
     idTypeOfTraining
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO training (name, note, along, city, country, date, idTypeOfTraining, idMember) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [name, note, along, city, country, dateTraining, idTypeOfTraining, idMember]
     );
@@ -141,7 +141,7 @@ export async function createTraining(
  * @returns {Int} idMetricTraining
  */
 export async function createMetricTraining(km, moyPerKm, speedMoy, speedMax, idTraining) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO metricTraining (km, moyPerKm, speedMoy, speedMax, idTraining) VALUES (?, ?, ?, ?, ?)',
         [km, moyPerKm, speedMoy, speedMax, idTraining]
     );
@@ -156,7 +156,7 @@ export async function createMetricTraining(km, moyPerKm, speedMoy, speedMax, idT
  * @returns {Int} idMetricHealthTraining
  */
 export async function createMetricHealthTraining(fcMoy, fcMax, idTraining) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO metricHealthTraining (fcMoy, fcMax, idTraining) VALUES (?, ?, ?)',
         [fcMoy, fcMax, idTraining]
     );
@@ -181,7 +181,7 @@ export async function createMetricOptionalTraining(
     moyForSwim,
     idTraining
 ) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO metricOptionalTraining (hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim, idTraining) VALUES (?, ?, ?, ?, ?, ?)',
         [hikeUp, hikeDown, cadenceMoy, cadenceMax, moyForSwim, idTraining]
     );
@@ -189,7 +189,7 @@ export async function createMetricOptionalTraining(
 }
 
 export async function createFonctionnalite(description, name, date, isActive) {
-    const [result] = await pool.query(
+    const [result] = await pool.execute(
         'INSERT INTO fonctionnalites (description, name, date, isActive) VALUES (?, ?, ?, ?)',
         [description, name, date, isActive]
     );

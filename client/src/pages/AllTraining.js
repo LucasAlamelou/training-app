@@ -46,7 +46,8 @@ export const AllTraining = ({ isUniqueTraining }) => {
         return [];
     }, [currentPage, trainingListState]);
 
-    const confirmDeleteTraining = (training) => {
+    const confirmDeleteTraining = (idTraining) => {
+        console.log(idTraining);
         let isDelete = false;
         Swal.fire({
             title: 'Vous êtes sur de vouloir supprimer?',
@@ -60,7 +61,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
             if (result.isConfirmed) {
                 isDelete = true;
                 submit(
-                    { idTraining: training.idTraining },
+                    { idTraining: idTraining },
                     {
                         method: 'post',
                         action: '/my-training',
@@ -70,7 +71,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
             }
         });
         if (isDelete) {
-            dispatch(trainingActions.removeTrainingById({ idTraining: training.idTraining }));
+            dispatch(trainingActions.removeTrainingById({ idTraining: idTraining }));
         }
     };
 
