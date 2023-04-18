@@ -3,6 +3,7 @@ import express, { json, urlencoded } from 'express';
 import * as dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import path from 'path';
 
 import { getRoleMiddleware } from './util/getRoleMiddleware.js';
 
@@ -13,7 +14,7 @@ var app = express();
 /**
  *  Config DotEnv
  */
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: '../client/.env' });
 
 /**
  * Get port from environment and store in Express.
@@ -21,7 +22,6 @@ dotenv.config({ path: '../.env' });
 
 var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
-console.log(process.env.DB_HOST);
 /**
  * Create HTTP server.
  */
@@ -41,6 +41,7 @@ app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.dirname('../client/build')));
 app.use(express.static('public'));
 app.use(getRoleMiddleware);
 
