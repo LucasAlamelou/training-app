@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import { Navigate } from 'react-router-dom';
-import { authActions } from '../store/index.js';
+import { authActions, memberActions } from '../store/index.js';
 
 export const logoutUser = (data, dispatch) => {
     if (data.error?.code === 401) {
@@ -12,6 +12,7 @@ export const logoutUser = (data, dispatch) => {
             timer: 2000,
         });
         dispatch(authActions.removeUserConnected({}));
+        dispatch(memberActions.removeMember({}));
         return Navigate('/login');
     }
 };
@@ -26,6 +27,7 @@ export const setUserNotConnected = (data, dispatch) => {
             timer: 2000,
         });
         dispatch(authActions.setUserNotConnected({}));
+        dispatch(memberActions.removeMember({}));
         //return Navigate('/login');
     }
 };

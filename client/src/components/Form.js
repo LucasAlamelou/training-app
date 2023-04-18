@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FormLogin } from './FormLogin.js';
 import { FormRegister } from './FormRegister.js';
 import { authActions } from '../store/user-slice.js';
+import { memberActions } from '../store/member-slice.js';
 
 export const Form = ({ pageLogin }) => {
     const [isLoginPage] = useState(pageLogin);
@@ -27,6 +28,7 @@ export const Form = ({ pageLogin }) => {
                 email: dataAuthResult.email,
             })
         );
+        dispatch(memberActions.addMember({ member: dataAuthResult.member }));
         Swal.fire({
             icon: 'success',
             title: 'Connexion réussie',

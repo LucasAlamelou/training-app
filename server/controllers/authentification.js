@@ -35,7 +35,24 @@ export async function loginController(req, res, next) {
                 roles: user.roles,
             });
             res.json({
-                info: { token, id: user.userId, idMember: user.id, roles: user.roles, email },
+                info: {
+                    token,
+                    id: user.userId,
+                    idMember: user.id,
+                    roles: user.roles,
+                    email,
+                    member: {
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        adress: user.adress,
+                        city: user.city,
+                        zipCode: user.zipCode,
+                        country: user.country,
+                        dateOfBirth: user.dateOfBirth,
+                    },
+                },
             }).status(200);
         } else {
             res.json({ error: { message: 'Mot de passe invalide' }, info: null }).status(401);

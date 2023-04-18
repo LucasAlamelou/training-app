@@ -10,13 +10,14 @@ import { useSelector } from 'react-redux';
 export const Root = () => {
     const { member } = useSelector((state) => state);
     const { user } = useSelector((state) => state);
+    console.log('member', member);
     return (
         <>
             <PrivateRoute>
                 <Header />
                 <CadreConnected
-                    lastName={member.memberState.lastName}
-                    firstName={member.memberState.firstName}
+                    lastName={member.memberState?.lastName}
+                    firstName={member.memberState?.firstName}
                     isConnected={user.isConnected}
                 />
                 <Div>

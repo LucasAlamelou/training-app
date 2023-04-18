@@ -9,7 +9,11 @@ export const CadreConnected = ({ firstName, lastName, isConnected }) => {
         <>
             <Cadre>
                 <FontAwesomeIcon icon={faUser} color={isConnected ? 'green' : 'red'} />
-                <p>{isConnected ? `${firstName} ${lastName}` : 'Déconnecté'}</p>
+                <p>
+                    {isConnected
+                        ? `${firstName ? firstName : ''} ${lastName ? lastName : ''}`
+                        : 'Déconnecté'}
+                </p>
             </Cadre>
         </>
     );

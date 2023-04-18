@@ -56,6 +56,7 @@ function userConnectedReducer() {
         window.localStorage.removeItem('Application_Training_User');
         window.localStorage.removeItem('Application_Training_Token');
         window.localStorage.removeItem('Application_Training_Member');
+        window.localStorage.removeItem('Application_Training_Member_Connected');
         window.localStorage.removeItem('Application_Training_Roles');
         window.localStorage.removeItem('Application_Training_Email');
         state.user = null;

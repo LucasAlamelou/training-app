@@ -11,8 +11,9 @@ export const memberReducers = slice.reducer;
 
 // implementation
 function createInitialState() {
+    const memberState = window.localStorage.getItem('Application_Training_Member_Connected');
     return {
-        memberState: {},
+        memberState: memberState ? JSON.parse(memberState) : {},
     };
 }
 
@@ -30,7 +31,11 @@ function userConnectedReducer() {
     function addMember(state, action) {
         const { payload } = action;
         const member = payload.member;
-        state.memberState = member;
+        window.localStorage.setItem(
+            'Application_Training_Member_Connected',
+            JSON.stringify(member)
+        );
+        state.memberState = { ...state.memberState, ...member };
     }
     /**
      * Add Training to the list
@@ -47,8 +52,10 @@ function userConnectedReducer() {
             value = value1;
         }
         state.memberState = { ...state.memberState, [field]: value };
-        // TODO : modifier le state avec le champ et la valeur
-        //state.memberState[field] = value;
+        window.localStorage.setItem(
+            'Application_Training_Member_Connected',
+            JSON.stringify(state.memberState)
+        );
     }
 
     /**
@@ -57,6 +64,7 @@ function userConnectedReducer() {
      * @param {*} action
      */
     function removeMember(state, action) {
+        window.localStorage.removeItem('Application_Training_Member_Connected');
         state.memberState = {};
     }
 }

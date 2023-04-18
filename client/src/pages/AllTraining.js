@@ -78,7 +78,7 @@ export const AllTraining = ({ isUniqueTraining }) => {
     const changeView = (e) => {
         setViewTraining(!viewTraining);
     };
-    const headerTable = ['Nom', 'Distance', 'Temps', 'Date', 'Commentaires', 'Lieu', 'Actions'];
+    const headerTable = ['Nom', 'Distance', 'Temps', 'Date', 'Notes', 'Lieu', 'Actions'];
     return (
         <>
             {isUniqueTraining ? (

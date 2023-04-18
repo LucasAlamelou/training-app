@@ -9,7 +9,9 @@ export const FieldTraining = ({ training, deleteTraining, content }) => {
         <>
             <Training>
                 <Element content={content[0]}>{training.name}</Element>
-                <Element content={content[1]}>{training.km === null ? 0 : training.km}</Element>
+                <Element content={content[1]}>
+                    {training.km === null ? 0 : training.km.toFixed(2)}
+                </Element>
                 <Element content={content[2]}>{training.along}</Element>
                 <Element content={content[3]}>{convertDateToFrenchDate(training?.date)}</Element>
                 <Element content={content[4]}>{training.note ? training.note : ''}</Element>
@@ -46,8 +48,8 @@ const Training = styled.tr`
 const Element = styled.td`
     display: block;
     width: 100%;
-    float: right;
     padding: 1rem;
+    text-align: center;
     :before {
         float: left;
         text-align: left;

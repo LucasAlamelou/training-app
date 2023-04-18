@@ -46,8 +46,9 @@ export const MemberPage = ({ isAdmin }) => {
     }
 
     if (member && Object.keys(memberState).length === 0) {
-        console.log('dispatch');
+        // console.log('dispatch');
         if (!isAdmin) {
+            console.log('dispatch', member);
             dispatch(memberActions.addMember({ member }));
             setMemberStateList(member);
         }
