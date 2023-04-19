@@ -47,7 +47,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './client/build')));
 //app.use(express.static('public'));
 app.use(getRoleMiddleware);
-console.log('path : ', path.join(__dirname, './client/build'));
+
 app.all('/api/admin/*', function (req, res, next) {
     const ROLES = 'ROLE_ADMIN';
     const userConnected = req.user.roles;

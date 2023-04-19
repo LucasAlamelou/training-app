@@ -19,7 +19,7 @@ export function Header() {
 
     const logoutUserAndRedirect = () => {
         dispatch(authActions.removeUserConnected({}));
-        return Navigate('/');
+        return Navigate('/login');
     };
     return (
         <>
@@ -32,7 +32,7 @@ export function Header() {
                         <H2>Mes entrainements</H2>
                         <Ul>
                             <Item path={'/home'} name={'Acceuil'} />
-                            {user.roles.includes(ROLE) ? (
+                            {user.roles?.includes(ROLE) ? (
                                 <Item path={'/admin'} name={'Admin-Interface'} />
                             ) : null}
                             {!isToken ? <Item path={'/login'} name={'Connexion'} /> : null}

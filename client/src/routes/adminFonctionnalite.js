@@ -29,7 +29,6 @@ export async function action({ request, parms }) {
         description: formData.get('description'),
         name: formData.get('name'),
     };
-    console.log('donnesForm', donnesForm);
     switch (formData.get('actionMethod')) {
         case ACTION_MODIFY_FONCTIONNALITE:
             const resultModify = await modifyFonctionnalite(donnesForm);

@@ -48,7 +48,6 @@ export const MemberPage = ({ isAdmin }) => {
     if (member && Object.keys(memberState).length === 0) {
         // console.log('dispatch');
         if (!isAdmin) {
-            console.log('dispatch', member);
             dispatch(memberActions.addMember({ member }));
             setMemberStateList(member);
         }
@@ -83,7 +82,6 @@ export const MemberPage = ({ isAdmin }) => {
         const dataField = e.target.lastChild.outerText;
         const nameField = e.target.name;
         const arrayValue = dataField.split(' ');
-        console.log(arrayValue);
         let html;
         if (nameField === 'password') {
             onModifyPassword(e, user);

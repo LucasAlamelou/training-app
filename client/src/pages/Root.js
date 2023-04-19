@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 export const Root = () => {
     const { member } = useSelector((state) => state);
     const { user } = useSelector((state) => state);
-    console.log('member', member);
     return (
         <>
             <PrivateRoute>

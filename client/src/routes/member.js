@@ -9,7 +9,6 @@ export async function loader({ request, params }) {
         idMember: params.idMembre,
     };
     const result = await getLoader(url, method, param);
-    console.log(result);
     if (!result.info) {
         return result;
     }

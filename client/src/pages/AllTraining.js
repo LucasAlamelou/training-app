@@ -47,7 +47,6 @@ export const AllTraining = ({ isUniqueTraining }) => {
     }, [currentPage, trainingListState]);
 
     const confirmDeleteTraining = (idTraining) => {
-        console.log(idTraining);
         let isDelete = false;
         Swal.fire({
             title: 'Vous êtes sur de vouloir supprimer?',

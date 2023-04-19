@@ -1,7 +1,7 @@
 import { User } from '../models/user.js';
 import { Member } from '../models/member.js';
 import { createUser, createMember } from '../database/create-on-data-base.js';
-import { getUserById } from '../database/connection-data-base.js';
+import { getMemberByEmail, getUserById } from '../database/connection-data-base.js';
 import { encryptPassword } from '../util/encrypt_password.js';
 import { generateAccessToken } from '../util/generateToken.js';
 import { asErrorValidator } from '../validator/errors_validator.js';
@@ -32,6 +32,7 @@ export async function registerController(req, res) {
             const resultMemberId = await createMember(member);
             member.setMemberId(resultMemberId);
             const resultUser = await getUserById(resultUserId);
+            const resultMember = await getMemberByEmail(email);
             const token = generateAccessToken({
                 email,
                 password: hash,
@@ -39,7 +40,27 @@ export async function registerController(req, res) {
                 id: resultUserId,
                 roles: resultUser.roles,
             });
-            res.json({ info: { id: resultUserId, member, token, email }, error: null }).status(201);
+            res.json({
+                info: {
+                    token,
+                    id: resultUserId,
+                    idMember: resultMember.id,
+                    roles: user.roles,
+                    email,
+                    member: {
+                        id: resultMember.id,
+                        firstName: resultMember.firstName,
+                        lastName: resultMember.lastName,
+                        email: resultMember.email,
+                        adress: resultMember.adress,
+                        city: resultMember.city,
+                        zipCode: resultMember.zipCode,
+                        country: resultMember.country,
+                        dateOfBirth: resultMember.dateOfBirth,
+                    },
+                },
+                error: null,
+            }).status(201);
         } catch (error) {
             console.error(error);
             if (error.code === 'ER_DUP_ENTRY') {
