@@ -45,7 +45,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../build')));
-app.use(express.static('public'));
+//app.use(express.static('public'));
 app.use(getRoleMiddleware);
 
 app.all('/api/admin/*', function (req, res, next) {
@@ -82,7 +82,8 @@ app.all('/api/*', function (req, res, next) {
 */
 routes(app);
 app.all('/*', function (req, res, next) {
-    res.sendStatus(404);
+    res.sendFile(path.join(__dirname + '../build/index.html'));
+    //res.sendStatus(404);
     //res.json({ info: null, error: `La route : ${req.path} non trouvé.` });
 });
 
