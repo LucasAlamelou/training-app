@@ -24,6 +24,7 @@ import {
     loader as adminFonctionnaliteLoader,
     action as adminFonctionnaliteAction,
 } from './adminFonctionnalite.js';
+import { ErrorElement } from '../components/ErrorElement.js';
 
 const router = createBrowserRouter([
     {
@@ -31,12 +32,14 @@ const router = createBrowserRouter([
         element: <Login />,
         loader: loginLoader,
         action: loginAction,
+        errorElement: <ErrorElement />,
     },
     {
         path: 'register',
         element: <Register />,
         loader: registerLoader,
         action: registerAction,
+        errorElement: <ErrorElement />,
     },
     {
         path: '/',
@@ -47,55 +50,69 @@ const router = createBrowserRouter([
                 element: <CreateTraining />,
                 loader: createTrainingLoader,
                 action: createTrainingAction,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'home',
                 element: <Home />,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'my-training/',
                 element: <MyTraining />,
                 loader: myTrainingLoader,
                 action: myTrainingAction,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'training/edit/:idTraining',
                 element: <CreateTraining />,
                 loader: createTrainingLoader,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'training/:idTraining',
                 element: <ShowTraining />,
                 loader: trainingLoader,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'membre/:idMembre',
                 element: <Membre />,
                 loader: membreLoader,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'admin',
                 element: <Admin />,
                 loader: adminLoader,
                 action: adminAction,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'admin/membre/:id',
                 element: <AdminUser />,
                 loader: adminUserLoader,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'admin/add-membre',
                 element: <AdminAddMember />,
                 action: adminAddMembreAction,
+                errorElement: <ErrorElement />,
             },
             {
                 path: 'admin/fonctionnalite/edit/:idFonctionnalite',
                 element: <AdminFonctionnalite />,
                 loader: adminFonctionnaliteLoader,
                 action: adminFonctionnaliteAction,
+                errorElement: <ErrorElement />,
             },
         ],
+    },
+    {
+        path: '*',
+        element: <ErrorElement />,
     },
 ]);
 
