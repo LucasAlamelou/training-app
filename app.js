@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 /**
  *  Config DotEnv
  */
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: '.env' });
 
 /**
  * Get port from environment and store in Express.
@@ -44,10 +44,10 @@ app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 //app.use(express.static('public'));
 app.use(getRoleMiddleware);
-
+console.log('path : ', path.join(__dirname, './client/build'));
 app.all('/api/admin/*', function (req, res, next) {
     const ROLES = 'ROLE_ADMIN';
     const userConnected = req.user.roles;
@@ -82,7 +82,7 @@ app.all('/api/*', function (req, res, next) {
 */
 routes(app);
 app.all('/*', function (req, res, next) {
-    res.sendFile(path.join(__dirname + '../build/index.html'));
+    res.sendFile(path.join(__dirname + './client/build/index.html'));
     //res.sendStatus(404);
     //res.json({ info: null, error: `La route : ${req.path} non trouvé.` });
 });
