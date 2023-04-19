@@ -1,7 +1,9 @@
 import mysql from 'mysql2';
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
+console.log('process.env.DB_HOST', process.env.DB_HOST);
+console.log('process.env.DB_PORT', process.env.DB_PORT);
 /**
  * Connection with pool Sql
  */
