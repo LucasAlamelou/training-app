@@ -42,10 +42,12 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "front": "npx nodemon start",
-        "server": "npx nodemon ../server/app.js",
-        "dev": "run-p server start"
+        "server": "npx nodemon server/app.js",
+        "dev": "run-p server start",
+        "build-dev": "npm run build && npm run server && serve -s build",
+        "heroku-postbuild": "cd server && npm install && npm run"
     },
-    "proxy": "http://localhost:3001/",
+    "proxy": "http://localhost:3009/",
     "eslintConfig": {
         "extends": [
             "react-app",
