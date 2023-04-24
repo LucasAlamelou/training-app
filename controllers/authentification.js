@@ -1,7 +1,7 @@
 import { decryptPassword } from '../util/decrypt_password.js';
 import { encryptPassword } from '../util/encrypt_password.js';
 import { generateAccessToken } from '../util/generateToken.js';
-import { getUserByEmail } from '../database/connection-data-base.js';
+import { getMemberCompletById, getUserByEmail } from '../database/connection-data-base.js';
 import { updateUserPasswordById } from '../database/update-on-data-base.js';
 import { User } from '../models/user.js';
 import { asErrorValidator } from '../validator/errors_validator.js';
@@ -34,6 +34,7 @@ export async function loginController(req, res, next) {
                 id: user.userId,
                 roles: user.roles,
             });
+            const memberComplet = await getMemberCompletById(user.id);
             res.json({
                 info: {
                     token,
@@ -41,17 +42,7 @@ export async function loginController(req, res, next) {
                     idMember: user.id,
                     roles: user.roles,
                     email,
-                    member: {
-                        id: user.id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email,
-                        adress: user.adress,
-                        city: user.city,
-                        zipCode: user.zipCode,
-                        country: user.country,
-                        dateOfBirth: user.dateOfBirth,
-                    },
+                    member: memberComplet,
                 },
             }).status(200);
         } else {

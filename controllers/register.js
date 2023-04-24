@@ -1,6 +1,11 @@
 import { User } from '../models/user.js';
 import { Member } from '../models/member.js';
-import { createUser, createMember } from '../database/create-on-data-base.js';
+import {
+    createUser,
+    createMember,
+    createPerformanceMember,
+    createHealthMember,
+} from '../database/create-on-data-base.js';
 import { getMemberByEmail, getUserById } from '../database/connection-data-base.js';
 import { encryptPassword } from '../util/encrypt_password.js';
 import { generateAccessToken } from '../util/generateToken.js';
@@ -33,6 +38,22 @@ export async function registerController(req, res) {
             member.setMemberId(resultMemberId);
             const resultUser = await getUserById(resultUserId);
             const resultMember = await getMemberByEmail(email);
+            const resultHealthMember = await createHealthMember(
+                member.getMemberId(),
+                0,
+                0,
+                '00:00'
+            );
+            const resultPerformanceMember = await createPerformanceMember(
+                member.getMemberId(),
+                0,
+                0,
+                '00:00',
+                0,
+                0,
+                0,
+                ''
+            );
             const token = generateAccessToken({
                 email,
                 password: hash,
@@ -57,6 +78,16 @@ export async function registerController(req, res) {
                         zipCode: resultMember.zipCode,
                         country: resultMember.country,
                         dateOfBirth: resultMember.dateOfBirth,
+                        weight: 0,
+                        height: 0,
+                        hourSleep: '00:00',
+                        vma: 0,
+                        vo2max: 0,
+                        fcMax: 0,
+                        fcRest: 0,
+                        seuilLactateFc: 0,
+                        seuilLactate: '00:00',
+                        favoriteSport: '',
                     },
                 },
                 error: null,

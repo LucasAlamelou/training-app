@@ -261,11 +261,7 @@ export const MemberPage = ({ isAdmin }) => {
                         />
                     </DivMember>
                     <DivMember>
-                        <MemberInfo
-                            label="Email"
-                            data={user?.email} //TODO : EMAIL a rajouter non modifiable
-                            name="email"
-                        />
+                        <MemberInfo label="Email" data={user?.email} name="email" />
                         <MemberInfo
                             label="Mot de passe"
                             name={'password'}
@@ -280,14 +276,22 @@ export const MemberPage = ({ isAdmin }) => {
                 <DivMember>
                     <MemberInfo
                         label="Poids (en kg)"
-                        data={memberState ? memberState?.weight + ' kg' : member?.weight + ' kg'}
+                        data={
+                            memberState?.weight
+                                ? memberState?.weight + ' kg'
+                                : member?.weight + ' kg'
+                        }
                         name={'weight'}
                         functionOnClick={openModal}
                         isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Taille (en cm)"
-                        data={memberState ? memberState?.height + ' cm' : member?.height + ' cm'}
+                        data={
+                            memberState?.height
+                                ? memberState?.height + ' cm'
+                                : member?.height + ' cm'
+                        }
                         name={'height'}
                         functionOnClick={openModal}
                         isModify={user?.isConnected ? true : false}
@@ -295,7 +299,9 @@ export const MemberPage = ({ isAdmin }) => {
                     <MemberInfo
                         label="Heure de sommeil"
                         data={
-                            memberState ? memberState?.hourSleep + ' h' : member?.hourSleep + ' h'
+                            memberState?.hourSleep
+                                ? memberState?.hourSleep + ' h'
+                                : member?.hourSleep + ' h'
                         }
                         name={'hourSleep'}
                         functionOnClick={openModal}
@@ -303,14 +309,22 @@ export const MemberPage = ({ isAdmin }) => {
                     />
                     <MemberInfo
                         label="Fc repos"
-                        data={memberState ? memberState?.fcRest + ' bpm' : member?.fcRest + ' bpm'}
+                        data={
+                            memberState?.fcRest
+                                ? memberState?.fcRest + ' bpm'
+                                : member?.fcRest + ' bpm'
+                        }
                         name={'fcRest'}
                         functionOnClick={openModal}
                         isModify={user?.isConnected ? true : false}
                     />
                     <MemberInfo
                         label="Fc max"
-                        data={memberState ? memberState?.fcMax + ' bpm' : member?.fcMax + ' bpm'}
+                        data={
+                            memberState?.fcMax
+                                ? memberState?.fcMax + ' bpm'
+                                : member?.fcMax + ' bpm'
+                        }
                         name={'fcMax'}
                         functionOnClick={openModal}
                         isModify={user?.isConnected ? true : false}
@@ -322,7 +336,7 @@ export const MemberPage = ({ isAdmin }) => {
                     <MemberInfo
                         label="VO2max"
                         data={
-                            memberState
+                            memberState?.vo2max
                                 ? memberState?.vo2max + ' ml/kg/min'
                                 : member?.vo2max + ' ml/kg/min'
                         }
@@ -333,7 +347,7 @@ export const MemberPage = ({ isAdmin }) => {
                     <MemberInfo
                         label="Seuil lactique(Bpm)"
                         data={
-                            memberState
+                            memberState?.seuilLactateFC
                                 ? memberState?.seuilLactateFC + ' bpm'
                                 : member?.seuilLactateFC + ' bpm'
                         }
@@ -344,7 +358,7 @@ export const MemberPage = ({ isAdmin }) => {
                     <MemberInfo
                         label="Seuil lactique (min/km)"
                         data={
-                            memberState
+                            memberState?.seuilLactate
                                 ? memberState?.seuilLactate + ' min/km'
                                 : member?.seuilLactate + ' min/km'
                         }
@@ -354,7 +368,7 @@ export const MemberPage = ({ isAdmin }) => {
                     />
                     <MemberInfo
                         label="VMA"
-                        data={memberState ? memberState?.vma + ' km/h' : member?.vma + ' km/h'}
+                        data={memberState?.vma ? memberState?.vma + ' km/h' : member?.vma + ' km/h'}
                         name={'vma'}
                         functionOnClick={openModal}
                         isModify={user?.isConnected ? true : false}
