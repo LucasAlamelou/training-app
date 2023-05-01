@@ -35,7 +35,7 @@ export async function getSumTimeTrainingByMemberId(idMember, year, month, day, i
         }
         const [result] = await pool.execute(
             'SELECT SEC_TO_TIME( SUM( TIME_TO_SEC( along))) AS total_training from training t where t.idMember = ? AND t.idTypeOfTraining = ?',
-            [idMember]
+            [idMember, idTypeOfTraining]
         );
         return result[0];
     } else {
@@ -110,7 +110,6 @@ export async function getSumDistanceTrainingByMemberId(
             );
             return result[0];
         }
-
         const [result] = await pool.execute(
             'SELECT SUM(km) AS km_total FROM metricTraining mt INNER JOIN training t ON mt.idTraining = t.id WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
@@ -391,7 +390,7 @@ export const getHikeUpTrainingByMemberId = async (idMember, year, month, day, id
             return result[0];
         }
         const [result] = await pool.execute(
-            'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? t.idTypeOfTraining = ?',
+            'SELECT SUM(hikeUp) AS hike_up FROM metricOptionalTraining mt LEFT JOIN training t ON  t.id = mt.idTraining WHERE t.idMember = ? AND t.idTypeOfTraining = ?',
             [idMember, idTypeOfTraining]
         );
         return result[0];

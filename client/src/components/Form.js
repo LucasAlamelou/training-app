@@ -69,7 +69,7 @@ const H2 = styled.h2`
 const DivForm = styled.div`
     margin: 0 auto;
     margin-top: 5rem;
-    width: ${(props) => (props.isLoginPage === true ? '40%' : '60%')};
+    width: ${(props) => (props.isLoginPage === true ? '60%' : '60%')};
     height: 60%;
     padding: 1rem;
     background-color: #fff;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, useActionData } from 'react-router-dom';
 import styled from 'styled-components';
 import { Field, DivChamp } from './FieldsForm.js';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const FormLogin = () => {
     const [login, setLogin] = useState('');
@@ -51,7 +52,7 @@ export const FormLogin = () => {
 };
 
 export const Button = styled.button`
-    width: 40%;
+    width: 60%;
     height: 2.5rem;
     border: 1px solid #0554f2;
     border-radius: 0.5rem;
@@ -65,6 +66,9 @@ export const Button = styled.button`
     margin: 0 auto;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    @media (max-width: ${DEVICE_WIDTH.tablet}) {
+        width: 40%;
+    }
 `;
 
 export const DivError = styled.div`

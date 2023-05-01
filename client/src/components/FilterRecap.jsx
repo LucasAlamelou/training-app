@@ -6,7 +6,7 @@ import { API_call } from '../contexts/API_call.js';
 import { MemberInfo } from './MemberInfo.js';
 import { useSelector } from 'react-redux';
 import { useLoaderData } from 'react-router-dom';
-import { Spinner } from './Spinner.js';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const FilterRecap = () => {
     const user = useSelector((x) => x.user);
@@ -84,42 +84,44 @@ export const FilterRecap = () => {
 
     return (
         <>
-            <DivFieldSelect>
-                <FieldSelect
-                    id="year"
-                    name="year"
-                    value={year}
-                    setValue={setYear}
-                    label="Année"
-                    listOptions={getListYear()}
-                />
-                <FieldSelect
-                    id="month"
-                    name="month"
-                    value={month}
-                    setValue={setMonth}
-                    label="Mois"
-                    listOptions={getListMonth()}
-                />
-                <FieldSelect
-                    id="day"
-                    name="day"
-                    value={day}
-                    setValue={setDay}
-                    label="Jour"
-                    listOptions={listDay}
-                />
-            </DivFieldSelect>
-            <DivFieldSelect>
-                <FieldSelect
-                    id="typeOfTraining"
-                    name="typeOfTraining"
-                    value={idTypeOfTraining}
-                    setValue={setIdTypeOfTraining}
-                    label="Sport"
-                    listOptions={typeOfTrainingList}
-                />
-            </DivFieldSelect>
+            <DivFilter>
+                <DivFieldSelect>
+                    <FieldSelect
+                        id="day"
+                        name="day"
+                        value={day}
+                        setValue={setDay}
+                        label="Jour"
+                        listOptions={listDay}
+                    />
+                    <FieldSelect
+                        id="month"
+                        name="month"
+                        value={month}
+                        setValue={setMonth}
+                        label="Mois"
+                        listOptions={getListMonth()}
+                    />
+                    <FieldSelect
+                        id="year"
+                        name="year"
+                        value={year}
+                        setValue={setYear}
+                        label="Année"
+                        listOptions={getListYear()}
+                    />
+                </DivFieldSelect>
+                <DivFieldSelect>
+                    <FieldSelect
+                        id="typeOfTraining"
+                        name="typeOfTraining"
+                        value={idTypeOfTraining}
+                        setValue={setIdTypeOfTraining}
+                        label="Sport"
+                        listOptions={typeOfTrainingList}
+                    />
+                </DivFieldSelect>
+            </DivFilter>
             <DivData>
                 <MemberInfo label={'Total Km'} data={[km, 'km']} multiFiedls={true} />
                 <MemberInfo label={'Total Heures'} data={along} />
@@ -140,11 +142,19 @@ export const FilterRecap = () => {
 const DivFieldSelect = styled.div`
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
-    max-width: 35%;
-    margin-left: 0.3rem;
+    max-width: 90%;
     padding: 0.5rem;
     border: 1px solid #0554f2;
+    @media ${DEVICE_WIDTH.tablet} {
+        max-width: 55%;
+        margin-left: 0.3rem;
+        flex-direction: row;
+        > div {
+            margin-left: 0.3rem;
+        }
+    }
 `;
 
 const DivData = styled.div`
@@ -154,6 +164,20 @@ const DivData = styled.div`
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 1rem;
     padding: 1rem;
+    @media ${DEVICE_WIDTH.tablet} {
+        margin-top: 5rem;
+    }
+`;
+
+const DivFilter = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    @media ${DEVICE_WIDTH.tablet} {
+        flex-direction: rows;
+        justify-content: flex-start;
+    }
 `;
