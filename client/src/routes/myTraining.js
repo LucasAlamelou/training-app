@@ -12,12 +12,15 @@ export async function loader({ request }) {
     const param = {
         idMember: window.localStorage.getItem('Application_Training_Member'),
     };
-    const result = await getLoader(url, methodPost, param);
-    const resultTypeSport = await getLoader(urlTypeSport, methodGet);
-    if (!result.info || !resultTypeSport.info) {
-        return result;
+    if (param.idMember) {
+        const result = await getLoader(url, methodPost, param);
+        const resultTypeSport = await getLoader(urlTypeSport, methodGet);
+        if (!result.info || !resultTypeSport.info) {
+            return result;
+        }
+        return { training: result.info, typeOfTraining: resultTypeSport.info };
     }
-    return { training: result.info, typeOfTraining: resultTypeSport.info };
+    return { training: [], typeOfTraining: [] };
 }
 
 export async function action({ param, request }) {

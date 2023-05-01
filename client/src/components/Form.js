@@ -7,6 +7,7 @@ import { FormLogin } from './FormLogin.js';
 import { FormRegister } from './FormRegister.js';
 import { authActions } from '../store/user-slice.js';
 import { memberActions } from '../store/member-slice.js';
+import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 
 export const Form = ({ pageLogin }) => {
     const [isLoginPage] = useState(pageLogin);
@@ -75,6 +76,9 @@ const DivForm = styled.div`
     background-color: #fff;
     border: 2px solid #0554f2;
     border-radius: 0.5rem;
+    @media ${DEVICE_WIDTH.tablet} {
+        width: ${(props) => (props.isLoginPage === true ? '40%' : '50%')};
+    }
 `;
 
 const DivLink = styled.div`

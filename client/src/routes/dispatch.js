@@ -32,14 +32,12 @@ const router = createBrowserRouter([
         element: <Login />,
         loader: loginLoader,
         action: loginAction,
-        errorElement: <ErrorElement />,
     },
     {
         path: 'register',
         element: <Register />,
         loader: registerLoader,
         action: registerAction,
-        errorElement: <ErrorElement />,
     },
     {
         path: '/',
