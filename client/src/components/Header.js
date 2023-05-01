@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate, redirect } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { authActions, memberActions } from '../store/index.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';

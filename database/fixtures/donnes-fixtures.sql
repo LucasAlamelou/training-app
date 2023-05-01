@@ -24,12 +24,14 @@ INSERT INTO performanceMember (vo2max, seuilLactateFC, seuilLactate, fcRest, fcM
 /*
 * Insert dans la table type d'entrainement
 */
-INSERT INTO typeOfTraining (name)
+INSERT INTO typeOfTraining (nameSport)
  VALUES ('Course à pied'),
         ('Natation'),
-        ('Vélo de route'),
-        ('Trail'),
-        ('Escalade');
+        ('Cyclisme'),
+        ('Musculation'),
+        ('Randonnée'),
+        ('Escalade'),
+        ('Autre');
 
 /*
 * Insert dans les tables d'entrainement

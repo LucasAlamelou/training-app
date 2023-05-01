@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { Navigate } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 import { authActions, memberActions } from '../store/index.js';
 
 export const logoutUser = (data, dispatch) => {
@@ -13,7 +13,7 @@ export const logoutUser = (data, dispatch) => {
         });
         dispatch(authActions.removeUserConnected({}));
         dispatch(memberActions.removeMember({}));
-        return Navigate('/login');
+        return redirect('/login');
     }
 };
 
