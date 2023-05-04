@@ -9,12 +9,15 @@ export async function getRoleMiddleware(req, res, next) {
         const token = authHeader;
         if (token == null)
             // const token = authHeader && authHeader.split(' ')[1];
-            return res.sendStatus(401);
+            res.json({ error: { message: 'Token invalide' }, info: null }).status(401);
 
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
                 console.error(err.expiredAt);
-                return res.sendStatus(401);
+                res.json({
+                    error: { message: 'Token expirer veuillez vous reconnecter' },
+                    info: null,
+                }).status(401);
             }
             req.user = user;
             next();

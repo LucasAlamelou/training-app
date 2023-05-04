@@ -8,7 +8,7 @@ import {
     updateTrainingById,
     updateMetricTrainingByIdTraining,
     updateMetricOptionalTraining,
-    updateHealthMemberByIdMember,
+    updateMetricHealthTrainingByIdTraining,
 } from '../database/update-on-data-base.js';
 import { deleteTrainingById } from '../database/delete-on-data-base.js';
 import {
@@ -147,7 +147,7 @@ export async function updateTrainingComplet(req, res, next) {
             speedMoy,
             speedMax
         );
-        const resultTrainingHealthMetrics = await updateHealthMemberByIdMember(
+        const resultTrainingHealthMetrics = await updateMetricHealthTrainingByIdTraining(
             idTraining,
             fcMoy,
             fcMax

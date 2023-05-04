@@ -27,19 +27,44 @@ export async function loader({ request, params }) {
 
 export async function action({ param, request }) {
     let formData = await request.formData();
-    const result = await ActionFormTraining(formData, 'createTraining', 'post');
-    if (result?.id) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Entrainement créer',
-            text: 'Votre entrainement a été créer avec succès',
-            showConfirmButton: false,
-            timer: 2000,
-        });
-        return redirect('/my-training');
+    if (formData.get('idTraining')) {
+        const result = await modifyTraining({ formData });
+        if (result?.changedRows) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Entrainement modifier',
+                text: 'Votre entrainement a été modifier avec succès',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            return redirect('/my-training');
+        } else {
+            return result;
+        }
+    } else {
+        const result = await addTraining({ formData });
+        if (result?.id) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Entrainement créer',
+                text: 'Votre entrainement a été créer avec succès',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            return redirect('/my-training');
+        } else {
+            return result;
+        }
     }
-    return result;
 }
+
+const addTraining = async ({ formData }) => {
+    return await ActionFormTraining(formData, 'createTraining', 'post');
+};
+
+const modifyTraining = async ({ formData }) => {
+    return await ActionFormTraining(formData, 'updateTraining', 'put');
+};
 
 const getTraining = async ({ idTraining }) => {
     const url = 'getTrainingById';

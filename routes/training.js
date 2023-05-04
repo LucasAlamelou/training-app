@@ -14,7 +14,7 @@ const router = Router();
 
 export function trainingRoute(app) {
     app.post('/api/createTraining', trainingValidator(), createTrainingComplet);
-    app.post('/api/updateTraining', trainingValidator(), updateTrainingComplet);
+    app.put('/api/updateTraining', trainingValidator(), updateTrainingComplet);
     app.delete('/api/deleteTraining', idTrainingValidator(), deleteTrainingComplet);
     app.post('/api/getAllTraining', getAllTrainingController);
     app.get('/api/getAllTypeOfTraining', getAllTypeOfTrainingController);

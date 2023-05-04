@@ -50,7 +50,14 @@ export const ActionFormTraining = async (formData, url, method) => {
             donnesForm[key] = null;
         } else {
             if (key === 'moyPerKm' || key === 'moyForSwim') {
-                value = `00:${value}`;
+                const moy = value.split(':');
+                if (moy.length === 2) {
+                    value = `00:${moy[0]}:${moy[1]}`;
+                } else if (moy.length === 3) {
+                    value = `00:${moy[0]}:${moy[1]}`;
+                } else {
+                    value = `${moy[0]}:00`;
+                }
             }
             donnesForm[key] = value;
         }
@@ -64,7 +71,7 @@ export const ActionFormTraining = async (formData, url, method) => {
     donnesForm.idMember = window.localStorage.getItem('Application_Training_Member');
     // intern API call
     const response = await API_call(url, method, donnesForm);
-    if (response?.error || response?.error.length > 0) {
+    if (response?.error || response?.error?.length > 0) {
         errors = response;
         return errors;
     }

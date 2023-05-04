@@ -3,17 +3,19 @@ import { Field, FieldSelect, DivChamp, TextAera } from './FieldsForm.js';
 import { DivError, Button } from './FormLogin.js';
 import { useActionData, useLoaderData, Form } from 'react-router-dom';
 import styled from 'styled-components';
+import { serializeDate } from '../util/DateUtils.js';
 
-export const FormTraining = () => {
+export const FormTraining = ({ isCreate }) => {
     const loaderData = useLoaderData();
     const typeOfTraining = loaderData.typeOfTraining?.data;
     const training = loaderData.training?.data;
     const errors = useActionData();
-    const [showMore, setShowMore] = useState(false);
+    const [showMore, setShowMore] = useState(isCreate ? false : true);
+    const [idTraining] = useState(training?.idTraining || null);
     const [idTypeOfTraining, setIdTypeOfTraining] = useState(training?.idTypeOfTraining || '');
     const [name, setName] = useState(training?.name || '');
     const [along, setAlong] = useState(training?.along || '');
-    const [date, setDate] = useState(training?.date || '');
+    const [date, setDate] = useState(serializeDate(training?.date) || '');
     const [city, setCity] = useState(training?.city || '');
     const [country, setCountry] = useState(training?.country || '');
     const [note, setNote] = useState(training?.note || '');
@@ -36,6 +38,12 @@ export const FormTraining = () => {
     return (
         <>
             <Form method="post">
+                <Field
+                    type={'hidden'}
+                    name={'idTraining'}
+                    id={'idTraining-id'}
+                    value={idTraining}
+                />
                 <DivDouble>
                     <FieldSelect
                         type={'select'}
@@ -146,23 +154,21 @@ export const FormTraining = () => {
 
                 <DivChamp>
                     <DivError>
-                        {(errors?.error && (
+                        {(errors?.error?.message && (
                             <>
-                                {errors?.error.map((message, index) => (
-                                    <span key={index}>{message}</span>
-                                ))}
+                                <span> {errors.error.message}</span>
+                                <span>Le champ {errors.error.champ} ne peut pas être vide.</span>
                             </>
                         )) ||
-                            (errors?.error?.message && (
+                            (errors?.error && (
                                 <>
-                                    <span> {errors.error.message}</span>
-                                    <span>
-                                        Le champ {errors.error.champ} ne peut pas être vide.
-                                    </span>
+                                    {errors?.error.map((message, index) => (
+                                        <span key={index}>{message}</span>
+                                    ))}
                                 </>
                             ))}
                     </DivError>
-                    <Button type="submit">Ajouter</Button>
+                    <Button type="submit">{isCreate ? 'Ajouter' : 'Modifier'}</Button>
                 </DivChamp>
             </Form>
         </>

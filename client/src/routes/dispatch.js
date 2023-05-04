@@ -56,7 +56,7 @@ const router = createBrowserRouter([
                 errorElement: <ErrorElement />,
             },
             {
-                path: 'my-training/',
+                path: 'my-training',
                 element: <MyTraining />,
                 loader: myTrainingLoader,
                 action: myTrainingAction,
@@ -66,6 +66,7 @@ const router = createBrowserRouter([
                 path: 'training/edit/:idTraining',
                 element: <CreateTraining />,
                 loader: createTrainingLoader,
+                action: createTrainingAction,
                 errorElement: <ErrorElement />,
             },
             {

@@ -9,7 +9,7 @@ export const FormCreateModifyTraining = ({ formCreate }) => {
         <>
             <H2>{isCreate ? 'Ajouter un entraînement' : 'Modifier un entraînement'}</H2>
             <DivForm>
-                <FormTraining />
+                <FormTraining isCreate={isCreate} />
             </DivForm>
         </>
     );

@@ -96,3 +96,12 @@ export const isFrenchDate = (date) => {
     }
     return true;
 };
+
+export const serializeDate = (date) => {
+    const dateForValidate = date.split('T')[0].split('-');
+    const day = dateForValidate[2];
+    const month = dateForValidate[1];
+    const year = dateForValidate[0];
+    const dateConverted = `${year}-${month}-${day}`;
+    return dateConverted;
+};
