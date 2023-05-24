@@ -1,6 +1,6 @@
 import mysql from 'mysql2';
 import * as dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: '../.env' }); // if you run server only change path to ./.env
 /**
  * Connection with pool Sql
  */
@@ -172,6 +172,8 @@ export async function getFonctionnalitesById(idFonctionnalite) {
 }
 
 export async function getAllFonctionnalitesIsActive() {
-    const [result] = await pool.execute('SELECT * FROM fonctionnalites WHERE isActive = 1');
+    const [result] = await pool.execute(
+        'SELECT * FROM fonctionnalites WHERE isActive = 1 order by date DESC'
+    );
     return result;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Root } from '../pages/Root.js';
-import { Home } from './home.js';
+import { Home, loader as homeLoader } from './home.js';
 import { Login, loader as loginLoader, action as loginAction } from './login.js';
 import { Register, loader as registerLoader, action as registerAction } from './register.js';
 import {
@@ -53,6 +53,7 @@ const router = createBrowserRouter([
             {
                 path: 'home',
                 element: <Home />,
+                loader: homeLoader,
                 errorElement: <ErrorElement />,
             },
             {

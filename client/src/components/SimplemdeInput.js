@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import styled from 'styled-components';
+import { PreviewMDE } from './PreviewMDE.js';
 
 export const SimplemdeInput = ({ value, onClick, id, nameFonctionnalite }) => {
     const [description, setDescription] = useState(value ? value : '');
@@ -21,12 +22,7 @@ export const SimplemdeInput = ({ value, onClick, id, nameFonctionnalite }) => {
                 />
                 <SimpleMDE value={description} onChange={setDescription} />
                 <div className="mde-preview" style={{ width: '50%', overflowY: 'scroll' }}>
-                    <div
-                        className="mde-preview-content"
-                        dangerouslySetInnerHTML={{
-                            __html: description,
-                        }}
-                    />
+                    <PreviewMDE content={description} options={{ forceBlock: true }} />
                 </div>
                 <Button
                     type="submit"
