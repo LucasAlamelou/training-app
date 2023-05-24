@@ -90,6 +90,7 @@ export const validateIsDate = (date) => {
 };
 
 export const isFrenchDate = (date) => {
+    if (!date) return false;
     const dateForValidate = date.split('/');
     if (dateForValidate.length !== 3 || dateForValidate[2].length !== 4) {
         return false;
@@ -98,6 +99,7 @@ export const isFrenchDate = (date) => {
 };
 
 export const serializeDate = (date) => {
+    if (!date) return null;
     const dateForValidate = date.split('T')[0].split('-');
     const day = dateForValidate[2];
     const month = dateForValidate[1];

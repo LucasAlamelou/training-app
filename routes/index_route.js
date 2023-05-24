@@ -4,6 +4,7 @@ import { trainingRoute } from './training.js';
 import { registerRoute } from './register.js';
 import { recapitulatifRoute } from './recap.js';
 import { adminRoute } from './admin.js';
+import { fonctionnalitesRoute } from './fonctionnalites.js';
 
 export function routes(app) {
     // User routes
@@ -16,6 +17,8 @@ export function routes(app) {
     trainingRoute(app);
     //Recapitulatif routes
     recapitulatifRoute(app);
+    //Fonctionnalites routes
+    fonctionnalitesRoute(app);
     // Admin routes
     adminRoute(app);
 }

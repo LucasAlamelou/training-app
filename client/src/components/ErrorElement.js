@@ -29,4 +29,9 @@ const ErrorElementDiv = styled.div`
 
 const H2 = styled.h2`
     color: red;
+    width: 80%;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 1.8rem;
+    font-weight: 700;
 `;
