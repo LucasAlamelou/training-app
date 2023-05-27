@@ -41,6 +41,7 @@ export async function loginController(req, res, next) {
                     id: user.userId,
                     idMember: user.id,
                     roles: user.roles,
+                    emailVerify: user.emailVerify,
                     email,
                     member: memberComplet,
                 },

@@ -5,6 +5,7 @@ import { registerRoute } from './register.js';
 import { recapitulatifRoute } from './recap.js';
 import { adminRoute } from './admin.js';
 import { fonctionnalitesRoute } from './fonctionnalites.js';
+import { verifyEmailRoute } from './verify-email.js';
 
 export function routes(app) {
     // User routes
@@ -21,4 +22,6 @@ export function routes(app) {
     fonctionnalitesRoute(app);
     // Admin routes
     adminRoute(app);
+    //verify email
+    verifyEmailRoute(app);
 }

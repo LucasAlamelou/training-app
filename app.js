@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import { getRoleMiddleware } from './util/getRoleMiddleware.js';
 
 import { routes } from './routes/index_route.js';
+import { testConnection } from './util/EmailSend.js';
 
 var app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -58,6 +59,7 @@ app.all('/api/admin/*', function (req, res, next) {
     } else {
         console.debug('Route admin : not admin');
         res.sendStatus(403);
+        return;
     }
 });
 /*
@@ -82,10 +84,12 @@ app.all('/api/*', function (req, res, next) {
 */
 routes(app);
 app.all('/*', function (req, res, next) {
-    res.sendFile(path.join(__dirname + './client/build/index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
     //res.sendStatus(404);
     //res.json({ info: null, error: `La route : ${req.path} non trouvé.` });
 });
+
+testConnection();
 
 /**
  * Event listener for HTTP server "listening" event.

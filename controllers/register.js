@@ -8,8 +8,9 @@ import {
 } from '../database/create-on-data-base.js';
 import { getMemberByEmail, getUserById } from '../database/connection-data-base.js';
 import { encryptPassword } from '../util/encrypt_password.js';
-import { generateAccessToken } from '../util/generateToken.js';
+import { generateAccessToken, generateTokenValidationEmail } from '../util/generateToken.js';
 import { asErrorValidator } from '../validator/errors_validator.js';
+import { sendConfirmationRegister } from '../util/EmailSend.js';
 
 /**
  * Permet de gérer l'inscription d'un utilisateur
@@ -61,8 +62,22 @@ export async function registerController(req, res) {
                 id: resultUserId,
                 roles: resultUser.roles,
             });
+            const tokenVerifyEmail = generateTokenValidationEmail({
+                email,
+                password: hash,
+                salt,
+                id: resultUserId,
+                roles: resultUser.roles,
+            });
+            const emailIsSend = sendConfirmationRegister(tokenVerifyEmail, {
+                email,
+                firstName,
+                lastName,
+            });
+
             res.json({
                 info: {
+                    emailIsSend,
                     token,
                     id: resultUserId,
                     idMember: resultMember.id,

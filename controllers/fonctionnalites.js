@@ -10,9 +10,11 @@ export const getFonctionnaliteActive = async (req, res) => {
         const fonctionnalites = await getAllFonctionnalitesIsActive();
         if (fonctionnalites) {
             res.json({ info: fonctionnalites }).status(200);
+            return;
         }
     } catch (error) {
         console.error(error);
         res.json({ error: { message: error.message } }).status(500);
+        return;
     }
 };

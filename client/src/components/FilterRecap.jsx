@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FieldSelect } from './FieldsForm';
 import { getListDay, getListMonth, getListYear } from '../util/DateUtils.js';
