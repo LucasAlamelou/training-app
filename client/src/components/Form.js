@@ -36,6 +36,17 @@ export const Form = ({ pageLogin }) => {
             showConfirmButton: false,
             timer: 1500,
         });
+        if (dataAuthResult.emailVerify === 0) {
+            // gèrer la popup de vérification d'email en décalage avec la popup de connexion réussie
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'warning',
+                    title: "Votre email n'est pas confirmer. Veuillez vérifier votre boîte mail.",
+                    showConfirmButton: true,
+                    //timer: 1500,
+                });
+            }, 1500);
+        }
         if (user.token && user.isConnected) {
             return <Navigate to="/my-training" replace={false} />;
         }

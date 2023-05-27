@@ -81,3 +81,8 @@ ALTER TABLE fonctionnalites
 
 ALTER TABLE fonctionnalites
     ADD name varchar(60) NOT NULL;
+
+ALTER TABLE user
+    ADD emailVerify boolean NOT NULL default false;
+
+UPDATE user SET emailVerify =1 where user.id > 0;

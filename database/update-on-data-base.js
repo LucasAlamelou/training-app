@@ -232,3 +232,15 @@ export async function updateFonctionnaliteActiveById(idFonctionnalite, isActive,
     );
     return result;
 }
+
+/**
+ * Set l'email du user vérifier à true
+ * @param {Number} idUser
+ * @returns
+ */
+export async function setEmailVerifyTrue(idUser) {
+    const [result] = await pool.execute('UPDATE user SET emailVerify = 1 WHERE user.id = ?', [
+        idUser,
+    ]);
+    return result;
+}

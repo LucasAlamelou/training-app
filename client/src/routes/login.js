@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form } from '../components/Form.js';
 import { ActionFormLoginRegister } from '../util/ActionForm.js';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export function loader({ request }) {
     let data = {};
@@ -25,9 +27,14 @@ export async function action({ param, request }) {
 }
 
 export const Login = () => {
+    const { user } = useSelector((state) => state);
     return (
         <>
-            <Form pageLogin={true} />
+            {user?.isConnected && user?.token ? (
+                <Navigate to="/home">Page d'acceuil</Navigate>
+            ) : (
+                <Form pageLogin={true} />
+            )}
         </>
     );
 };

@@ -25,6 +25,7 @@ import {
     action as adminFonctionnaliteAction,
 } from './adminFonctionnalite.js';
 import { ErrorElement } from '../components/ErrorElement.js';
+import { VerifyEmail, loader as verifyEmailLoader } from './verify-email.js';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,12 @@ const router = createBrowserRouter([
         element: <Register />,
         loader: registerLoader,
         action: registerAction,
+    },
+    {
+        path: 'verify-email/:token',
+        element: <VerifyEmail />,
+        loader: verifyEmailLoader,
+        errorElement: <ErrorElement />,
     },
     {
         path: '/',

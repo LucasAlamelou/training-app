@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, redirect } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { authActions, memberActions } from '../store/index.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +20,7 @@ export function Header() {
     const logoutUserAndRedirect = () => {
         dispatch(authActions.removeUserConnected({}));
         dispatch(memberActions.removeMember({}));
-        return redirect('/login');
+        return Navigate('/login');
     };
     return (
         <>

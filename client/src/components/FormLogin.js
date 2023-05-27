@@ -8,7 +8,7 @@ export const FormLogin = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const errors = useActionData();
-    console.log(errors);
+
     return (
         <>
             <Form method="post">

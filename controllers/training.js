@@ -268,7 +268,10 @@ export async function getAllTypeOfTrainingController(req, res, next) {
 }
 
 export async function getTrainingByIdController(req, res, next) {
-    asErrorValidator(req, res);
+    const errorValidator = asErrorValidator(req, res);
+    if (errorValidator) {
+        return;
+    }
     const { idTraining } = req.query;
     try {
         const result = await getTrainingCompletById(idTraining);
