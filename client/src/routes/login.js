@@ -30,8 +30,8 @@ export const Login = () => {
     const { user } = useSelector((state) => state);
     return (
         <>
-            {user?.isConnected && user?.token ? (
-                <Navigate to="/home">Page d'acceuil</Navigate>
+            {user?.isConnected && user?.tokenEncrypt ? (
+                <Navigate to="/my-training">Page d'acceuil</Navigate>
             ) : (
                 <Form pageLogin={true} />
             )}

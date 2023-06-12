@@ -1,7 +1,8 @@
 import React from 'react';
-import { redirect } from 'react-router-dom';
+import { redirect, Navigate } from 'react-router-dom';
 import { Form } from '../components/Form.js';
 import { ActionFormLoginRegister } from '../util/ActionForm.js';
+import { useSelector } from 'react-redux';
 
 export function loader({ request }) {
     let data = {};
@@ -18,9 +19,14 @@ export async function action({ param, request }) {
 }
 
 export const Register = () => {
+    const { user } = useSelector((state) => state);
     return (
         <>
-            <Form isLogin={false} />
+            {user?.isConnected && user?.tokenEncrypt ? (
+                <Navigate to="/my-training">Page d'acceuil</Navigate>
+            ) : (
+                <Form pageLogin={false} />
+            )}
         </>
     );
 };

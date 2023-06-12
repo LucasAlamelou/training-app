@@ -10,7 +10,7 @@ import { DEVICE_WIDTH } from '../util/SizeDevice.js';
 const ROLE = 'ROLE_ADMIN';
 
 export function Header() {
-    const isToken = useSelector((state) => state.user.token);
+    const isToken = useSelector((state) => state.user.tokenEncrypt);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -38,7 +38,7 @@ export function Header() {
                             ) : null}
                             {!isToken ? <Item path={'/login'} name={'Connexion'} /> : null}
                             {!isToken ? <Item path={'/register'} name={'Inscription'} /> : null}
-                            {!user.token && !user.isConnected ? null : (
+                            {!user.tokenEncrypt && !user.isConnected ? null : (
                                 <>
                                     <Item path={'/my-training'} name={'Mes entrainements'} />
                                     <Item

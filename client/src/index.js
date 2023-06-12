@@ -6,6 +6,7 @@ import { store } from './store/index.js';
 import './index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
+import 'path-browserify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
