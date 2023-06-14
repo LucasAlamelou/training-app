@@ -8,6 +8,7 @@ import { FormRegister } from './FormRegister.js';
 import { authActions } from '../store/user-slice.js';
 import { memberActions } from '../store/member-slice.js';
 import { DEVICE_WIDTH } from '../util/SizeDevice.js';
+import { encryptToken } from '../util/Crypto.js';
 
 export const Form = ({ pageLogin }) => {
     const [isLoginPage] = useState(pageLogin);
@@ -19,14 +20,18 @@ export const Form = ({ pageLogin }) => {
         (dataAuthResult?.token && dataAuthResult?.id) ||
         (dataAuthResult?.token && dataAuthResult?.userId)
     ) {
+        const cryptToken = encryptToken(
+            dataAuthResult.token,
+            process.env.REACT_APP_TOKEN_STOCKAGE_KEY_FRONT
+        );
         dispatch(
             authActions.addUserConnected({
                 isConnected: true,
                 user: dataAuthResult.id,
                 member: dataAuthResult.idMember,
-                token: dataAuthResult.token,
                 roles: dataAuthResult.roles,
                 email: dataAuthResult.email,
+                tokenEncrypt: cryptToken,
             })
         );
         dispatch(memberActions.addMember({ member: dataAuthResult.member }));
@@ -47,7 +52,7 @@ export const Form = ({ pageLogin }) => {
                 });
             }, 1500);
         }
-        if (user.token && user.isConnected) {
+        if (user.tokenEncrypt && user.isConnected) {
             return <Navigate to="/my-training" replace={false} />;
         }
     }

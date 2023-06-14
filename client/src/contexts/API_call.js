@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getDecryptToken } from '../util/Crypto.js';
 
 /**
  * Excecute la requête API
@@ -7,11 +8,15 @@ import axios from 'axios';
  * @param {object} data {error: '', info: {}}
  */
 export const API_call = async (url, method, data) => {
+    const token = getDecryptToken(
+        window.localStorage.getItem('Application_Training_Token_Encrypt'),
+        process.env.REACT_APP_TOKEN_STOCKAGE_KEY_FRONT
+    );
     let response = {};
     if (method.toLowerCase() === 'get') {
-        response = await feetchAxiosGet(url, method, data);
+        response = await feetchAxiosGet(url, method, data, token);
     } else {
-        response = await feetchAxios(url, method, data);
+        response = await feetchAxios(url, method, data, token);
     }
 
     if (response.status > 500) {
@@ -35,12 +40,12 @@ export const API_call = async (url, method, data) => {
  * @param {object} data
  * @returns {object}
  */
-const feetchAxios = async (url, method, data) => {
+const feetchAxios = async (url, method, data, token) => {
     return await axios({
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
-            Authorization: window.localStorage.getItem('Application_Training_Token'),
+            Authorization: token, //window.localStorage.getItem('Application_Training_Token'),
         },
         method: method,
         url: `/api/${url}`,
@@ -67,11 +72,11 @@ const feetchAxios = async (url, method, data) => {
  * @param {object} data
  * @returns {object}
  */
-const feetchAxiosGet = async (url, method, data) => {
+const feetchAxiosGet = async (url, method, data, token) => {
     return await axios({
         headers: {
             'Access-Control-Allow-Origin': '*',
-            Authorization: window.localStorage.getItem('Application_Training_Token'),
+            Authorization: token, //window.localStorage.getItem('Application_Training_Token'),
         },
         method: method,
         url: `/api/${url}`,
